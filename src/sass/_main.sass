@@ -1,0 +1,223 @@
+// Normally mainpage styles
+*
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+a 
+	text-decoration: none
+	outline: none
+	color: $black
+html
+	font-size: 16px
+	height: 100%
+	+r(1400)
+		font-size: 15px
+	+r(1280)
+		font-size: 13px
+body
+	font-family: $Regular
+	height: 100%
+	overflow: hidden
+	+rem(font-size, 18px)
+	color: $white
+	background-color: $bodyColor
+.out
+	position: relative
+	width: 100%
+	height: 100%
+.perspective
+	position: absolute
+	width: 100%
+	height: 100%
+	perspective: 1500px
+	.perspective-container
+		position: absolute
+		overflow: hidden
+		width: 100%
+		height: 100%
+		backface-visibility: hidden
+		min-height: 100%
+		z-index: 1
+		transform: translateZ(0) translateX(0) rotateY(0deg)
+		transform-origin: 0% 50%
+		transition: transform 0.3s $cub 0.7s
+	&.perspective-action
+		.perspective-container
+			transform: translateZ(-8.375rem) translateX(-1.75rem) rotateY(5deg);
+			transition-delay: 0s
+.wrapper 
+	position: relative
+	width: 100%
+	height: 100%
+	background-color: #2a2a32
+	z-index: 3
+	.content
+		width: 100%
+		height: 100%
+.navigation-site
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background-color: $menuOverlay
+	z-index: 5
+	opacity: 0
+	visibility: hidden
+	transition: opacity 0.3s $cub 0.7s, visibility 0.3s $cub 0.7s
+	.overlay-circle
+		position: absolute
+		+rem(top, -1175px)
+		+rem(right, -1175px)
+		background-color: $white
+		+rem(width, 2350px)
+		+rem(height, 2350px)
+		border-radius: 100%
+		transition: transform 0.3s ease 0.3s
+		transform: scale(0)
+	&.navigation-open
+		opacity: 1
+		visibility: visible
+		transition-delay: 0s
+		.overlay-circle
+			transform: scale(1)
+		.navigation-container
+			opacity: 1
+			transition-delay: 0.7s
+	.navigation-container
+		position: relative
+		float: right
+		+rem(width, 650px)
+		height: 100vh
+		+rem(padding, 20px 160px 0 10px)
+		opacity: 0
+		transition: opacity 0.3s $cub 0s
+		.navigation-topline
+			+clr
+.social-container
+	float: left
+	.social-item
+		display: inline-block
+		font-family: $Light
+		font-size: 10px
+		text-transform: uppercase
+		color: $black
+		+rem(letter-spacing, 1.9px)
+		&:not(:last-of-type)
+			+rem(margin-right, 25px)
+.lang-container
+	float: right
+	.lang-item
+		display: inline-block
+		font-family: $Light
+		font-size: 10px
+		text-transform: uppercase
+		color: $black
+		+rem(letter-spacing, 1.9px)
+		&:not(:last-of-type)
+			+rem(margin-right, 25px)
+.menu
+	margin-top: 40%
+	.menu-container
+		margin-bottom: 7%
+		.menu-item
+			display: block
+			width: 100%
+			position: relative
+			&::after
+				content: ""
+				position: absolute
+				top: 50%
+				+rem(height, 4px)
+				background-color: $black
+				width: 0
+				right: 0
+				+rem(margin-top, -2px)
+				transition: width 0.3s $cub
+			&:hover, &.active
+				&::after
+					+rem(width, 118px)
+			a
+				font-family: "Light"
+				+rem(font-size, 36px)
+				color: $black
+				display: block
+				width: 100%
+.contacts-container
+	display: inline-block
+	width: 100%
+	margin-top: 30%
+	+clr
+	.contacts-column
+		width: 50%
+		float: left
+		font-family: "Light"
+		font-size: 12px
+		color: $black
+		text-transform: uppercase
+		+rem(letter-spacing, 1.5px)
+		.contacts-title
+			color: $grey
+			+rem(margin-bottom, 20px)
+		.contacts-text
+			p
+				+rem(margin-bottom, 10px)
+			span
+				display: block
+.burger
+	position: absolute
+	+rem(top, 18px)
+	+rem(right, 18px)
+	+rem(width, 53px)
+	+rem(height, 53px)
+	background-color: $white
+	transition: color 0.3s $cub
+	border-radius: 100%
+	z-index: 6
+	cursor: pointer
+	&.open
+		background-color: $black
+.logo 
+	+rem(width, 155px)
+	+rem(height, 22px)
+	background-image: url(../img/icons/logo.png)
+	display: block
+	position: absolute
+	z-index: 5
+	background-size: cover
+	+rem(top, 31px)
+	+rem(left, 40px)
+.head-site
+	.lang-container
+		float: none
+		position: absolute
+		+rem(top, 35px)
+		+rem(right, 156px)
+		z-index: 5
+		.lang-item
+			color: $white
+	.collections
+		position: absolute
+		z-index: 5
+		+rem(top, 29px)
+		+rem(left, 297px)
+		color: $white
+		i
+			display: inline-block
+			vertical-align: middle
+			+rem(width, 22px)
+			+rem(height, 22px)
+			background-color: $white
+			+rem(margin, -3px 10px 0 0 )
+.share-container
+	position: absolute
+	+rem(bottom, 30px)
+	+rem(left, 30px)
+	+rem(width, 20px)
+	+rem(height, 19px)
+	z-index: 5
+	.share-trigger
+		width: 100%
+		height: 100%
+		display: block
+		background-image: url(../img/icons/share.png)
+		background-size: cover
+		cursor: pointer

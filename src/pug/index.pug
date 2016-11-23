@@ -1,0 +1,16 @@
+extends _layout
+
+block title
+	title Title of template
+
+block content
+	.perspective
+		.perspective-container
+			include includes/_headsite
+			section.wrapper
+				-var content = "mainpage"
+				.content(class="content-"+content data-page=content)
+			-var currentClass = "Главная"
+		.burger
+			div
+		include includes/_navigation-site
