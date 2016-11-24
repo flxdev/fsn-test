@@ -1,0 +1,28 @@
+.full-slider
+	.head-container
+		span european tile
+		span gallery
+	.color-container
+	.full-slider-container
+		.slide
+			img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+		.slide
+			.full-slider-inserted
+				.slide-inserted
+					img(src="img/slider/slide-4.jpg" data-color="#3e6879")
+				.slide-inserted
+					img(src="img/slider/slide-2.jpg" data-color="#524339")
+		.slide
+			img(src="img/slider/slide-3.jpg" data-color="#524e4b")
+	.full-pagination
+		- var pagin = ["Шоурум","Акции","Новинки"]
+		each paginName, index in pagin
+			.pagination-item(data-index-pagin=index) #{paginName}
+	script(type="text/javascript").
+		var fSlider = document.querySelector(".full-slider");
+		fSlider = new FullSlider(fSlider, {
+			slide: ".slide",
+			paginBar: ".full-pagination",
+			colorContainer: ".color-container",
+			innerSlider: ".full-slider-inserted"
+		});

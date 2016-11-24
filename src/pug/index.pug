@@ -1,7 +1,7 @@
 extends _layout
 
 block title
-	title Title of template
+	title index
 
 block content
 	.perspective
@@ -10,6 +10,7 @@ block content
 			section.wrapper
 				-var content = "mainpage"
 				.content(class="content-"+content data-page=content)
+					include includes/_mainslider
 			-var currentClass = "Главная"
 		.burger
 			div

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Title of template</title>
+    <title>index</title>
     <meta name="viewport" content="width=980">
     <meta content="IE=9" http-equiv="X-UA-Compatible">
     <meta name="format-detection" content="telephone=no">
@@ -20,9 +20,52 @@
             <div class="share-container">
               <div class="share-trigger"><span></span></div>
             </div>
+            <div class="developers">
+              <div class="developers-transform">
+                <div class="developers-text"><a href="www.flxmd.by" terget="_blank" rel="nofollow">Made in flex.media</a></div>
+              </div>
+            </div>
+            <div class="copyright">
+              <div class="copyright-transform">
+                <ul class="copyright-list">
+                  <li>©2016</li>
+                  <li>Fashion gallery</li>
+                  <li>terms of use</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <section class="wrapper">
-            <div class="content content-mainpage" data-page="mainpage"></div>
+            <div class="content content-mainpage" data-page="mainpage">
+              <div class="full-slider">
+                <div class="head-container"><span>european tile</span><span>gallery</span></div>
+                <div class="color-container"></div>
+                <div class="full-slider-container">
+                  <div class="slide"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
+                  <div class="slide">
+                    <div class="full-slider-inserted">
+                      <div class="slide-inserted"><img src="img/slider/slide-4.jpg" data-color="#3e6879"></div>
+                      <div class="slide-inserted"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
+                    </div>
+                  </div>
+                  <div class="slide"><img src="img/slider/slide-3.jpg" data-color="#524e4b"></div>
+                </div>
+                <div class="full-pagination">
+                  <div class="pagination-item" data-index-pagin="0">Шоурум</div>
+                  <div class="pagination-item" data-index-pagin="1">Акции</div>
+                  <div class="pagination-item" data-index-pagin="2">Новинки</div>
+                </div>
+                <script type="text/javascript">
+                  var fSlider = document.querySelector(".full-slider");
+                  fSlider = new FullSlider(fSlider, {
+                  	slide: ".slide",
+                  	paginBar: ".full-pagination",
+                  	colorContainer: ".color-container",
+                  	innerSlider: ".full-slider-inserted"
+                  });
+                </script>
+              </div>
+            </div>
           </section>
         </div>
         <div class="burger">
