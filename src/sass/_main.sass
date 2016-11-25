@@ -287,7 +287,7 @@ body
 		height: 100%
 		position: relative
 		z-index: 5
-		transition: background-color .5s linear
+		transition: background-color .5s ease
 		float: left
 	.full-slider-container
 		position: relative
@@ -301,6 +301,7 @@ body
 			width: 100%
 			height: 100%
 			z-index: 1
+			will-change: transform
 			&.current
 				z-index: 2
 			img
@@ -310,7 +311,7 @@ body
 			&.slideOut
 				z-index: 2
 			&.slideIn
-				animation: slideIn 0.5s linear both
+				animation: slideIn 0.5s ease both
 				z-index: 3
 	.full-pagination
 		position: absolute
@@ -336,13 +337,107 @@ body
 				top: 50%
 				+rem(margin, -1px 0 0 0)
 				transform: scaleX(0)
-				transition: all 0.5s linear
+				transition: all 0.5s ease
 			&:hover 
 				opacity: 1
 			&.current
 				opacity: 1
 				&::after
 					transform: scaleX(1)
+	.full-slider-inserted
+		position: relative
+		width: 100%
+		height: 100%
+		.slider-inserted_container
+			position: relative
+			width: 100%
+			height: 100%
+			.slide-inserted 
+				position: absolute
+				top: 0
+				left: 0
+				width: 100%
+				height: 100%
+				z-index: 1
+				perspective: 1000px
+				transition: transform 0.5s ease
+				img
+					width: 100%
+					height: 100%
+					object-fit: cover
+					backface-visibility: hidden
+					transform-origin: 0 50%
+					will-change: transform					
+					transition: transform 0.5s ease
+				&.active
+					z-index: 2
+				&.transform-out
+					z-index: 2
+					img
+						transition: none
+						animation: transformOut 0.5s ease both
+				&.transform-in
+					z-index: 4
+					transition: none
+					animation: transformIn 0.5s ease both
+					img
+				&.slideNext
+					// transform: translate(100%, 0)
+					// z-index: 3
+		&.hovered
+			.slide-inserted
+				&.active
+					img
+						transform: rotateY(5deg)
+				&.slideNext
+					// transform: translate(90%, 0)
+					// animation: transformInOut1 0.5s ease both
+			&.animation
+				.slide-inserted
+					&.active
+						img
+							transform: none
+					&.transform-out
+						img
+							animation: none
+							transform: rotateY(5deg)
+					&.transform-in
+						animation: transformInOut 0.5s ease both
+						
+		.slider-inseted_bullet
+			position: absolute
+			+rem(bottom, 27px)
+			left: 50%
+			transform: translate(-50%, 0)
+			z-index: 5
+			.bullet
+				width: 25px
+				height: 25px
+				display: inline-block
+				position: relative
+				cursor: pointer
+				&::after
+					content: ""
+					width: 8px
+					height: 8px
+					background-color: rgba(255,255,255,.3)
+					border-radius: 100%
+					position: absolute
+					top: 50%
+					left: 50%
+					margin: -4px 0 0 -4px
+					transition: background-color 0.3 ease
+				&.active
+					&::after
+						background-color: $white
+		.slider-inserted_nav
+			position: absolute
+			top: 0
+			right: 0
+			+rem(width, 80px)
+			bottom: 0
+			cursor: pointer
+			z-index: 5
 @keyframes slideIn
 	0%
 		transform: translate(35%, 0)
@@ -350,3 +445,27 @@ body
 	100%
 		transform: translate(0,0)
 		opacity: 1
+
+@keyframes transformOut
+	0%
+		transform: rotateY(0deg)
+	100%
+		transform: rotateY(5deg)
+@keyframes transformIn
+	0%
+		transform: translate(100%, 0)
+	100%
+		transform: translate(0%, 0)
+
+@keyframes  transformInOut1
+	0%
+		transform: translate(100%, 0)
+		z-index: 3
+	100%
+		transform: translate(90%, 0)
+		z-index: 3
+@keyframes  transformInOut
+	0%
+		transform: translate(90%, 0)
+	100%
+		transform: translate(0%, 0)

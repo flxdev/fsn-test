@@ -44,11 +44,26 @@
                   <div class="slide"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
                   <div class="slide">
                     <div class="full-slider-inserted">
-                      <div class="slide-inserted"><img src="img/slider/slide-4.jpg" data-color="#3e6879"></div>
-                      <div class="slide-inserted"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
+                      <div class="slider-inserted_container">
+                        <div class="slide-inserted"><img src="img/slider/slide-4.jpg" data-color="#3e6879"></div>
+                        <div class="slide-inserted"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
+                      </div>
+                      <div class="slider-inseted_bullet"></div>
+                      <div class="slider-inserted_nav"></div>
                     </div>
                   </div>
-                  <div class="slide"><img src="img/slider/slide-3.jpg" data-color="#524e4b"></div>
+                  <div class="slide">
+                    <div class="full-slider-inserted">
+                      <div class="slider-inserted_container">
+                        <div class="slide-inserted"><img src="img/slider/slide-3.jpg" data-color="#524e4b"></div>
+                        <div class="slide-inserted"><img src="img/slider/slide-1.jpg" data-color="#2a2a32"></div>
+                        <div class="slide-inserted"><img src="img/slider/slide-2.jpg" data-color="#524339"></div>
+                        <div class="slide-inserted"><img src="img/slider/slide-4.jpg" data-color="#3e6879"></div>
+                      </div>
+                      <div class="slider-inseted_bullet"></div>
+                      <div class="slider-inserted_nav"></div>
+                    </div>
+                  </div>
                 </div>
                 <div class="full-pagination">
                   <div class="pagination-item" data-index-pagin="0">Шоурум</div>
@@ -59,9 +74,12 @@
                   var fSlider = document.querySelector(".full-slider");
                   fSlider = new FullSlider(fSlider, {
                   	slide: ".slide",
+                  	slideInserted: ".slide-inserted",
                   	paginBar: ".full-pagination",
                   	colorContainer: ".color-container",
-                  	innerSlider: ".full-slider-inserted"
+                  	innerSlider: ".full-slider-inserted",
+                  	innerBullets: ".slider-inseted_bullet",
+                  	arrowNext: ".slider-inserted_nav"
                   });
                 </script>
               </div>

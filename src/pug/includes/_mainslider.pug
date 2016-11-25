@@ -8,12 +8,26 @@
 			img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
 		.slide
 			.full-slider-inserted
-				.slide-inserted
-					img(src="img/slider/slide-4.jpg" data-color="#3e6879")
-				.slide-inserted
-					img(src="img/slider/slide-2.jpg" data-color="#524339")
+				.slider-inserted_container
+					.slide-inserted
+						img(src="img/slider/slide-4.jpg" data-color="#3e6879")
+					.slide-inserted
+						img(src="img/slider/slide-2.jpg" data-color="#524339")
+				.slider-inseted_bullet
+				.slider-inserted_nav
 		.slide
-			img(src="img/slider/slide-3.jpg" data-color="#524e4b")
+			.full-slider-inserted
+				.slider-inserted_container
+					.slide-inserted
+						img(src="img/slider/slide-3.jpg" data-color="#524e4b")
+					.slide-inserted
+						img(src="img/slider/slide-1.jpg" data-color="#2a2a32")
+					.slide-inserted
+						img(src="img/slider/slide-2.jpg" data-color="#524339")
+					.slide-inserted
+						img(src="img/slider/slide-4.jpg" data-color="#3e6879")
+				.slider-inseted_bullet
+				.slider-inserted_nav
 	.full-pagination
 		- var pagin = ["Шоурум","Акции","Новинки"]
 		each paginName, index in pagin
@@ -22,7 +36,10 @@
 		var fSlider = document.querySelector(".full-slider");
 		fSlider = new FullSlider(fSlider, {
 			slide: ".slide",
+			slideInserted: ".slide-inserted",
 			paginBar: ".full-pagination",
 			colorContainer: ".color-container",
-			innerSlider: ".full-slider-inserted"
+			innerSlider: ".full-slider-inserted",
+			innerBullets: ".slider-inseted_bullet",
+			arrowNext: ".slider-inserted_nav"
 		});
