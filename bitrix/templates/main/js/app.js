@@ -173,6 +173,7 @@ FullSlider.prototype.handlerEvents = function(){
 
 		self.triggerNavBullets($(this).data("index-pagin"))
 		self.show(this.curr, this.next, self.slides);
+		self.conf.current.slideInner = $(self.options.slide).eq(this.next).find(".active").index();
 	});
 
 	this.bulletItem.on("click", function(){
@@ -225,11 +226,9 @@ FullSlider.prototype.triggerNext = function(slides){
 	if(typeof this._next_slide == "undefined")
 		this.next_slide = 0
 
-	this.show(this.cur_slide, this.next_slide, slides);
+	this.show(this.cur_slide, this.next_slide, slides);	
+	this.triggerBullets($(this.next_slide).parents(this.options.innerSlider).find("[data-bullet-index=" + $(this.next_slide).index() + "]"))
 
-
-	
-	this.triggerBullets($("[data-bullet-index=" + $(this.next_slide).index() + "]"))
 }
 
 FullSlider.prototype.prev = function(){
@@ -242,6 +241,8 @@ FullSlider.prototype.prev = function(){
 
 	this.show(this.cur_slide, this.next_slide, this.slides);
 	this.triggerNavBullets($(this.next_slide).index());
+
+	this.conf.current.slideInner = $(this.next_slide).find(".active").index();
 }
 
 FullSlider.prototype.next = function(){
@@ -252,9 +253,10 @@ FullSlider.prototype.next = function(){
 	if(typeof this._next_slide == "undefined")
 		return false;
 
-
 	this.show(this.cur_slide, this.next_slide, this.slides)
 	this.triggerNavBullets($(this.next_slide).index());
+
+	this.conf.current.slideInner = $(this.next_slide).find(".active").index();
 }
 
 FullSlider.prototype.triggerBullets = function(item){
@@ -302,7 +304,7 @@ FullSlider.prototype.show = function(curr, next, slides) {
 		this.conf.current.slide = next
 	}
 
-	this.animationEnd(slides);
+	this.animationEnd(this.next_slide );
 
 	
 };
@@ -310,14 +312,19 @@ FullSlider.prototype.show = function(curr, next, slides) {
 FullSlider.prototype.animationEnd = function(elem){
 
 	var self = this;
+
 	$(elem).one("mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", function(){
 		self.action = false;
 		if($(this).parents(".full-slider-inserted").length) {
-			elem.removeClass(self.conf.classes.prevClassTransform + " " + self.conf.classes.nextClassTransform)
+			$(elem).removeClass(self.conf.classes.prevClassTransform + " " + self.conf.classes.nextClassTransform).siblings().removeClass(self.conf.classes.prevClassTransform + " " + self.conf.classes.nextClassTransform)
 			$(self.options.innerSlider).removeClass("animation hovered");
-			// this.arrowBtn.trigger("mouseenter")
+			this.isHover = $(elem).parents(self.options.innerSlider).find(self.arrowBtn);
+			if($(this.isHover).filter(":hover").length){
+				$(self.arrowBtn).trigger("mouseenter");
+			}
 		} else {
-			elem.removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass)
+			$(elem).removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass).siblings().removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass);
 		}
+
 	});
 };
