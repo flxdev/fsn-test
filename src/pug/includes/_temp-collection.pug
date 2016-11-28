@@ -1,0 +1,25 @@
+.gallery-container
+	.head-container
+		span Коллек
+		span ции
+	.color-container
+		.color#topline(style="background-color:#524339;")
+		.color#bottomline(style="background-color:#2a2a32;")
+	.columns-template
+		.columns
+			ul.filter
+				-var current = 'Современная'
+				mixin filter(name, link)
+					li(class="filter-item" class={active: name === current})
+						a(class="filter-link" href=link) #{name}
+				+filter("Кантри", "#")
+				+filter("Современная", "#")
+				+filter("Клинкерная", "#")
+				+filter("Минимализм", "#")
+				+filter("Мозаика", "#")
+		.columns
+			.gallery-slider
+				.gallery-slider_content
+					.slider-element.slider-element_left
+						
+					.slider-element.slider-element_right

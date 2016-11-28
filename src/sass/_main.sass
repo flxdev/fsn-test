@@ -271,17 +271,6 @@ body
 	position: relative
 	width: 100%
 	height: 100%
-	.head-container
-		position: absolute
-		z-index: 6
-		+rem(top, 200px)
-		+rem(left, 160px)
-		span
-			font-family: "DemiBold"
-			+rem(font-size, 150px)
-			text-transform: uppercase
-			display: block
-			+rem(line-height, 150px)
 	.color-container
 		width: 26%
 		height: 100%
@@ -517,3 +506,96 @@ body
 		transform: translate(90%, 0)
 	100%
 		transform: translate(0%, 0)
+.head-container
+	position: absolute
+	z-index: 6
+	+rem(top, 185px)
+	+rem(left, 160px)
+	span
+		font-family: "DemiBold"
+		+rem(font-size, 150px)
+		text-transform: uppercase
+		display: block
+		+rem(line-height, 150px)
+.gallery-container
+	position: relative
+	z-index: 2
+	width: 100%
+	height: 100%
+	.color-container
+		position: absolute
+		z-index: 1
+		width: 100%
+		height: 100%
+		.color
+			width: 100%
+			height: 50%
+	.columns-template
+		position: absolute
+		width: 100%
+		height: 100%
+		z-index: 7
+		.columns
+			&:first-child
+				width: 32.375%
+			&:last-child
+				width: 67.625%
+	.filter
+		left: 18%
+.columns-template
+	.columns
+		width: 50%
+		height: 100%
+		float: left
+.filter
+	position: absolute
+	z-index: 5
+	top: 55%
+	+rem(left, 284px)
+	.filter-item
+		+rem(padding-left, 33px)
+		position: relative
+		a
+			color: $lgrey
+			transition: color 0.3s ease
+			+rem(padding, 7px 0)
+			display: inline-block
+			&:hover
+				color: $white
+		&.active
+			a
+				color: $white
+			&::after
+				content: ''
+				+rem(width, 4px)
+				+rem(height, 4px)
+				background-color: $white
+				position: absolute
+				top: 50%
+				+rem(margin-top, -2px)
+				left: 0
+				border-radius: 100%
+.gallery-slider
+	position: relative
+	width: 100%
+	height: 100%
+	.gallery-slider_content
+		position: absolute
+		width: 100%
+		height: 100%
+		+rem(padding, 80px 118px 39px 0)
+		position: relative
+		.slider-element
+			width: 40.851%
+			// max-width: 442px
+			height: 71.6%
+			background-color: #eee
+			position: absolute
+			&_left
+				float: left
+				left: 0
+				+rem(bottom, 39px)
+			&_right
+				float: right
+				+rem(right, 118px)
+				+rem(top, 80px)

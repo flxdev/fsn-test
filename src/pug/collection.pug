@@ -1,0 +1,17 @@
+extends _layout
+
+block title
+	title index
+
+block content
+	.perspective
+		.perspective-container
+			include includes/_headsite
+			section.wrapper
+				-var content = "collection"
+				.content(class="content-"+content data-page=content)
+					include includes/_temp-collection
+			-var currentClass = "Коллекции"
+		.burger
+			div
+		include includes/_navigation-site
