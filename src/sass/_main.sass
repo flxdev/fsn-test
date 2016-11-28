@@ -304,6 +304,13 @@ body
 			will-change: transform
 			&.current
 				z-index: 2
+				.slide-text
+					opacity: 1
+					transform: none
+				.active
+					.slide-text
+						opacity: 1
+						transform: none
 			img
 				width: 100%
 				height: 100%
@@ -313,6 +320,44 @@ body
 			&.slideIn
 				animation: slideIn 0.5s ease both
 				z-index: 3
+			
+		.slide-text
+			position: absolute
+			left: 45%
+			top: 50%
+			max-width: 350px
+			transform: translate(4rem, -4rem)
+			opacity: 0
+			transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s
+			p 
+				font-family: "Light"
+				+rem(font-size, 28px)
+				+rem(margin-bottom, 30px)
+			.slide-link
+				position: relative
+				+rem(padding-left, 45px)
+				&::after
+					content: ''
+					+rem(width, 28px)
+					+rem(height, 28px)
+					background-image: url(../img/icons/icon-1.png)
+					background-size: cover
+					background-repeat: no-repeat
+					position: absolute
+					left: 0
+					top: 0
+					transition: transform 0.5s ease
+					transform-origin: 50% 50%
+				&:hover
+					&::after
+						transform: rotate(360deg)
+				span
+					font-family: "Light"
+					font-size: 10px
+					color: $white
+					text-transform: uppercase
+					letter-spacing: 3px
+					line-height: 28px
 	.full-pagination
 		position: absolute
 		z-index: 7
@@ -361,6 +406,9 @@ body
 				z-index: 1
 				perspective: 1000px
 				transition: transform 0.5s ease
+				.slide-text
+					transform: translate(4rem, -4rem)
+					opacity: 0
 				img
 					width: 100%
 					height: 100%
