@@ -40,8 +40,8 @@
               <div class="gallery-container">
                 <div class="head-container"><span>Коллек</span><span>ции</span></div>
                 <div class="color-container">
-                  <div class="color" id="topline" style="background-color:#524339"></div>
-                  <div class="color" id="bottomline" style="background-color:#2a2a32"></div>
+                  <div class="color" id="topline"></div>
+                  <div class="color" id="bottomline"></div>
                 </div>
                 <div class="columns-template">
                   <div class="columns">
@@ -55,11 +55,67 @@
                   </div>
                   <div class="columns">
                     <div class="gallery-slider">
-                      <div class="gallery-slider_content">
-                        <div class="slider-element slider-element_left"></div>
-                        <div class="slider-element slider-element_right"></div>
+                      <div class="gallery-slider_content prev" id="prev-page"></div>
+                      <div class="gallery-slider_content current-page" id="current-page">
+                        <div><a class="slider-element slider-element_left" id="slideLeft" data-color="#2a2a32" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-1.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">FAP, Roma1</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a><a class="slider-element slider-element_right" id="slideRight" data-color="#524339" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-2.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">Iris, Bellagio2</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a></div>
+                      </div>
+                      <div class="gallery-slider_content next" id="next-page">
+                        <div><a class="slider-element slider-element_left" id="slideLeft" data-color="#2a2a32" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-1.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">FAP, Roma3</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a><a class="slider-element slider-element_right" id="slideRight" data-color="#524339" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-2.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">Iris, Bellagio4</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a></div>
+                        <div><a class="slider-element slider-element_left" id="slideLeft" data-color="#2a2a32" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-1.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">FAP, Roma5</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a><a class="slider-element slider-element_right" id="slideRight" data-color="#524339" href="#">
+                            <div class="image-container">
+                              <div class="lazy featured-image" data-src="img/gallery/item-2.jpg"></div>
+                            </div>
+                            <div class="element-text">
+                              <div class="element-name">Iris, Bellagio6</div>
+                              <div class="element-price">от €60 м2</div>
+                            </div></a></div>
                       </div>
                     </div>
+                    <div class="pagination-container">
+                      <div class="pagination-current"><span class="current">01</span></div>
+                      <div class="pagination-spinner">|</div>
+                      <div class="pagination-all">68</div>
+                    </div>
+                    <script type="text/javascript">
+                      $(lazy)
+                      var slider = new GallerySlider($(".gallery-slider"));
+                      slider.init()
+                    </script>
                   </div>
                 </div>
               </div>

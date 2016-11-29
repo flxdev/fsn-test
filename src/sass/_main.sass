@@ -5,6 +5,9 @@ a
 	text-decoration: none
 	outline: none
 	color: $black
+img
+	outline: none
+	border: none
 html
 	font-size: 16px
 	height: 100%
@@ -584,18 +587,125 @@ body
 		width: 100%
 		height: 100%
 		+rem(padding, 80px 118px 39px 0)
-		position: relative
+		&.prev
+			top: -100%
+		&.next
+			top: 100%
+		&.is-animate
+			&.prev
+				top: 0
+			&.next
+				top: 0
+		&.current-page
+			& > div
+				&:last-of-type:not(:first-of-type)
+					.slider-element
+						&_left
+							bottom: -100%
+						&_right
+							top: -100%
+			&.animate
+				&.animateNext
+					& > div
+						&.slideIn
+							.slider-element
+								&_left
+									+rem(bottom, 40px)
+									animation: 0.5s slideLeftDown both linear
+								&_right
+									+rem(top, 40px)
+									animation: 0.5s slideRightUp both linear
+						&.slideOut
+							.slider-element
+								&_left
+									animation: 0.5s slideLeftUp both linear
+								&_right
+									animation: 0.5s slideRightDown both linear
+				
 		.slider-element
 			width: 40.851%
-			// max-width: 442px
 			height: 71.6%
-			background-color: #eee
 			position: absolute
+			.element-text
+				position: absolute
+				z-index: 2
+				width: 100%
+				&::after
+					content: ""
+					+rem(width, 128px)
+					height: 2px
+					background-color: $white
+					position: absolute
+					+rem(top, 18px)
+					right: 0
+				.element-name
+					font-family: "Light"
+					+rem(font-size, 28px)
+					+rem(margin-bottom, 5px)
+					color: $white
+				.element-price
+					font-family: "Light"
+					font-size: 10px
+					text-transform: uppercase
+					letter-spacing: 3px
+					color: $white
 			&_left
 				float: left
 				left: 0
 				+rem(bottom, 39px)
+				will-change: transform
+				.element-text
+					+rem(bottom, 40px)
+					+rem(left, 40px)
 			&_right
 				float: right
 				+rem(right, 118px)
 				+rem(top, 80px)
+				will-change: transform
+				.element-text
+					+rem(top, 40px)
+					+rem(right, 40px)
+			.image-container
+				width: 100%
+				height: 100%
+				overflow: hidden
+				img
+					width: 100%
+					max-width: 100%
+					height: 100%
+					object-fit: cover
+				.featured-image
+					width: 100%
+					height: 100%
+					background-size: cover
+@keyframes slideLeftUp
+	0%
+		transform: translate(0,0)
+	100%
+		transform: translate(0, -150%)
+@keyframes slideLeftDown
+	0%
+		transform: translate(0,150%)
+	100%
+		transform: translate(0, 0)
+@keyframes slideRightDown
+	0%
+		transform: translate(0,0)
+	100%
+		transform: translate(0, 150%)
+@keyframes slideRightUp
+	0%
+		transform: translate(0,-150%)
+	100%
+		transform: translate(0, 0)
+.pagination-container
+	position: absolute
+	+rem(bottom, 40px)
+	+rem(right, 156px)
+	font-family: "Light"
+	font-size: 10px
+	.pagination-spinner
+		padding: 0 10px
+	div[class^="pagination-"]
+		display: inline-block
+		letter-spacing: 3px

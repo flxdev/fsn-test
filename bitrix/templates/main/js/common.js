@@ -300,3 +300,101 @@ FullSlider.prototype.animationEnd = function(elem){
 
 	});
 };
+
+function lazy(){
+	$(".lazy").Lazy({
+		effect: 'fadeIn',
+		effectTime: "150"
+	})
+}
+
+function GallerySlider(el) {
+	var _this = this;
+
+	_this.el = el;
+
+	_this.f = {};
+	_this.c = {};
+
+	_this.options = {
+		slideIn: "slideIn",
+		slideOut: "slideOut",
+		animNext: "animateNext",
+		animPrev: "animatePrev"
+	}
+
+	_this.action = false;
+
+	_this.f.initColor = function(){
+		_this.slideRight = _this.el.find("#slideRight").data("color");
+		_this.slideLeft = _this.el.find("#slideLeft").data("color");
+
+		_this.c.topColor.css("background-color", _this.slideRight);
+		_this.c.bottomColor.css("background-color", _this.slideLeft);
+	};
+
+	_this.f.initPagination = function(){
+		
+	};
+
+	_this.f.nextPage = function(){
+		if(!_this.c.nextPageContainer.children().first().length) return false;
+
+		_this.page = _this.c.nextPageContainer.children().first().detach();
+		_this.c.currentPageContainer.append(_this.page);
+
+		_this.f.animation(_this.options.animNext);
+	}
+
+	_this.f.prevPage = function(){
+		
+	}
+
+	_this.f.animation = function(direction){
+		_this.child = _this.c.currentPageContainer.children();
+		_this.c.currentPageContainer.addClass("animate " + direction);
+		_this.child.first().addClass(_this.options.slideOut);
+		_this.child.last().addClass(_this.options.slideIn);
+
+		_this.f.animationEnd(_this.child.first(), direction, _this.child.last())
+	}
+
+	_this.f.animationEnd = function(elem, direction, curr_el) {
+		$(elem).one("mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", function(){
+			_this.detached = $(this).detach();
+			_this.c.currentPageContainer.removeClass(direction + " animate");
+			curr_el.removeAttr("class")
+
+			if(direction == _this.options.animNext) {
+				_this.c.prevPageContainer.empty();
+				_this.c.prevPageContainer.append(_this.detached);
+				_this.c.prevPageContainer.children().removeAttr("class")
+			}
+		});
+	}
+
+	_this.initHanders = function(){
+		document.addEventListener("keyup", function(event){
+		if(self.action) {
+			return false;
+		}
+		if( event.keyCode === 40 ) _this.f.nextPage()
+		if( event.keyCode === 38 ) _this.f.prevPage()
+	});
+	}
+
+	_this.init = function(){
+		
+		_this.c.topColor = $("#topline");
+		_this.c.bottomColor = $("#bottomline");
+
+		_this.c.prevPageContainer = $("#prev-page");
+		_this.c.nextPageContainer = $("#next-page");
+		_this.c.currentPageContainer = $("#current-page");
+
+		_this.f.initColor();
+		_this.initHanders();
+
+	};
+}
+
