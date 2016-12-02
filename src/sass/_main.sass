@@ -8,6 +8,10 @@ a
 img
 	outline: none
 	border: none
+sup
+	+rem(font-size, 18px)
+	+rem(top, -7px)
+	position: relative
 html
 	font-size: 16px
 	height: 100%
@@ -202,7 +206,7 @@ body
 		z-index: 5
 		+rem(top, 29px)
 		+rem(left, 297px)
-		color: $white
+		color: #f6f2f2
 		i
 			display: inline-block
 			vertical-align: middle
@@ -325,6 +329,7 @@ body
 				font-family: "Light"
 				+rem(font-size, 28px)
 				+rem(margin-bottom, 30px)
+				color: $colorText
 			.slide-link
 				position: relative
 				+rem(padding-left, 45px)
@@ -546,7 +551,12 @@ body
 				width: 67.625%
 	.filter
 		left: 18%
+	&.gallery-container_inner
+		.columns-template
+			.columns
+				width: 50%
 .columns-template
+	position: relative
 	.columns
 		width: 50%
 		height: 100%
@@ -700,29 +710,29 @@ body
 				.element-text
 					+rem(top, 40px)
 					+rem(right, 40px)
-			.image-container
-				width: 100%
-				height: 100%
-				overflow: hidden
-				position: relative
-				&::after
-					content: ""
-					position: absolute
-					top: 0
-					left: 0
-					width: 100%
-					height: 100%
-					background-color: $overlay
-					opacity: 0.5
-				img
-					width: 100%
-					max-width: 100%
-					height: 100%
-					object-fit: cover
-				.featured-image
-					width: 100%
-					height: 100%
-					background-size: cover
+.image-container
+	width: 100%
+	height: 100%
+	overflow: hidden
+	position: relative
+	&::after
+		content: ""
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background-color: $overlay
+		opacity: 0.5
+	img
+		width: 100%
+		max-width: 100%
+		height: 100%
+		object-fit: cover
+	.featured-image
+		width: 100%
+		height: 100%
+		background-size: cover
 @keyframes slideLeftUp
 	0%
 		transform: translate(0,0)
@@ -755,3 +765,96 @@ body
 	div[class^="pagination-"]
 		display: inline-block
 		letter-spacing: 3px
+
+.text-container
+	position: absolute
+	z-index: 5
+	top: 55%
+	+rem(left, 160px)
+	+rem(max-width, 525px)
+	width: 100%
+	.side-price
+		font-family: "Light"
+		+rem(font-size, 28px)
+		float: left
+		+rem(max-width, 160px)
+		width: 100%
+		color: $colorText
+	.side-text
+		float: right
+		+rem(padding-right, 15px)
+		+rem(max-width, 365px)
+		p
+			+rem(line-height, 28px)
+			+rem(letter-spacing, 0.2px)
+			color: $colorText
+		.btn
+			+rem(margin-top, 20px)
+
+.btn
+	display: inline-block
+	border-style: solid
+	border-color: $white
+	+rem(border-width, 2px)
+	span
+		font-family: "Light"
+		font-size: 10px
+		text-transform: uppercase
+		letter-spacing: 3px
+		+rem(padding, 17px 27px)
+		display: block
+		color: $white
+
+.scroll-container
+	height: 100%
+	overflow: hidden;
+	margin-right: -20px
+	.scroller
+		width: 100%
+		height: 100%
+		overflow: auto
+		margin-right: 20px
+		&:hover
+			& + .scroll-down
+				opacity: 1
+		.image-container
+			overflow: auto
+			height: auto
+			img
+				height: auto
+				display: block
+	.scroll-down
+		position: absolute
+		+rem(bottom, 40px)
+		right: 25%
+		+rem(width, 34px)
+		+rem(height, 56px)
+		pointer-events: none
+		opacity: 0
+		transition: opacity 0.3s ease
+		.mouse
+			+rem(width, 3px)
+			+rem(padding, 26px 15px)
+			border: 2px solid $white
+			+rem(border-radius, 25px)
+			opacity: 0.75
+			+rem(height, 35px)
+			.scroll-wheel
+				width: 2px
+				height: 10px
+				border-radius: 25%
+				background-color: $white
+				animation: scroll 1.2s cubic-bezier(.15,.41,.69,.94) infinite
+				position: absolute
+				top: 15px
+				left: 50%
+				margin-left: -1px
+@keyframes scroll
+	0%
+		opacity: 0
+	10%
+		opacity: 1
+		transform: translateY(0)
+	100%
+		opacity: 0
+		transform: translateY(15px);

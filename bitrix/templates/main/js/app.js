@@ -331,11 +331,24 @@ FullSlider.prototype.animationEnd = function(elem){
 	});
 };
 
-function lazy(){
-	$(".lazy").Lazy({
+function lazy(parametr){
+
+	var defaultParams = {
 		effect: 'fadeIn',
 		effectTime: "150"
-	})
+	};
+
+	var modifyParams = {
+		effect: 'fadeIn',
+		effectTime: "150",
+		appendScroll: $(parametr)
+	};
+
+	if(parametr == undefined || typeof parametr == "function") {
+		$(".lazy").Lazy(defaultParams)
+	} else {
+		$(".lazy").Lazy(modifyParams)
+	};
 }
 
 function GallerySlider(el) {

@@ -1,0 +1,34 @@
+.gallery-container.gallery-container_inner
+	.head-container
+		span Superna
+		span tural
+	.color-container
+		.color#topline(style="background-color:#524339")
+		.color#bottomline(style="background-color:#524339")
+	.columns-template
+		.columns
+			.text-container
+				.side-price от €600 м
+					sup 2
+				.side-text
+					p Плитка коллекции Roma выполнена в&nbsp;средиземноморском стиле и изготовлена из&nbsp;морозоустойчивого керамогранита с&nbsp;матовой поверхностью в терракотовых цветах (с переливами от серого до бежевого). 
+					a.btn(href="#")
+						span Оставить заявку
+		.columns
+			.scroll-container
+				.scroller
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+				.scroll-down
+					.mouse
+						.scroll-wheel
+			script(type="text/javascript").
+				$(lazy($(".scroller")))
