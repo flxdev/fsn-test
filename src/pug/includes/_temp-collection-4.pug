@@ -20,42 +20,43 @@
 		.columns
 			.gallery-slider
 				.gallery-slider_content.prev#prev-page
-				.gallery-slider_content.current-page#current-page
 					div
-						a.slider-element.slider-element_left.slideLeft(data-color="#2a2a32" href="#")
+						a.slider-element.slider-element_left.slideLeft(data-color="#434344" href="#")
 							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-1.jpg")
-							.element-text
-								.element-name FAP, Roma1
-								.element-price от €60 м2
-						a.slider-element.slider-element_right.slideRight(data-color="#524339" href="#")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-2.jpg")
-							.element-text
-								.element-name Iris, Bellagio2
-								.element-price от €60 м2
-				.gallery-slider_content.next#next-page
-					div
-						a.slider-element.slider-element_left.slideLeft(data-color="#3f3b35" href="#")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-3.jpg")
+								.lazy.featured-image(data-src="img/gallery/item-5.jpg")
 							.element-text
 								.element-name FAP, Roma3
 								.element-price от €60 м2
-						a.slider-element.slider-element_right.slideRight(data-color="#e6daca" href="#")
+						a.slider-element.slider-element_right.slideRight(data-color="#627f6e" href="#")
 							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-4.jpg")
+								.lazy.featured-image(data-src="img/gallery/item-6.jpg")
 							.element-text
 								.element-name Iris, Bellagio4
 								.element-price от €60 м2
+				.gallery-slider_content.current-page#current-page
+					div
+						a.slider-element.slider-element_left.slideLeft(data-color="#464c52" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-7.jpg")
+							.element-text
+								.element-name FAP, Roma3
+								.element-price от €60 м2
+						a.slider-element.slider-element_right.slideRight(data-color="#2e4655" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-8.jpg")
+							.element-text
+								.element-name Iris, Bellagio4
+								.element-price от €60 м2
+				.gallery-slider_content.next#next-page
+					
 			.pagination-container
 				.pagination-current
-					span.current 01
+					span.current 04
 				.pagination-spinner |
 				.pagination-all 04
 			.navigation-container
-				a.navigation-link(id="prev-link" href="#")
-				a.navigation-link(id="next-link" href="collection_page-2.html")
+				a.navigation-link(id="prev-link" href="collection_page-3.html")
+				a.navigation-link(id="next-link" href="#")
 			script(type="text/javascript").
 				$(lazy)
 				var slider = new GallerySlider($(".gallery-slider"));

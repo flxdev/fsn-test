@@ -326,8 +326,8 @@ function GallerySlider(el) {
 	_this.action = false;
 
 	_this.f.initColor = function(){
-		_this.slideRight = _this.el.find("#slideRight").data("color");
-		_this.slideLeft = _this.el.find("#slideLeft").data("color");
+		_this.slideRight = _this.el.find("#current-page .slideRight").data("color");
+		_this.slideLeft = _this.el.find("#current-page .slideLeft").data("color");
 
 		_this.c.topColor.css("background-color", _this.slideRight);
 		_this.c.bottomColor.css("background-color", _this.slideLeft);
@@ -338,25 +338,93 @@ function GallerySlider(el) {
 	};
 
 	_this.f.nextPage = function(){
+
+		if(_this.action) {
+			return false;
+		}
+
 		if(!_this.c.nextPageContainer.children().first().length) return false;
 
 		_this.page = _this.c.nextPageContainer.children().first().detach();
 		_this.c.currentPageContainer.append(_this.page);
 
+		var link_value = $('#next-link').attr("href");
+
+		if(link_value === "#" || link_value === "undefined") return false;
+
+		_this.f.ajaxPage(link_value);
 		_this.f.animation(_this.options.animNext);
 	}
 
 	_this.f.prevPage = function(){
-		
+
+		if(_this.action) {
+			return false;
+		}
+
+		if(!_this.c.prevPageContainer.children().first().length) return false;
+
+		_this.page = _this.c.prevPageContainer.children().first().detach();
+		_this.c.currentPageContainer.append(_this.page);
+
+		var link_value = $('#prev-link').attr("href");
+
+		if(link_value === "#" || link_value === "undefined") return false;
+
+		_this.f.ajaxPage(link_value);
+		_this.f.animation(_this.options.animPrev);
+	}
+
+	_this.f.ajaxPage = function(link) {
+		$.ajax({
+			url: link,
+			dataType: "html",
+			beforeSend: function(){
+
+			},
+			success: function(content) {
+				var prevContent = $(content).find("#prev-page").html();
+				var nextContent = $(content).find("#next-page").html();
+				var naviContent = $(content).find(".navigation-container").html();
+				var currentPage = $(content).find(".pagination-container .current").text();
+
+				_this.c.prevPageContainer
+					.empty()
+					.append(prevContent)
+
+				_this.c.nextPageContainer
+					.empty()
+					.append(nextContent)
+
+				_this.c.navi
+					.empty()
+					.append(naviContent)
+				lazy();
+
+				setTimeout(function(){
+					_this.c.currentPage.text(currentPage);
+				}, 500)
+			}
+		})
 	}
 
 	_this.f.animation = function(direction){
+		_this.action = true;
 		_this.child = _this.c.currentPageContainer.children();
 		_this.c.currentPageContainer.addClass("animate " + direction);
 		_this.child.first().addClass(_this.options.slideOut);
 		_this.child.last().addClass(_this.options.slideIn);
 
 		_this.f.animationEnd(_this.child.first(), direction, _this.child.last())
+		_this.f.setColor(_this.child.last())
+	}
+
+	_this.f.setColor = function (nextContainer) {
+		color_top = nextContainer.find(".slideLeft").data("color");
+		color_bottom = nextContainer.find(".slideRight").data("color");
+
+		_this.c.topColor.css("background-color", color_bottom);
+		_this.c.bottomColor.css("background-color", color_top);
 	}
 
 	_this.f.animationEnd = function(elem, direction, curr_el) {
@@ -364,16 +432,17 @@ function GallerySlider(el) {
 			_this.detached = $(this).detach();
 			_this.c.currentPageContainer.removeClass(direction + " animate");
 			curr_el.removeAttr("class")
+			_this.action = false;
 
-			if(direction == _this.options.animNext) {
-				_this.c.prevPageContainer.empty();
-				_this.c.prevPageContainer.append(_this.detached);
-				_this.c.prevPageContainer.children().removeAttr("class")
-			}
+			// if(direction == _this.options.animNext) {
+			// 	_this.c.prevPageContainer.empty();
+			// 	_this.c.prevPageContainer.append(_this.detached);
+			// 	_this.c.prevPageContainer.children().removeAttr("class")
+			// }
 		});
 	}
 
-	_this.initHanders = function(){
+	_this.initHandlers = function(){
 		document.addEventListener("keyup", function(event){
 		if(self.action) {
 			return false;
@@ -392,8 +461,14 @@ function GallerySlider(el) {
 		_this.c.nextPageContainer = $("#next-page");
 		_this.c.currentPageContainer = $("#current-page");
 
+		_this.c.navi = $(".navigation-container");
+		_this.c.naviNext = _this.c.navi.find('#next-link');
+		_this.c.naviPrev = _this.c.navi.find('#prev-link');
+
+		_this.c.currentPage = $(".pagination-container").find(".current");
+
 		_this.f.initColor();
-		_this.initHanders();
+		_this.initHandlers();
 
 	};
 }

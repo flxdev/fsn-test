@@ -533,6 +533,7 @@ body
 		.color
 			width: 100%
 			height: 50%
+			transition: background-color 1.2s cubic-bezier(0.25, 0.1, 0.25, 1)
 	.columns-template
 		position: absolute
 		width: 100%
@@ -597,13 +598,23 @@ body
 			&.next
 				top: 0
 		&.current-page
-			& > div
-				&:last-of-type:not(:first-of-type)
-					.slider-element
-						&_left
-							bottom: -100%
-						&_right
-							top: -100%
+			&.animateNext
+				& > div
+					&:last-of-type:not(:first-of-type)
+						.slider-element
+							&_left
+								bottom: -100%
+							&_right
+								top: -100%
+			&.animatePrev
+				& > div
+					&:last-of-type:not(:first-of-type)
+						.slider-element
+							&_left
+								top: -83%
+							&_right
+								bottom: -80%
+								top: auto
 			&.animate
 				&.animateNext
 					& > div
@@ -611,21 +622,44 @@ body
 							.slider-element
 								&_left
 									+rem(bottom, 40px)
-									animation: 0.5s slideLeftDown both linear
+									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
-									+rem(top, 40px)
-									animation: 0.5s slideRightUp both linear
+									+rem(top, 80px)
+									animation: 1.2s slideRightUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 						&.slideOut
 							.slider-element
 								&_left
-									animation: 0.5s slideLeftUp both linear
+									animation: 1.2s slideLeftUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
-									animation: 0.5s slideRightDown both linear
-				
+									animation: 1.2s slideRightDown both cubic-bezier(0.25, 0.1, 0.25, 1)
+				&.animatePrev
+					& > div
+						&.slideIn
+							.slider-element
+								&_left
+									+rem(bottom, 40px)
+									// top: auto
+									animation: 1.2s slideRightDown both cubic-bezier(0.25, 0.1, 0.25, 1)
+								&_right
+									+rem(top, 80px)
+									// bottom: -100%
+									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
+						&.slideOut
+							.slider-element
+								&_left
+									animation: 1.2s slideRightDown both cubic-bezier(0.25, 0.1, 0.25, 1)
+								&_right
+									animation: 1.2s slideLeftUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 		.slider-element
 			width: 40.851%
 			height: 71.6%
 			position: absolute
+			will-change: transform
+			&:hover
+				.element-text
+					&::after
+						+rem(width, 108px)
+						+rem(right, 20px)
 			.element-text
 				position: absolute
 				z-index: 2
@@ -637,6 +671,7 @@ body
 					background-color: $white
 					position: absolute
 					+rem(top, 18px)
+					transition: all 0.3s ease
 					right: 0
 				.element-name
 					font-family: "Light"
@@ -669,6 +704,16 @@ body
 				width: 100%
 				height: 100%
 				overflow: hidden
+				position: relative
+				&::after
+					content: ""
+					position: absolute
+					top: 0
+					left: 0
+					width: 100%
+					height: 100%
+					background-color: $overlay
+					opacity: 0.5
 				img
 					width: 100%
 					max-width: 100%
@@ -704,6 +749,7 @@ body
 	+rem(right, 156px)
 	font-family: "Light"
 	font-size: 10px
+	z-index: -1
 	.pagination-spinner
 		padding: 0 10px
 	div[class^="pagination-"]
