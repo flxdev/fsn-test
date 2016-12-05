@@ -516,3 +516,83 @@ function GallerySlider(el) {
 	};
 }
 
+function flipCard() {
+	var element = $(".flip-card"),
+		openClass = "flip-card_flipped";
+	element.each(function(){
+		var _ = $(this),
+			triggerOpen = _.find(".slide-link"),
+			triggerClose = _.find(".slide-link_close");
+
+		triggerOpen.on("click", function(){
+			_.addClass(openClass);
+		});
+
+		triggerClose.on("click", function(){
+			_.removeClass(openClass);
+		});
+	});
+}
+
+function FlipGallery(el) {
+	this.el = el;
+
+	this.options = {
+		speed: 300
+	}
+
+	this.init();
+}
+
+FlipGallery.prototype.init = function() {
+	this.card = this.el.find(".card-item");
+	this.thumbnails = this.el.find(".thumbnails-items");
+	this.setIndex();
+
+	this.scroller = this.el.find(".thumbnails-scroller");
+	this.transform = this.getSupportedTransform();
+	this.scroller.attr("style", this.transform + ": translate(0,0);")
+
+	this.eventHandlers();
+}
+
+FlipGallery.prototype.setIndex = function(){
+	var self = this;
+	this.cardLength = this.card.length;
+	this.thumbnailsLength = this.thumbnails.length;
+
+	for(var i = 0; i < this.cardLength; i++) {
+		self.card.eq(i).attr("data-flip-item", i);
+	}
+
+	for(var k = 0; k < this.thumbnailsLength; k++) {
+		self.thumbnails.eq(k).attr("data-flip-item", k);
+	}
+
+	this.card.first().addClass("active");
+	this.thumbnails.first().addClass("active");
+};
+
+FlipGallery.prototype.getSupportedTransform = function() {
+    var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' ');
+    for(var i = 0; i < prefixes.length; i++) {
+        if(document.createElement('div').style[prefixes[i]] !== undefined) {
+            return prefixes[i];
+        }
+    }
+    return false;
+}
+
+FlipGallery.prototype.eventHandlers = function () {
+	var self = this;
+
+	this.thumbnails.on("click", function(){
+		this.offtop = $(this).position().top;
+
+		self.setTransform(-this.offtop)
+	})
+};
+
+FlipGallery.prototype.setTransform = function(value) {
+	this.scroller.attr("style", this.transform + ": translate(0," + value + "px);")
+}
