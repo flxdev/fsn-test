@@ -1,3 +1,4 @@
+'use strict'
 function burgerMenu(){
 	var _this = this;
 
@@ -78,7 +79,7 @@ function FullSlider(el, config) {
 		animationEvents: "mozAnimationEnd MSAnimationEnd oAnimationEnd animationend"
 	}
 
-	this.tw = new TimelineLite();
+	// this.tw = new TimelineLite();
 
 	this.initDefault()
 };
@@ -508,22 +509,47 @@ function FlipGallery(el) {
 	this.el = el;
 
 	this.options = {
-		speed: 300
+		speed: 1600,
+		transform: 'transform',
+		transition: "transition",
+		ease: "ease"
 	}
 
 	this.init();
 }
 
 FlipGallery.prototype.init = function() {
+
+	var self = this;
+
+	this.action = false;
+
 	this.card = this.el.find(".card-item");
 	this.thumbnails = this.el.find(".thumbnails-items");
+	this.thumbnailsLength = this.thumbnails.length;
+
 	this.setIndex();
 
 	this.scroller = this.el.find(".thumbnails-scroller");
-	this.transform = this.getSupportedTransform();
-	this.scroller.attr("style", this.transform + ": translate(0,0);")
+	this.scrollerCard = this.el.find(".card-container");
+
+	this.scroller.attr("style", this.options.transform + ": translate(0,0);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
+	this.scrollerCard.attr("style", this.options.transform + ": translate(0,0);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
 
 	this.eventHandlers();
+
+	this.img = this.el.find(".lazy");
+
+	this.paginContainer = $(".pagination-container");
+	if(this.thumbnailsLength < 10) {
+		this.paginContainer.find(".pagination-all").text("0" + this.thumbnailsLength);
+	} else {
+		this.paginContainer.find(".pagination-all").text(this.thumbnailsLength);
+	}
+
+	$(window).resize(function(){
+		self.update();
+	})
 }
 
 FlipGallery.prototype.setIndex = function(){
@@ -532,7 +558,7 @@ FlipGallery.prototype.setIndex = function(){
 	this.thumbnailsLength = this.thumbnails.length;
 
 	for(var i = 0; i < this.cardLength; i++) {
-		self.card.eq(i).attr("data-flip-item", i);
+		self.card.eq(i).attr("data-flip-card", i);
 	}
 
 	for(var k = 0; k < this.thumbnailsLength; k++) {
@@ -543,26 +569,122 @@ FlipGallery.prototype.setIndex = function(){
 	this.thumbnails.first().addClass("active");
 };
 
-FlipGallery.prototype.getSupportedTransform = function() {
-    var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' ');
-    for(var i = 0; i < prefixes.length; i++) {
-        if(document.createElement('div').style[prefixes[i]] !== undefined) {
-            return prefixes[i];
-        }
-    }
-    return false;
+FlipGallery.prototype.generatePagination = function(next){
+	var self = this;
+	this.nextIndex = next + 1;
+
+	setTimeout(function(){	
+		if(self.nextIndex < 10) {
+			self.paginContainer.find(".current").text('0' + self.nextIndex);
+		} else {
+			self.paginContainer.find(".current").text(self.nextIndex);
+		}
+	},300);
 }
 
 FlipGallery.prototype.eventHandlers = function () {
 	var self = this;
 
-	this.thumbnails.on("click", function(){
-		this.offtop = $(this).position().top;
+	document.addEventListener("keyup", function(event){
+		if( event.keyCode === 40 ) self.nextElements();
+		if( event.keyCode === 38 ) self.prevElements();
+	});
 
-		self.setTransform(-this.offtop)
+	this.thumbnails.on("click", function(){
+		if($(this).hasClass("active")) return false;
+		self.nextElements()
 	})
 };
 
-FlipGallery.prototype.setTransform = function(value) {
-	this.scroller.attr("style", this.transform + ": translate(0," + value + "px);")
-}
+
+
+FlipGallery.prototype.nextElements = function(){
+
+	this.curr = this.scroller.find(".active").data("flip-item");
+	this.next = this.curr + 1
+
+	if(this.next >= this.thumbnailsLength)
+		return false;
+
+	this.slide(this.curr, this.next, "next");
+};
+
+FlipGallery.prototype.prevElements = function(){
+	
+	this.curr = this.scroller.find(".active").data("flip-item");
+	this.next = this.curr - 1
+
+	if(this.next < 0)
+		return false;
+
+	this.slide(this.curr, this.next, "prev");
+
+};
+
+FlipGallery.prototype.setTransform = function(valueThumb, valueCard) {
+	this.scroller.attr("style", this.options.transform + ": translate(0," + valueThumb + "px);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
+	this.scrollerCard.attr("style", this.options.transform + ": translate(0," + valueCard + "px);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
+	this.img.lazy({
+		bind: "event"
+	});
+};
+
+FlipGallery.prototype.slide = function(curr, next, direction) {
+	var self = this;
+
+	if(this.action) {
+		return false;
+	}
+
+	this.action = true;
+
+	this.generatePagination(this.next);
+
+	this.thumbnails.eq(curr).addClass("hidden").removeClass("active");
+	this.thumbnails.eq(next).addClass("active").removeClass("hidden");
+
+	this.offtopCard = next * $(window).height();
+	this.offtop = this.thumbnails.eq(next).position().top;
+
+	this.setTransform(-this.offtop, -this.offtopCard)
+
+	if(direction == "prev") {
+		this.thumbnails.eq(curr).removeClass("active hidden");
+		this.thumbnails.eq(next).addClass("active").removeClass("hidden");
+	} else {
+		this.thumbnails.eq(curr).addClass("hidden").removeClass("active");
+		this.thumbnails.eq(next).addClass("active").removeClass("hidden");
+	}
+
+	this.card.eq(next).addClass("active").siblings().removeClass("active");
+
+	this.offtopCard = null;
+	this.offtop = null;
+
+
+	this.animationEnd(curr);
+
+};
+
+FlipGallery.prototype.animationEnd = function(current){
+	var self = this;
+
+	setTimeout(function(){
+		self.action = false;
+	}, self.options.speed);
+
+	setTimeout(function(){
+		if(self.card.eq(current).find(".flip-card").is(".flip-card_flipped"))
+			self.card.eq(current).find(".flip-card").removeClass("flip-card_flipped");
+	}, self.options.speed / 1.5);
+};
+
+FlipGallery.prototype.update = function(){
+	this.index = this.card.parent().find(".active").index();
+
+	this.offtopCardResize = -(this.index * $(window).height());
+	this.offtopResize = -(this.thumbnails.eq(this.index).position().top);
+
+	this.scroller.attr("style", this.options.transform + ": translate(0," + this.offtopResize + "px);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
+	this.scrollerCard.attr("style", this.options.transform + ": translate(0," + this.offtopCardResize + "px);" + this.options.transition + ": " + this.options.speed/2 + "ms " + this.options.ease + " " + this.options.transform + ";")
+};

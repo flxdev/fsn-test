@@ -8,46 +8,13 @@
 		.columns
 			.thumbnails-container
 				.thumbnails-scroller
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Скидки -20% на изумительную коллек&shy;цию Meltin для ванной и&nbsp;гостинной, Италия
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Целая испания в вашей ванной комнате с&nbsp;коллекцией PALACE CARRARA. Только до 29 августа при заказе от €300 скидки до 50%
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Горячая итальянка HAVANA в вашей ванной от €60 м
-							sup 2
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Скидки -20% на изумительную коллек&shy;цию Meltin для ванной и&nbsp;гостинной, Италия
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Целая испания в вашей ванной комнате с&nbsp;коллекцией PALACE CARRARA. Только до 29 августа при заказе от €300 скидки до 50%
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Горячая итальянка HAVANA в вашей ванной от €60 м
-							sup 2
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Скидки -20% на изумительную коллек&shy;цию Meltin для ванной и&nbsp;гостинной, Италия
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Целая испания в вашей ванной комнате с&nbsp;коллекцией PALACE CARRARA. Только до 29 августа при заказе от €300 скидки до 50%
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Горячая итальянка HAVANA в вашей ванной от €60 м
-							sup 2
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Скидки -20% на изумительную коллек&shy;цию Meltin для ванной и&nbsp;гостинной, Италия
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Целая испания в вашей ванной комнате с&nbsp;коллекцией PALACE CARRARA. Только до 29 августа при заказе от €300 скидки до 50%
-					.thumbnails-items
-						data 25 октября 2016
-						.stock-name Горячая итальянка HAVANA в вашей ванной от €60 м
-							sup 2
+					mixin thumb(date, name)
+						.thumbnails-items
+							data #{date}
+							.stock-name #{name}
+					+thumb("25 октября 2016","Целая испания в вашей ванной комнате с коллекцией PALACE CARRARA. Только до 29 августа при заказе от €300 скидки до 50%")
+					+thumb("25 октября 2016","Горячая итальянка HAVANA в вашей ванной от €60 м")
+					+thumb("25 октября 2016","Скидки -20% на изумительную коллекцию Meltin для ванной и гостинной, Италия")
 		.columns
 			.card-container
 				.card-item
@@ -67,6 +34,45 @@
 										a(href="#") Meltin для&nbsp;ванной и гостинной
 										|  скидка -20%.
 									p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: +375 (29) 614 54 53.
+				.card-item
+					.flip-card
+						.flip-line
+						.flip-card_container
+							.flip-card_front
+								.image-container
+									.featured-image(data-src="img/stock/stock-1.jpg" class="lazy")
+								a(class="slide-link" href="#")
+									span Подробнее
+							.flip-card_back
+								.slide-link_close
+									span Скрыть
+								.stock-more
+									p Осенние подарки от Fashin Gallery! На всю коллекцию итальянской плитки 
+										a(href="#") Meltin для&nbsp;ванной и гостинной
+										|  скидка -20%.
+									p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: +375 (29) 614 54 53.
+				.card-item
+					.flip-card
+						.flip-line
+						.flip-card_container
+							.flip-card_front
+								.image-container
+									.featured-image(data-src="img/stock/stock-1.jpg" class="lazy")
+								a(class="slide-link" href="#")
+									span Подробнее
+							.flip-card_back
+								.slide-link_close
+									span Скрыть
+								.stock-more
+									p Осенние подарки от Fashin Gallery! На всю коллекцию итальянской плитки 
+										a(href="#") Meltin для&nbsp;ванной и гостинной
+										|  скидка -20%.
+									p Условия проведения акции: действие акции проходит с 1 ноября по 20 декабря 2016 года. Подробности уточняйте у консультантов шоурума или по телефону: +375 (29) 614 54 53.
+			.pagination-container
+				.pagination-current
+					span.current 01
+				.pagination-spinner |
+				.pagination-all 04
 		script(type="text/javascript").
 			$(lazy)
 			$(flipCard)

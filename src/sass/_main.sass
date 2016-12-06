@@ -536,6 +536,9 @@ body
 		text-transform: uppercase
 		display: block
 		+rem(line-height, 150px)
+		+r(1280)
+			+rem(font-size, 120px)
+			+rem(line-height, 120px)
 .color-container
 	position: absolute
 	z-index: 1
@@ -558,11 +561,11 @@ body
 			width: 100%
 			height: 50%
 			transition: background-color 1.2s cubic-bezier(0.25, 0.1, 0.25, 1)
-		.columns
-			&:first-child
-				width: 32.375%
-			&:last-child
-				width: 67.625%
+	.columns
+		&:first-child
+			width: 32.375%
+		&:last-child
+			width: 67.625%
 	.filter
 		left: 18%
 	&.gallery-container_inner
@@ -883,6 +886,7 @@ body
 .card-container
 	width: 100%
 	height: 100vh
+	// transition: 1.5s ease transform
 	.card-item
 		display: flex
 		flex-wrap: nowrap
@@ -895,7 +899,9 @@ body
 			+rem(width, 560px)
 			+rem(height, 560px)
 			position: relative
-			// perspective: 1000px
+			+r(1150)
+				+rem(width, 470px)
+				+rem(height, 470px)
 			.flip-line
 				+rem(width, 118px)
 				+rem(height, 4px)
@@ -905,6 +911,8 @@ body
 				z-index: 5
 				+rem(left, -42px)
 				+rem(margin-top, -2px)
+				+r(1150)
+					+rem(width, 95px)
 			.flip-card_container
 				width: 100%
 				height: 100%
@@ -937,11 +945,15 @@ body
 						height: 100%
 						width: 100%
 						text-align: left
+						+r(1150)
+							+rem(padding, 30px 50px 0 85px)
 						p 
 							letter-spacing: 0.5px
 							+rem(line-height, 28px)
 							&:not(:last-child)
 								+rem(margin-bottom, 40px)
+								+r(1150)
+									+rem(margin-bottom, 20px)
 							a
 								color: $backFaceLink
 								border-bottom: 1px solid
@@ -954,6 +966,8 @@ body
 						position: relative
 						+rem(padding-top, 30px)
 						cursor: pointer
+						+r(1150)
+							+rem(margin-top, 40px)
 						&::after
 							content: ''
 							+rem(width, 22px)
@@ -981,10 +995,13 @@ body
 .thumbnails-container
 	position: absolute
 	left: 18%
-	height: 53.5vh
+	height: 54.5vh
 	bottom: 0
 	width: 100%
 	+rem(max-width, 480px)
+	+r(1280)
+		+rem(left, 160px)
+		height: 54vh
 	&::after
 		position: absolute
 		content: ""
@@ -998,14 +1015,16 @@ body
 		background: linear-gradient(to bottom,  rgba(65,64,64,0) 0%,rgba(65,64,64,0.21) 21%,rgba(65,64,64,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00414040', endColorstr='#414040',GradientType=0 ); /* IE6-9 */
 	.thumbnails-scroller
-		transition: 1.6s linear transform
+		// transition: 1.5s ease transform
 		position: absolute
 	.thumbnails-items
 		display: block
 		width: 100%
 		cursor: pointer
 		opacity: 0.5
-		transition: 0.3s ease opacity
+		transition: 0.5s ease opacity 0.3s
+		&.hidden
+			opacity: 0
 		&:not(:last-of-type)
 			+rem(margin-bottom, 40px)
 		data
@@ -1020,5 +1039,8 @@ body
 			+rem(font-size, 28px)
 			+rem(line-height, 36px)
 			color: $colorText
+			+r(1280)
+				+rem(font-size, 24px)
+				+rem(line-height, 32px)
 		&.active
 			opacity: 1
