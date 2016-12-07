@@ -1,0 +1,17 @@
+extends _layout
+
+block title
+	title Projects inner
+
+block content
+	.perspective
+		.perspective-container
+			include includes/_headsite
+			section.wrapper
+				-var content = "projects"
+				.content(class="content-"+content data-page=content)
+					include includes/_projects-inner
+			-var currentClass = "Проекты"
+		.burger
+			div
+		include includes/_navigation-site

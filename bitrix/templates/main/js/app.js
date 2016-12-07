@@ -306,7 +306,7 @@ FullSlider.prototype.animationEnd = function(elem){
 			$(self.options.innerSlider).removeClass("animation hovered");
 			this.isHover = $(elem).parents(self.options.innerSlider).find(self.arrowBtn);
 			if($(this.isHover).filter(":hover").length){
-				$(self.arrowBtn).trigger("mouseenter");
+				$(this.isHover).trigger("mouseenter");
 			}
 		} else {
 			$(elem).removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass).siblings().removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass);
@@ -315,7 +315,7 @@ FullSlider.prototype.animationEnd = function(elem){
 	});
 };
 
-function lazy(parametr){
+function lazy(parameter){
 
 	var defaultParams = {
 		effect: 'fadeIn',
@@ -325,10 +325,10 @@ function lazy(parametr){
 	var modifyParams = {
 		effect: 'fadeIn',
 		effectTime: "150",
-		appendScroll: $(parametr)
+		appendScroll: $(parameter)
 	};
 
-	if(parametr == undefined || typeof parametr == "function") {
+	if(parameter == undefined || typeof parameter == "function") {
 		$(".lazy").Lazy(defaultParams)
 	} else {
 		$(".lazy").Lazy(modifyParams)
@@ -522,10 +522,10 @@ function FlipGallery(el) {
 	this.el = el;
 
 	this.options = {
-		speed: 1600,
+		speed: 1200,
 		transform: 'transform',
 		transition: "transition",
-		ease: "ease"
+		ease: "cubic-bezier(0.25, 0.1, 0.25, 1)"
 	}
 
 	this.init();
@@ -561,7 +561,11 @@ FlipGallery.prototype.init = function() {
 	}
 
 	$(window).resize(function(){
-		self.update();
+		this.timer;
+		clearTimeout(this.timer);
+		this.timer = setTimeout(function(){
+			self.update();
+		},300);
 	})
 }
 

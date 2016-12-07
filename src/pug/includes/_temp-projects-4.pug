@@ -1,0 +1,62 @@
+.gallery-container
+	.head-container
+		span Проекты
+	.color-container
+		.color#topline
+		.color#bottomline
+	.columns-template
+		.columns
+			ul.filter
+				-var current = 'Офисы'
+				mixin filter(name, link)
+					li(class="filter-item" class={active: name === current})
+						a(class="filter-link" href=link) #{name}
+				+filter("Коттеджи", "#")
+				+filter("Офисы", "#")
+				+filter("Частный дома", "#")
+				+filter("Бизнес-центры", "#")
+				+filter("Шоурумы", "#")
+		.columns
+			.gallery-slider
+				.gallery-slider_content.prev#prev-page
+					div
+						a.slider-element.slider-element_left.slideLeft(data-color="#d4d3d1" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-5.jpg")
+							.element-text
+								.element-name FAP, Roma3
+								.element-price Минск
+						a.slider-element.slider-element_right.slideRight(data-color="#5e2a2e" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-6.jpg")
+							.element-text
+								.element-name Iris, Bellagio4
+								.element-price Минск, ул. кальварийская
+				.gallery-slider_content.current-page#current-page
+					div
+						a.slider-element.slider-element_left.slideLeft(data-color="#656974" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-7.jpg")
+							.element-text
+								.element-name FAP, Roma3
+								.element-price Минск
+						a.slider-element.slider-element_right.slideRight(data-color="#602a12" href="#")
+							.image-container
+								.lazy.featured-image(data-src="img/gallery/item-8.jpg")
+							.element-text
+								.element-name Iris, Bellagio4
+								.element-price Минск, ул. кальварийская
+				.gallery-slider_content.next#next-page
+					
+			.pagination-container
+				.pagination-current
+					span.current 04
+				.pagination-spinner |
+				.pagination-all 04
+			.navigation-container
+				a.navigation-link(id="prev-link" href="projects_page-3.html")
+				a.navigation-link(id="next-link" href="#")
+			script(type="text/javascript").
+				$(lazy)
+				var slider = new GallerySlider($(".gallery-slider"));
+				slider.init()

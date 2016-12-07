@@ -1,0 +1,49 @@
+.gallery-container.gallery-container_inner
+	.head-container
+		span Superna
+		span tural
+	.color-container
+		.color#topline(style="background-color:#363534")
+		.color#bottomline(style="background-color:#363534")
+	.columns-template
+		.columns
+			.text-container
+				.side-text
+					p Плитка коллекции Roma выполнена в&nbsp;средиземноморском стиле и изготовлена из&nbsp;морозоустойчивого керамогранита с&nbsp;матовой поверхностью в терракотовых цветах (с переливами от серого до бежевого). 
+					a.btn(href="#")
+						span Оставить заявку
+		.columns
+			.scroll-container
+				.scroller
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.image-container
+						img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+					.gallery-pagination
+						a(href="#" class="gallery-pagination_item")
+							.image-container
+								.color-box(style="background-color: #524339")
+								img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+							.pagination-text
+								.text-position
+									.nav-text предыдущий проект
+									.nav-name GOLD & SILVER, Roma
+						a(href="#" class="gallery-pagination_item")
+							.image-container
+								.color-box(style="background-color: #2a2a32")
+								img(data-src="img/gallery/g-inner-1.jpg" class="lazy")
+							.pagination-text
+								.text-position
+									.nav-text следующий проект
+									.nav-name MARBLE ARCH
+				.scroll-down
+					.mouse
+						.scroll-wheel
+			script(type="text/javascript").
+				$(lazy($(".scroller")))
