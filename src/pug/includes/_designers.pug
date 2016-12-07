@@ -1,0 +1,34 @@
+.stock-container
+	.head-container
+		span Дизайнерам
+	.color-container
+		.color#topline(style="background-color:#2a2a32")
+		.color#bottomline(style="background-color:#2a2a32")
+	.columns-template.flip-gallery
+		.columns
+			.text-container
+				.side-text
+					.title Условия сотрудничества с&nbsp;профессионалами
+					p Мы сотрудничаем со многими известными итальянскими и испанскими производите&shy;лями плитки и являемся их официальными дистрибьюторами на территории Респуб&shy;лики Беларусь.  
+					a.btn(href="#" class="email")
+						span e-mail рассылка
+		.columns
+			.brands-container
+				.brand-scroll
+					ul.brands-list
+						mixin brand(name, index)
+							li(data-brand-index = index) #{name}
+						+brand("Anjasora", 1)
+						+brand("Ariostea", 2)
+						+brand("Ceracasa", 3)
+						+brand("Fap Ceramiche", 4)
+						+brand("FMG", 5)
+						+brand("Florim Ceramiche", 6)
+						+brand("Grespania", 7)
+						+brand("Gres de Aragon", 8)
+						+brand("Gres de Aragon", 9)
+						+brand("Gres de Aragon", 10)
+						+brand("Gres de Aragon", 11)
+						+brand("Ariostea", 12)
+						+brand("Ceracasa", 13)
+						+brand("Fap Ceramiche", 14)
