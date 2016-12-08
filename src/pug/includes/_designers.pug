@@ -17,7 +17,8 @@
 				.brand-scroll
 					ul.brands-list
 						mixin brand(name, index)
-							li(data-brand-index = index) #{name}
+							li
+								span(class="modal" data-brand-index = index) #{name}
 						+brand("Anjasora", 1)
 						+brand("Ariostea", 2)
 						+brand("Ceracasa", 3)

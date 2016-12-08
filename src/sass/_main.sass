@@ -176,11 +176,11 @@ body
 	+rem(width, 53px)
 	+rem(height, 53px)
 	background-color: $white
-	transition: color 0.3s $cub
+	transition: background-color 0.5s $cub
 	border-radius: 100%
 	z-index: 6
 	cursor: pointer
-	&.open
+	&.open_burger
 		background-color: $black
 .logo 
 	+rem(width, 155px)
@@ -1156,13 +1156,101 @@ body
 		+rem(padding, 65px 0)
 		li
 			border-bottom: 1px solid rgba(255,255,255,.3)
-			font-family: "Light"
-			+rem(font-size, 28px)
-			color: $lgrey
-			transition: color 0.3s ease
-			cursor: pointer
 			+rem(padding, 12px 0)
 			display: inline-block
 			width: 100%
-			&:hover
-				color: $white
+			span
+				font-family: "Light"
+				+rem(font-size, 28px)
+				color: $lgrey
+				transition: color 0.3s ease
+				cursor: pointer
+				&:hover
+					color: $white
+.brand-modal
+	position: absolute
+	top: 0
+	width: 100%
+	left: 100%
+	height: 100%
+	z-index: 5
+	&::after
+		content: ''
+		position: absolute
+		width: 100%
+		height: 100%
+		background-color: $brandOverlay
+		opacity: 0
+		transition: opacity 0.5s ease
+	&.mobal-open
+		left: 0
+	&.modal-animate
+		&::after
+			opacity: 0.5
+	.brand-modal_container
+		position: absolute
+		top: 0
+		right: 0
+		height: 100%
+		overflow: auto
+		background-color: $white
+		+rem(width, 445px)
+		z-index: 6
+		margin-right: -17px
+		transform: translate(100%, 0)
+		transition: transform 0.5s ease
+		+rem(padding, 80px 40px 30px 60px)
+		&.open
+			transform: translate(0, 0)
+		.brand-logo
+			+rem(width, 180px)
+			+rem(height, 130px)
+			position: relative
+			+rem(margin-bottom, 90px)
+			display: table
+			.logo-container
+				display: table-cell
+				vertical-align: middle
+				width: 100%
+				height: 100%
+				img
+					max-width: 100%
+					max-height: 100%
+					display: block
+		.brand-head
+			+rem(margin-bottom, 40px)
+			.name
+				font-family: "Light"
+				+rem(font-size, 28px)
+				color: $black
+				letter-spacing: 0.2px
+				+rem(margin-bottom, 8px)
+			.link
+				color: #98989c
+		.brand-content
+			+rem(margin-bottom, 40px)
+			p
+				color: $black
+				+rem(line-height, 28px)
+.download-container
+	.download-item
+		display: flex
+		align-items: center
+		&:not(:last-of-type)
+			+rem(margin-bottom, 30px)
+		.icon
+			+rem(width, 30px)
+			+rem(height, 27px)
+			background-image: url(../img/icons/download.jpg)
+			background-size: cover
+			+rem(margin-right, 20px)
+		.name
+			span
+				font-family: "Light"
+				font-size: 12px
+				color: $black
+				text-transform: uppercase
+				letter-spacing: 3px
+				display: block
+				line-height: 1.7
+

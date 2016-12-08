@@ -28,10 +28,11 @@ function burgerMenu(){
 	}
 
 	 _this.openMenu = function() {
+	 	if(_this.trigger.classList.contains("modal")) return false;
 	 	if(!_this.trigger.classList.contains("open")) {
 	 		_this.perspective.classList.add("perspective-action");
 			_this.menu.classList.add("navigation-open");
-			_this.trigger.classList.add("open");
+			_this.trigger.classList.add("open", "open_burger");
 	 	} else {
 	 		_this.closeMenu();
 		}
@@ -40,7 +41,7 @@ function burgerMenu(){
 	 _this.closeMenu = function(){
 		_this.menu.classList.remove("navigation-open");
 		_this.perspective.classList.remove("perspective-action");
-		_this.trigger.classList.remove("open");
+		_this.trigger.classList.remove("open", "open_burger");
 	 }
 
 	 _this.init = function(){
@@ -705,3 +706,50 @@ FlipGallery.prototype.update = function(){
 	this.scroller.attr("style", this.options.transform + ": translate(0," + this.offtopResize + "px);" + this.options.transition + ": " + this.options.speed + "ms " + this.options.ease + " " + this.options.transform + ";")
 	this.scrollerCard.attr("style", this.options.transform + ": translate(0," + this.offtopCardResize + "px);" + this.options.transition + ": " + this.options.speed/2 + "ms " + this.options.ease + " " + this.options.transform + ";")
 };
+
+function BrandModal(el){
+	this.el = el;
+	this.init()
+}
+BrandModal.prototype = {
+	init: function(){
+		this.modalContainer = $(".brand-modal");
+		this.brandContainer = $(".brand-modal_container");
+		this.burger = this.modalContainer.parent().find(".burger");
+
+		this.eventHandlers();
+	},
+	eventHandlers: function() {
+		var self = this;
+		this.el.on("click", function(){
+			this.index = $(this).data("brand-index");
+			self.openWindow(this.index)
+		});
+		this.brandContainer.on("click", function(event){
+			event.stopPropagation();
+		});
+		this.modalContainer.on("click", function(){
+			self.closeWindow();
+		});
+		this.burger.on("click", function(){
+			self.closeWindow();
+		});
+	},
+	openWindow: function(el) {
+		this.modal = this.modalContainer.find("[data-modal-index=" + el + "]");
+
+		this.modalContainer.addClass("mobal-open modal-animate");
+		this.modal.addClass("open");
+		this.burger.addClass("modal open_burger");
+	},
+	closeWindow: function(){
+		var self = this;
+		this.brandContainer.removeClass("open");
+		this.modalContainer.removeClass("modal-animate");
+		this.burger.removeClass("open_burger");
+		setTimeout(function(){
+			self.modalContainer.removeClass("mobal-open");
+			self.burger.removeClass("modal");
+		}, 500);
+	}
+}
