@@ -1,0 +1,17 @@
+extends _layout
+
+block title
+	title stocks
+
+block content
+	.perspective
+		.perspective-container
+			include includes/_headsite
+			section.wrapper
+				-var content = "showroom"
+				.content(class="content-"+content data-page=content)
+					include includes/_showroom
+			-var currentClass = "Шоурум"
+		.burger
+			div
+		include includes/_navigation-site

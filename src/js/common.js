@@ -740,3 +740,43 @@ BrandModal.prototype = {
 		}, 500);
 	}
 }
+
+function VerticalGallery(el){
+	this.el = el;
+
+
+	this.init();	
+
+}
+VerticalGallery.prototype = {
+	init: function(){
+		this.el.slick({
+			infinite: false,
+			slidesToShow: 1,
+			swipeToSlide: 1,
+			slidesToScroll: 1,
+			centerMode: true,
+			vertical: true,
+			arrows: false,
+			touchMove: false,
+			swipe: false
+		});
+
+		this.eventHandlers();
+	},
+	eventHandlers: function(){
+		var self = this;
+
+		document.addEventListener("keyup", function(event){
+			if( event.keyCode === 40 ) self.nextSlide();
+			if( event.keyCode === 38 ) self.prevSlide();
+		});
+
+	},
+	nextSlide: function(){
+		this.el.slick("slickNext");
+	},
+	prevSlide: function(){
+		this.el.slick("slickPrev");
+	}
+}

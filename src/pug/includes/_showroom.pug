@@ -1,0 +1,21 @@
+.showroom-container
+	.head-container
+		span Шоурум
+	.color-container
+		.color#topline(style="background-color:#343a3e")
+		.color#bottomline(style="background-color:#343a3e")
+	.map-container
+		.image
+			img(src="img/map.jpg")
+	.columns-template
+		.columns
+		.columns
+			.gallery-vertical
+				.gallery-vertical_container
+					.gallery-slider.js-gallery-slider
+						.slider-item
+						.slider-item
+						.slider-item
+						.slider-item
+			script(type="text/javascript").
+				var verticalGallery = new VerticalGallery($(".js-gallery-slider"));

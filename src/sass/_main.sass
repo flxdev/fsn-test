@@ -1253,4 +1253,41 @@ body
 				letter-spacing: 3px
 				display: block
 				line-height: 1.7
-
+.map-container
+	position: absolute
+	width: 100%
+	height: 100%
+	z-index: 3
+	.image
+		position: absolute
+		top: 0
+		+rem(left, 442px)
+		height: 100%
+		background-color: $mapOverlay
+		img
+			max-height: 100%
+			opacity: 0.3
+.gallery-vertical
+	width: 100%
+	height: 100%
+	.gallery-vertical_container
+		+rem(width, 560px)
+		margin: auto
+		height: 100%
+		+r(1150)
+			+rem(width, 470px)
+	.gallery-slider
+		display: block
+		top: 50%
+		transform: translate(0,-50%)
+		height: auto
+		.slider-item
+			width: 100%
+			+rem(height, 560px)
+			overflow: hidden
+			+rem(margin, 32px 0)
+			background-color: #FFF
+			+r(1150)
+				+rem(height, 470px)
+		.slick-list
+			overflow: visible
