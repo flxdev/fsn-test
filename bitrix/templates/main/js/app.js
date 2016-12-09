@@ -835,12 +835,6 @@ VerticalGallery.prototype = {
 
 		this.video = this.el.find("video");
 
-		this.el.on("init", function(slick){
-			self.video.each(function(){
-				$(this)[0].play();
-			})
-		})
-
 		this.el.slick({
 			infinite: false,
 			slidesToShow: 1,
@@ -866,7 +860,9 @@ VerticalGallery.prototype = {
 		if(this.slideLength < 10) {
 			this.paginAll.text("0" + this.slideLength);
 		}
-		this.img = $(".featured-image") || $(".lazy");
+	
+		this.slideItem = this.el.find(".slider-item");
+
 
 		this.eventHandlers();
 		this.resizeVideo();
@@ -875,6 +871,14 @@ VerticalGallery.prototype = {
 	},
 	eventHandlers: function(){
 		var self = this;
+
+		this.slideItem.on("mouseenter", function(){
+			$(this).find("video")[0].play();
+		});
+
+		this.slideItem.on("mouseleave", function(){
+			$(this).find("video")[0].pause();
+		})
 
 		document.addEventListener("keyup", function(event){
 

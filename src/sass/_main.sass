@@ -1273,6 +1273,8 @@ body
 .gallery-vertical
 	width: 100%
 	height: 100%
+	.slick-list
+		overflow: visible
 	.gallery-vertical_container
 		+rem(width, 560px)
 		margin: auto
@@ -1298,35 +1300,54 @@ body
 				height: 100%
 				img
 					display: block
-		.slick-list
-			overflow: visible
-		.slick-track
-			// will-change: transform
-.video-container
-	width: 100%
-	height: 100%
-	position: relative
-	.video
-		position: absolute
-		width: 100%
-		height: 100%
-		video
-			position: absolute
-			width: 100%
-			height: 100%
-	.poster
-		position: relative
-		width: 100%
-		bottom: 0
-		height: 100%
-		.poster_img	
-			width: 100%
-			height: 100%
-			background-size: cover
-	.widget
+			&:hover
+				.screen_frame
+					opacity: 0
+	.cover_video-wrapp
 		position: absolute
 		top: 0
 		left: 0
 		width: 100%
 		height: 100%
-
+		.cover_video
+			position: absolute
+			top: 0
+			left: 0
+			width: 100%
+			height: 100%
+			.cover_video-inner
+				position: absolute
+				top: 0
+				left: 0
+				width: 100%
+				height: 100%
+				overflow: hidden
+				.bg_video
+					position: absolute
+					top: 0
+					left: 0
+					width: 100%
+					height: 100%
+					overflow: hidden
+					.video
+						position: absolute
+						top: 0
+						left: 0
+						width: 100%
+						height: 100%
+	.screen_frame
+		position: relative
+		width: 100%
+		height: 100%
+		display: table
+		transition: opacity 0.5s ease
+		.screen_frame-content
+			display: table-cell
+			.screen_frame-image
+				position: relative
+				width: 100%
+				height: 100%
+				div
+					width: 100%
+					height: 100%
+					background-size: cover
