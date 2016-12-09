@@ -1,13 +1,13 @@
 nav.menu
 	mixin menuList(link, name)
 		li(class="menu-item" class={active: name === currentClass})
-			a(href="#") #{name}
+			a(href=link) #{name}
 	ul.menu-container
-		+menuList("#", "Главная")
+		+menuList("/", "Главная")
 	ul.menu-container
-		+menuList("#", "Коллекции")
-		+menuList("#", "Акции")
-		+menuList("#", "Проекты")
+		+menuList("collection.html", "Коллекции")
+		+menuList("actions.html", "Акции")
+		+menuList("projects.html", "Проекты")
 	ul.menu-container
-		+menuList("#", "Шоурум")
-		+menuList("#", "Дизайнерам")
+		+menuList("showroom.html", "Шоурум")
+		+menuList("designers.html", "Дизайнерам")

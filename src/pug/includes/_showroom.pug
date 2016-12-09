@@ -14,8 +14,43 @@
 				.gallery-vertical_container
 					.gallery-slider.js-gallery-slider
 						.slider-item
+							.slider-item_container
+								.video-container
+									.video
+										video(id="go" autoplay loop)
+											source(src="video/primebeef.webm" type="video/webm")
+									.poster
+										.poster_img(style="background-image: url(img/video-holder/Beach-Camera.jpg)")
+									.widget
+										.overlay
+										.icon
 						.slider-item
+							.slider-item_container
+								.video-container
+									.video
+										video(id="go" autoplay loop)
+											source(src="video/primebeef.webm" type="video/webm")
+									.poster
+										.poster_img(style="background-image: url(img/video-holder/Beach-Camera.jpg)")
+									.widget
+										.overlay
+										.icon
 						.slider-item
+							.slider-item_container
+								.image-container
+									img(src="img/gallery/item-3.jpg")
 						.slider-item
+							.slider-item_container
+								.image-container
+									img(src="img/gallery/item-5.jpg")
+						.slider-item
+							.slider-item_container
+								.image-container
+									img(src="img/gallery/item-4.jpg")
+					.pagination-container
+						.pagination-current
+							span.current 01
+						.pagination-spinner |
+						.pagination-all 04
 			script(type="text/javascript").
 				var verticalGallery = new VerticalGallery($(".js-gallery-slider"));

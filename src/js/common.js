@@ -187,7 +187,25 @@ FullSlider.prototype.handlerEvents = function(){
 		$(this).parents(self.options.innerSlider).addClass("animation");
 
 		self.triggerNext($(this).parents(self.options.innerSlider).find(".slide-inserted"))
-	})
+	});
+
+	$(window).on("DOMMouseScroll mousewheel", function(e){
+			
+		this.direction = bScroll.scrollEvents(e, self.action);
+
+		if(this.direction == "up") {
+			if(self.action) {
+				return false;
+			}
+			self.prev();
+		}
+		if(this.direction == "down") {
+			if(self.action) {
+				return false;
+			}
+			self.next();
+		}
+	});
 
 };
 
@@ -459,12 +477,30 @@ function GallerySlider(el) {
 
 	_this.initHandlers = function(){
 		document.addEventListener("keyup", function(event){
-		if(self.action) {
-			return false;
-		}
-		if( event.keyCode === 40 ) _this.f.nextPage()
-		if( event.keyCode === 38 ) _this.f.prevPage()
-	});
+			if(self.action) {
+				return false;
+			}
+			if( event.keyCode === 40 ) _this.f.nextPage()
+			if( event.keyCode === 38 ) _this.f.prevPage()
+		});
+		$(window).on("DOMMouseScroll mousewheel", function(e){
+			
+			this.direction = bScroll.scrollEvents(e, self.action);
+
+			if(this.direction == "up") {
+				if(self.action) {
+					return false;
+				}
+				_this.f.prevPage()
+			}
+			if(this.direction == "down") {
+				if(self.action) {
+					return false;
+				}
+				_this.f.nextPage()
+			}
+		});
+
 	}
 
 	_this.init = function(){
@@ -593,6 +629,24 @@ FlipGallery.prototype.eventHandlers = function () {
 	document.addEventListener("keyup", function(event){
 		if( event.keyCode === 40 ) self.nextElements();
 		if( event.keyCode === 38 ) self.prevElements();
+	});
+
+	$(window).on("DOMMouseScroll mousewheel", function(e){
+			
+		this.direction = bScroll.scrollEvents(e, self.action);
+
+		if(this.direction == "up") {
+			if(self.action) {
+				return false;
+			}
+			self.prevElements();
+		}
+		if(this.direction == "down") {
+			if(self.action) {
+				return false;
+			}
+			self.nextElements();
+		}
 	});
 
 	this.thumbnails.on("click", function(){
@@ -744,12 +798,20 @@ BrandModal.prototype = {
 function VerticalGallery(el){
 	this.el = el;
 
-
-	this.init();	
-
+	this.init();
 }
 VerticalGallery.prototype = {
 	init: function(){
+		var self = this;
+
+		this.video = this.el.find("video");
+
+		this.el.on("init", function(slick){
+			self.video.each(function(){
+				$(this)[0].play();
+			})
+		})
+
 		this.el.slick({
 			infinite: false,
 			slidesToShow: 1,
@@ -759,24 +821,155 @@ VerticalGallery.prototype = {
 			vertical: true,
 			arrows: false,
 			touchMove: false,
-			swipe: false
+			swipe: false,
+			speed: 1600
 		});
 
+		this.slideLength = this.el.find(".slider-item").length;
+
+		this.dur = 1600;
+
+		this.action = false;
+
+		this.paginAll = this.el.next().find(".pagination-all");
+		this.paginCurrent = this.el.next().find(".current");
+
+		if(this.slideLength < 10) {
+			this.paginAll.text("0" + this.slideLength);
+		}
+		this.img = $(".featured-image") || $(".lazy");
+
 		this.eventHandlers();
+		this.resizeVideo();
+		this.resizeEvent();
+
 	},
 	eventHandlers: function(){
 		var self = this;
 
 		document.addEventListener("keyup", function(event){
+
 			if( event.keyCode === 40 ) self.nextSlide();
 			if( event.keyCode === 38 ) self.prevSlide();
 		});
 
+		$(window).on("DOMMouseScroll mousewheel", function(e){
+			
+			this.direction = bScroll.scrollEvents(e, self.action);
+
+			if(this.direction == "up") {
+				self.prevSlide();
+			}
+			if(this.direction == "down") {
+				self.nextSlide();
+			}
+		});
+
+		this.el.on("afterChange", function(event, slick, currentSlide, nextSlide){
+
+			this.currSlide = $(this).slick("slickCurrentSlide") + 1;
+
+			if(self.slideLength < 10) {
+				self.paginCurrent.text("0" + this.currSlide);
+			}
+
+		})
+
 	},
 	nextSlide: function(){
+		if(this.action) {
+			return false;
+		}
+		this.action = true;
+
 		this.el.slick("slickNext");
+		this.endAnimate();
 	},
 	prevSlide: function(){
+		if(this.action) {
+			return false;
+		}
+		this.action = true;
+
 		this.el.slick("slickPrev");
+		this.endAnimate();
+	},
+	endAnimate: function(){
+		var self = this;
+		setTimeout(function(){
+			self.action = false;
+		},self.dur);
+	},
+	resizeVideo: function(){
+		var self = this;
+
+		this.clientContainer = this.video.parent().height();
+
+		this.video.each(function(){
+			$(this).css({
+				"height": self.clientContainer,
+				"width": "auto"
+			})
+		});
+	},
+	resizeEvent: function(){
+		var self = this;
+		$(window).on("resize", function(){
+			this.time;
+			clearTimeout(this.time);
+			this.time = setTimeout(function(){
+				self.resizeVideo();
+			}, 300);
+		})
+	}
+};
+
+function bindScrollEvents() {
+	this.config = {
+		curCount: 0,
+		lastTime: 0,
+		minCount: 8,
+		minTime: 500,
+		lasDir: false
 	}
 }
+
+bindScrollEvents.prototype = {
+	scrollEvents: function(e, action){
+
+		var self = this;
+		this.curTime = e.timeStamp;
+		this.curDirection = e.originalEvent.deltaY;		
+
+		if(((this.curTime - this.config.lastTime) < this.config.minTime) || !this.config.lastTime) {
+			if(!this.config.lasDir || this.curDirection * this.config.lasDir > 0) {
+				this.config.lasDir = this.curDirection;
+				this.config.lastTime = this.curTime;
+				this.config.curCount++;
+			} else {
+				this.config.curCount = 1;
+				this.config.lastTime = this.curTime;
+				this.config.lasDir = this.curDirection
+			}
+		} else {
+			this.config.curCount = 0;
+			this.config.lastTime = 0;
+		}
+
+		if(this.config.curCount >= this.config.minCount) {
+			if(this.curDirection > 0) {
+				return "down"
+			} else {
+				return "up"
+			}
+			this.resetScroll();
+		}
+	},
+	resetScroll: function(){
+		this.config.curCount = 0;
+		this.config.lastTime = 0;
+		this.config.lasDir = false;
+	}
+}
+
+var bScroll = new bindScrollEvents();

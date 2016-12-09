@@ -790,8 +790,10 @@ body
 		left: 0
 		width: 100%
 		height: 100%
+		// background-color: rgba(84, 82, 81, .5)
 		background-color: $overlay
 		opacity: 0.5
+		will-change: opacity
 	img
 		width: 100%
 		max-width: 100%
@@ -999,6 +1001,7 @@ body
 						position: absolute
 						+rem(bottom, 40px)
 						+rem(left, 40px)
+						z-index: 6
 				.flip-card_back
 					position: absolute
 					width: 100%
@@ -1276,6 +1279,8 @@ body
 		height: 100%
 		+r(1150)
 			+rem(width, 470px)
+		.pagination-container
+			z-index: 3
 	.gallery-slider
 		display: block
 		top: 50%
@@ -1286,8 +1291,42 @@ body
 			+rem(height, 560px)
 			overflow: hidden
 			+rem(margin, 32px 0)
-			background-color: #FFF
 			+r(1150)
 				+rem(height, 470px)
+			.slider-item_container
+				width: 100%
+				height: 100%
+				img
+					display: block
 		.slick-list
 			overflow: visible
+		.slick-track
+			// will-change: transform
+.video-container
+	width: 100%
+	height: 100%
+	position: relative
+	.video
+		position: absolute
+		width: 100%
+		height: 100%
+		video
+			position: absolute
+			width: 100%
+			height: 100%
+	.poster
+		position: relative
+		width: 100%
+		bottom: 0
+		height: 100%
+		.poster_img	
+			width: 100%
+			height: 100%
+			background-size: cover
+	.widget
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+
