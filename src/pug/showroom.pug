@@ -15,3 +15,7 @@ block content
 		.burger
 			div
 		include includes/_navigation-site
+		include includes/_video-popup
+		script(type="text/javascript").
+			var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
+			var vModal = new ModalVideo($(".screen_frame"));

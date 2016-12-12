@@ -816,12 +816,12 @@ VerticalGallery.prototype = {
 			arrows: false,
 			touchMove: false,
 			swipe: false,
-			speed: 1600
+			speed: 800
 		});
 
 		this.slideLength = this.el.find(".slider-item").length;
 
-		this.dur = 1600;
+		this.dur = 800;
 
 		this.action = false;
 
@@ -844,11 +844,15 @@ VerticalGallery.prototype = {
 		var self = this;
 
 		this.slideItem.on("mouseenter", function(){
-			$(this).find("video")[0].play();
+			if($(this).find("video").length){
+				$(this).find("video")[0].play();
+			}
 		});
 
 		this.slideItem.on("mouseleave", function(){
-			$(this).find("video")[0].pause();
+			if($(this).find("video").length){
+				$(this).find("video")[0].pause();
+			}
 		})
 
 		document.addEventListener("keyup", function(event){
@@ -907,13 +911,14 @@ VerticalGallery.prototype = {
 	resizeVideo: function(){
 		var self = this;
 
-		this.clientContainer = this.video.parent().height();
-
+		this.clientContainerHeight = this.video.parent().height();
+		this.clientContainerWidth = this.video.parent().width();
+		
 		this.video.each(function(){
 			$(this).css({
-				"height": self.clientContainer,
+				"height": self.clientContainerHeight,
 				"width": "auto"
-			})
+			});
 		});
 	},
 	resizeEvent: function(){
@@ -977,3 +982,57 @@ bindScrollEvents.prototype = {
 }
 
 var bScroll = new bindScrollEvents();
+
+function ModalVideo(el){
+	this.el = el;
+
+	this.init();
+
+}
+ModalVideo.prototype = {
+	init: function(){
+		this.content = $(".perspective");
+		this.modalWindow = $(".modal-video");
+		this.modalFrame = this.modalWindow.find(".modal-video-frame");
+
+		this.eventHandlers();
+	},
+	eventHandlers: function(){
+		var self = this;
+		this.el.on("click", function(){
+			this.videoID = $(this).data("id");
+			this.templateFrame = self.template(this.videoID);
+			self.modalFrame.append(this.templateFrame);
+			self.openModal();
+		});
+	},
+	template: function(video, params) {
+		this.iframe = document.createElement("iframe");
+		this.iframeURL = "https://www.youtube.com/embed/" + video;
+
+		this.iframe.setAttribute("src", this.iframeURL);
+		this.iframe.setAttribute("frameborder", "0");
+
+		// this.iframe = document.createElement("img");
+		// this.iframe.classList.add("iframe");
+		// this.iframeURL = "http://i.ytimg.com/vi/" + video + "/sddefault.jpg" ;
+
+		// this.iframe.setAttribute("src", this.iframeURL);
+		// this.iframe.setAttribute("frameborder", "0");
+
+		return this.iframe;
+	},
+	openModal: function(){
+
+		var self = this;
+
+		   var html = '<script>alert();</script>';
+		   $(html);
+
+		this.content.addClass("open-modal");
+		this.modalWindow.addClass("modal-video-open");
+		setTimeout(function(){
+			
+		}, 500)
+	}
+}

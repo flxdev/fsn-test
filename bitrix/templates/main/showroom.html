@@ -64,13 +64,17 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="screen_frame">
+                            <div class="screen_frame" data-id="wW9uBeGQRyo">
                               <div class="screen_frame-content">
                                 <div class="screen_frame-image">
                                   <div style="background-image: url(img/video-holder/Beach-Camera.jpg)"></div>
+                                  <div class="cover_bg"></div>
                                 </div>
                               </div>
                             </div>
+                          </div>
+                          <div class="slider-item">
+                            <div class="image-container"><img src="img/gallery/item-4.jpg"></div>
                           </div>
                           <div class="slider-item">
                             <div class="cover_video-wrapp">
@@ -84,10 +88,11 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="screen_frame">
+                            <div class="screen_frame" data-id="3TlJWoM69ww">
                               <div class="screen_frame-content">
                                 <div class="screen_frame-image">
                                   <div style="background-image: url(img/video-holder/Beach-Camera.jpg)"></div>
+                                  <div class="cover_bg"></div>
                                 </div>
                               </div>
                             </div>
@@ -100,7 +105,6 @@
                         </div>
                       </div>
                     </div>
-                    <script type="text/javascript">var verticalGallery = new VerticalGallery($(".js-gallery-slider"));</script>
                   </div>
                 </div>
               </div>
@@ -156,6 +160,15 @@
             </div>
           </div>
         </section>
+        <div class="modal-video">
+          <div class="modal-video_container">
+            <div class="modal-video-frame"></div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
+          var vModal = new ModalVideo($(".screen_frame"));
+        </script>
       </div>
     </div>
     <!--END out-->
