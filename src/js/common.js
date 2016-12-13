@@ -821,7 +821,7 @@ VerticalGallery.prototype = {
 
 		this.slideLength = this.el.find(".slider-item").length;
 
-		this.dur = 800;
+		this.dur = 900;
 
 		this.action = false;
 
@@ -986,14 +986,22 @@ var bScroll = new bindScrollEvents();
 function ModalVideo(el){
 	this.el = el;
 
-	this.init();
+	this.videoOBJ = [];
 
+	this.opt = {
+		timeout: 500
+	}
+
+	this.init();
+	// this.initVideo();
 }
 ModalVideo.prototype = {
 	init: function(){
 		this.content = $(".perspective");
 		this.modalWindow = $(".modal-video");
 		this.modalFrame = this.modalWindow.find(".modal-video-frame");
+		this.burger = $(".burger");
+		this.mainCover = $(".out");
 
 		this.eventHandlers();
 	},
@@ -1001,38 +1009,215 @@ ModalVideo.prototype = {
 		var self = this;
 		this.el.on("click", function(){
 			this.videoID = $(this).data("id");
-			this.templateFrame = self.template(this.videoID);
-			self.modalFrame.append(this.templateFrame);
-			self.openModal();
+			this.templateFrame = self.templateVideo(this.videoID);
+
+			self.openModal(this.templateFrame);
 		});
+		this.burger.on("click", function(){
+			self.closeModal();
+		});
+		this.modalWindow.on("click", function(){
+			self.closeModal();
+		});
+		this.modalFrame.on("click", function(event){
+			event.stopPropagation();
+		})
 	},
-	template: function(video, params) {
-		this.iframe = document.createElement("iframe");
-		this.iframeURL = "https://www.youtube.com/embed/" + video;
+	templateVideo: function(id) {
+		var self = this;
+		this.iframeImg = document.createElement("img");
+		this.iframeImgURL = "http://i.ytimg.com/vi/" + id + "/maxresdefault.jpg" ;
 
-		this.iframe.setAttribute("src", this.iframeURL);
-		this.iframe.setAttribute("frameborder", "0");
+		this.iframeImg.setAttribute("src", this.iframeImgURL);
 
-		// this.iframe = document.createElement("img");
-		// this.iframe.classList.add("iframe");
-		// this.iframeURL = "http://i.ytimg.com/vi/" + video + "/sddefault.jpg" ;
+		this.iframeVideo = document.createElement("iframe");
+		this.iframeVideoURL = "https://www.youtube.com/embed/" + id;
+		
+		this.iframeVideo.setAttribute("src", this.iframeVideoURL);
 
-		// this.iframe.setAttribute("src", this.iframeURL);
-		// this.iframe.setAttribute("frameborder", "0");
-
-		return this.iframe;
+		this.videoOBJ.push(this.iframeImg, this.iframeVideo);
+		console.log(this.videoOBJ)
+		return this.videoOBJ;
 	},
-	openModal: function(){
+	initVideo: function () {
+		this.dataInit = this.el.first().data("id");
+		this.videoInit = this.templateVideo(this.dataInit);
+		this.modalFrame.find("iframe").attr("src", this.videoInit);
+	},
+	openModal: function(link){
 
 		var self = this;
 
-		   var html = '<script>alert();</script>';
-		   $(html);
-
 		this.content.addClass("open-modal");
-		this.modalWindow.addClass("modal-video-open");
+		this.modalWindow.addClass("modal-video-open modal-video-overlay");
+
+		this.modalFrame.addClass("animate").append(link[0]);
+
+		this.burger.addClass("open_burger modal");
+
 		setTimeout(function(){
-			
-		}, 500)
+			self.mainCover.addClass("openModal");
+			self.modalFrame.append(link[1]);
+			self.loadFrame();
+		}, this.opt.timeout*1.5);
+	},
+	loadFrame: function(){
+		this.modalFrame.find("iframe").on("load", function(){
+			$(this).addClass("load");
+		});
+	},
+	closeModal: function(){
+		var self = this;
+		this.modalFrame.removeClass("animate");
+		this.burger.removeClass("open_burger");
+		setTimeout(function(){
+			self.content.removeClass("open-modal");
+			self.modalWindow.removeClass("modal-video-overlay");
+			self.modalFrame.empty();
+			self.content.removeClass("open-modal");
+			self.burger.removeClass("modal");
+			self.videoOBJ = [];
+		}, this.opt.timeout);
+		setTimeout(function() {
+			self.modalWindow.removeClass("modal-video-open");
+			self.mainCover.removeClass("openModal");
+		}, this.opt.timeout*1.5);
+	}
+}
+
+function maps(){
+	if(typeof (google) != "object") {
+		var tag = document.createElement("script");
+
+		tag.setAttribute("type", "text/javascript");
+		tag.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcDrkEbKdrAWUT7ZorYyn-NwTj9YD6DN4&callback=initMap");
+		document.querySelector(".map-modal").appendChild(tag);
+	} else {
+		$(initialize);
+	}
+}
+function initMap(){
+	$(window).bind(initialize());
+}
+function initialize() {
+	var stylez = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
+	var mapOptions = {
+		zoom: 14,
+		disableDefaultUI: true,
+		scrollwheel: false,
+		panControl: false,
+		zoomControl: false,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL,
+			position: google.maps.ControlPosition.RIGHT_CENTER
+		},
+		scaleControl: true,
+		center: new google.maps.LatLng(53.913332, 27.567922),
+	};
+
+	map = new google.maps.Map(document.getElementById('map'),mapOptions);
+	var mapType = new google.maps.StyledMapType(stylez, { name:"Grayscale" });
+	map.mapTypes.set('tehgrayz', mapType);
+	map.setMapTypeId('tehgrayz');
+	var image = 'img/icons/baloon.png';
+	var myLatLng = new google.maps.LatLng(53.913332, 27.567922);
+	var beachMarker = new google.maps.Marker({
+		position: myLatLng,
+		map: map,
+		icon: image,
+		title:""
+	});
+
+	google.maps.event.addDomListener(window, "resize", function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, "resize");
+		map.setCenter(center); 
+	});
+
+	// var zoomControlDiv = document.createElement('div');
+ //  	var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+ //  	zoomControlDiv.index = 1;
+	// map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
+};
+function ZoomControl(controlDiv, map) {
+	controlDiv.style.padding = "30px";
+
+	var controlWrapper = document.createElement('div');
+		controlWrapper.style.cursor = 'pointer';
+		controlWrapper.style.textAlign = 'center';
+		controlWrapper.style.width = '30px'; 
+		controlWrapper.style.height = '60px';
+		controlDiv.appendChild(controlWrapper);
+
+	var zoomInButton = document.createElement('div');
+		zoomInButton.classList.add("zoomIn");
+		zoomInButton.style.width = '30px'; 
+		zoomInButton.style.height = '30px';
+		controlWrapper.appendChild(zoomInButton);
+
+	var zoomOutButton = document.createElement('div');
+		zoomOutButton.classList.add("zoomOut");
+		zoomOutButton.style.width = '30px'; 
+		zoomOutButton.style.height = '30px';
+		controlWrapper.appendChild(zoomOutButton);
+
+	google.maps.event.addDomListener(zoomInButton, 'click', function() {
+		map.setZoom(map.getZoom() + 1);
+	});
+
+	google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+		map.setZoom(map.getZoom() - 1);
+	});
+}
+
+function mapModal() {
+	var _this = this;
+
+	_this.opt = {
+		timeout: 500
+	}
+
+	_this.eventHandlers = function(){
+		_this.trigger.on("click", function(e){
+
+			_this.openModal();
+
+			e.preventDefault();
+		});
+
+		_this.mapCloseBtn.on("click", function(){
+			_this.closeModal();
+		});
+
+		_this.modalContainer.on("click", function(){
+			_this.closeModal()
+		});
+
+		_this.mapContainer.on("click", function(e){
+			e.stopPropagation();
+		});
+	};
+
+	_this.openModal = function(){
+		_this.modalContainer.addClass("map-open map-overlay");
+		_this.mapContainer.addClass("open-map");
+	};
+
+	_this.closeModal = function(){
+		_this.mapContainer.removeClass("open-map");
+		_this.modalContainer.removeClass("map-overlay");
+
+		setTimeout(function(){
+			_this.modalContainer.removeClass("map-open");
+		}, _this.opt.timeout);
+	}
+
+	_this.init = function(){
+		_this.trigger = $(".js-modal-map");
+		_this.modalContainer = $(".map-modal");
+		_this.mapContainer = _this.modalContainer.find(".map-container");
+		_this.mapCloseBtn = _this.modalContainer.find(".map-modal-close");
+		_this.eventHandlers();
 	}
 }

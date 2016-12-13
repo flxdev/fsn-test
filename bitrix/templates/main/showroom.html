@@ -47,7 +47,7 @@
                   <div class="image"><img src="img/map.jpg"></div>
                 </div>
                 <div class="columns-template">
-                  <div class="columns"></div>
+                  <div class="columns"><a class="drive-link slide-link js-modal-map" href="#"><span>Как к нам проехать</span></a></div>
                   <div class="columns">
                     <div class="gallery-vertical">
                       <div class="gallery-vertical_container">
@@ -165,9 +165,37 @@
             <div class="modal-video-frame"></div>
           </div>
         </div>
+        <div class="map-modal">
+          <div class="map-container">
+            <div class="map-container_inner">
+              <div class="map" id="map"></div>
+              <div class="contacts-container">
+                <div class="contacts-column">
+                  <div class="contacts-title">Адрес</div>
+                  <div class="contacts-text">
+                    <p>ул. Мележа 5, корп 2</p>
+                    <p>9:00–19:00 в будние дни <br/>10:00–17:00 в выходные</p>
+                    <p><a class="goto" href="#">Как проехать</a></p>
+                  </div>
+                </div>
+                <div class="contacts-column">
+                  <div class="contacts-title">Контакты</div>
+                  <div class="contacts-text">
+                    <p><span>+375 17 237 16 07</span><span>+375 17 237 16 08</span><span>+375 29 111 11 76</span></p>
+                    <p><a class="mailto" href="#">info@fsn.by</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="map-modal-close"></div>
+            </div>
+          </div>
+        </div>
         <script type="text/javascript">
           var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
           var vModal = new ModalVideo($(".screen_frame"));
+          $(maps)
+          var map = new mapModal();
+          map.init();
         </script>
       </div>
     </div>
