@@ -1608,3 +1608,273 @@ body
 	position: absolute
 	left: 18%
 	+rem(bottom, 30px)
+.modal-window
+	position: absolute
+	top: 0
+	left: 100%
+	width: 100%
+	height: 100%
+	z-index: 5
+	&.open
+		left: 0
+	&.modal-animate
+		&::after
+			opacity: 0.5
+		.modal-window_container
+			transform: translate(0, 0)
+	&::after
+		content: ""
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background-color: #33333a
+		opacity: 0
+		transition: opacity 0.5s ease
+		z-index: -1
+	.modal-window_container
+		width: 50%
+		height: 100%
+		background-color: $white
+		float: right
+		font-size: 0
+		text-align: center
+		+rem(padding, 20px)
+		transform: translate(100%, 0)
+		transition: transform 0.5s ease
+		will-change: transform
+		&::before
+			content: ''
+			width: 0
+			display: inline-block
+			vertical-align: middle
+			height: 100%
+		.form-container
+			position: relative
+			display: inline-block
+			vertical-align: middle
+			text-align: left
+			width: 100%
+			+rem(max-width, 457px)
+			.form-container__inner
+				&.show-next
+					.form-area
+						li.current
+							.numbers
+								span
+									animation: moveUpFromDown 0.4s both
+							span
+								label
+									animation: moveUpFromDown 0.4s both
+					.pagin
+						.pagin-current
+							transform: translateY(-100%)
+							transition: transform 0.4s
+						.pagin-next
+							animation: moveUpFromDown 0.4s both
+				&.hide
+					visibility: hidden
+					opacity: 0
+					transition: opacity 0.3s, visibility 0s 0.3s
+		.form-head
+			position: absolute
+			+rem(font-size, 28px)
+			bottom: 100%
+			+rem(margin-bottom, 30px)
+			color: $black
+		.form-area
+			transition: height 0.4s ease
+			position: relative
+			li
+				position: relative
+				visibility: hidden
+				height: 0
+				transition: height 0.3s ease, visibility 0.3s ease
+				// z-index: 100
+				&.current
+					height: auto
+					visibility: visible
+					transition: none
+					.numbers
+						span
+							transform: translateY(0)
+							transition: none
+					span
+						label
+							transform: translateY(0)
+							transition: none
+					.input
+						input
+							opacity: 1
+				.numbers
+					position: absolute
+					+rem(top, -32px)
+					+rem(left, -90px)
+					opacity: 0.2
+					z-index: -1
+					user-select: none
+					pointer-events: none
+					overflow: hidden
+					span
+						display: block
+						transform: translateY(-100%)
+						transition: transform 0.3s
+						font-family: "Regular"
+						+rem(font-size, 72px)
+						color: $black
+						margin-bottom: 0
+				span
+					display: block
+					overflow: hidden
+					+rem(margin-bottom, 50px)
+					label
+						display: block
+						transform: translateY(-100%)
+						font-family: "Regular"
+						color: $black
+						+rem(font-size, 24px)
+						transition: transform 0.3s
+				.input
+					display: block
+					width: 100%
+					border-width: 2px 
+					border-style: solid
+					border-color: $black
+					+rem(height, 75px)
+					input
+						display: block
+						width: 100%
+						border: none
+						opacity: 0
+						transition: opacity 0.3s
+						+rem(height, 75px)
+						+rem(padding, 8px 75px 8px 25px)
+						font-family: "Regular"
+						color: $black
+						background-color: transparent
+						+rem(font-size, 18px)				
+						+rem(letter-spacing, .2px)
+		.controls
+			position: relative
+			z-index: 1
+		.submit
+			display: none
+		.next
+			position: absolute
+			right: 0
+			bottom: 4px
+			+rem(width, 75px)
+			+rem(height, 75px)
+			display: block
+			padding: 0
+			border: none
+			background: none
+			text-align: center
+			z-index: 100
+			cursor: pointer
+			transform: translateX(-20%)
+			transition: transform 0.3s ease, opacity 0.3s ease
+			opacity: 0
+			&::after
+				content: ""
+				+rem(width, 16px)
+				+rem(height, 16px)
+				border-right: 2px solid $black
+				border-bottom: 2px solid $black
+				transform: rotate(-45deg)
+				position: absolute
+				top: 50%
+				left: 50%
+				+rem(margin, -8px 0 0 -8px)
+				will-change: transform
+			&.show
+				transform: none
+				opacity: 1
+				pointer-events: auto
+		.progress
+			background-color: $black
+			height: 5px
+			width: 0%
+			margin-top: 0px
+			transition: width 0.3s ease
+			&::after
+				content: ""
+				width: 100%
+				position: absolute
+				top: auto
+				background-color: rgba(0,0,0,.05)
+				height: inherit
+				z-index: -1
+		.pagin
+			position: absolute
+			right: 0
+			overflow: hidden
+			+rem(width, 54px)
+			text-align: right
+			+rem(margin-top, 10px)
+			span 
+				color: $black
+				font-size: 10px
+				letter-spacing: 3px
+				&.pagin-current
+					font-family: "Light"
+				&.separator
+					+rem(padding, 0 10px)
+			.pagin-next
+				position: absolute
+				left: 0
+				font-family: "Light"
+				top: 5px
+		.error-message
+			position: absolute
+			visibility: hidden
+			opacity: 0
+			transition: opacity 0.4s
+			+rem(font-size, 14px)
+			color: $black
+			+rem(letter-spacing, 0.9px)
+			+rem(margin-top, 10px)
+			&.show
+				visibility: visible
+				opacity: 1
+		.final-message
+			position: absolute
+			visibility: hidden
+			opacity: 0
+			transition: opacity 0.4s ease
+			top: -50%
+			left: -10%
+			width: 100%
+			text-align: left
+			&.show
+				visibility: visible
+				opacity: 1
+				transition-delay: 0.5s
+			.message-inner
+				+rem(max-width, 450px)
+				.message-title
+					font-family: "Regular"
+					+rem(font-size, 32px)
+					color: $black
+					text-transform: uppercase
+					+rem(margin-bottom, 30px)
+				span
+					font-family: "Regular"
+					+rem(font-size, 24px)
+					color: $black
+					+rem(letter-spacing, 0.9px)
+					line-height: 1.2
+				.message-close
+					font-size: 10px
+					color: $black
+					text-transform: uppercase
+					letter-spacing: 1.9px
+					+rem(margin-top, 90px)
+					cursor: pointer
+@keyframes moveUpFromDown 
+	from 
+		transform: translateY(100%)
+	to 
+		transform: translateY(0)
+

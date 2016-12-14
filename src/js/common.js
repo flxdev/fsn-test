@@ -1221,3 +1221,271 @@ function mapModal() {
 		_this.eventHandlers();
 	}
 }
+
+var transitionsEvents = {
+	'WebkitTransition': 'webkitTransitionEnd',
+	'MozTransition': 'transitionend',
+	'OTransition': 'oTransitionEnd',
+	'msTransition': 'MSTransitionEnd',
+	'transition': 'transitionend'
+},
+transitionsEvent = transitionsEvents[Modernizr.prefixed("transition")],
+support = { transitions : Modernizr.csstransitons };
+
+function extend( a, b ) {
+	for( var key in b ) { 
+		if( b.hasOwnProperty( key ) ) {
+			a[key] = b[key];
+		}
+	}
+	return a;
+}
+
+function stepForm(el, options) {
+	this.el = el
+	this.options = extend( {}, this.options );
+  	extend( this.options, options );
+	this._init();
+};
+
+stepForm.prototype.options = {
+	onSubmit : function() {
+		return false;
+	}
+}
+
+stepForm.prototype._init = function () {
+	this.current = 0
+
+	this.quest = [].slice.call($(this.el).find("ol.form-area > li"));
+	this.questCount = this.quest.length
+
+	$(this.quest[0]).addClass("current");
+
+	this.btnNext = $(this.el).find(".next");
+
+	this.progress = $(this.el).find(".progress");
+
+	this.questStatus = $(this.el).find(".pagin");
+	this.currentNum = $(this.el).find(".pagin-current");
+	$(this.currentNum).text("0" + (this.current + 1));
+
+	this.totalNum = $(this.el).find(".pagin-total");
+	$(this.totalNum).text("0" + this.questCount);
+
+	this.error = $(this.el).find(".error-message");
+
+	this.crossClose = $(".burger");
+	this.close = $(this.el).find(".message-close");
+ 
+	this._initEvents();
+
+};
+
+stepForm.prototype._initEvents = function(){
+	var self = this,
+		firstEL = $(this.quest[this.current]).find("input");
+
+
+
+	focusStartFn = function(){
+		// firstEL.unbind("focus", focusStartFn);
+		$(self.btnNext).addClass("show");
+	};
+
+	firstEL.on("focus", focusStartFn);
+
+	this.btnNext.on("click", function(ev){
+		ev.preventDefault();
+		self._nextStep();
+	});
+
+	this.crossClose.add(this.close).on("click", function(ev){
+		ev.preventDefault()
+		setTimeout(function(){
+			self._close();
+		}, 300);
+	});
+
+	document.addEventListener("keydown", function(ev){
+		var codeKey = ev.keyCode;
+
+		if(codeKey === 13) {
+			ev.preventDefault();
+			self._nextStep();
+		}
+	});
+
+	$(this.el).on("keydown", function(ev){
+		var codeKey = ev.keyCode;
+
+		if(codeKey === 9) {
+			ev.preventDefault();
+		}
+	});
+};
+
+stepForm.prototype._nextStep = function(){
+
+	if(!this._validate()) {
+		return false;
+	}
+
+	if(this.current === this.questCount - 1) {
+		this.isFilled = true;
+	}
+
+	this._clearError();
+
+	var currentQuest = this.quest[this.current];
+
+	++this.current;
+
+	this._progress();
+
+	if(!this.isFilled){
+
+		this._updateNumbers();
+
+		$(this.el).find(".form-container__inner").addClass("show-next");
+
+		var nextQuest = this.quest[this.current];
+
+		$(currentQuest).removeClass("current");
+		$(nextQuest).addClass("current");
+	};
+
+
+	var self = this,
+		onTransitionsEventFn = function(ev){
+			if( support.transitions ) {
+				$(this).unbind(transitionsEvent, onTransitionsEventFn);
+			}
+		
+			if(self.isFilled) {
+				self._submit()
+			} else {
+				$(self.el).find(".form-container__inner").removeClass("show-next");
+
+				$(self.currentNum).text($(self.nextQuestNum).text());
+
+				$(self.questStatus).find(self.nextQuestNum).remove();
+				$(nextQuest).find("input").focus();
+			}
+		};
+	if(support.transition) {
+		$(this.progress).on(transitionsEvent, onTransitionsEventFn);
+	} else {
+		onTransitionsEventFn();
+	}
+};
+
+stepForm.prototype._progress = function(){
+	$(this.progress).css("width", this.current * (100 / this.questCount) + "%")
+};
+
+stepForm.prototype._updateNumbers = function(){
+	this.nextQuestNum = document.createElement("span");
+	$(this.nextQuestNum).addClass("pagin-next");
+	$(this.nextQuestNum).text("0" + (this.current + 1));
+
+	$(this.questStatus).append(this.nextQuestNum);
+};
+
+stepForm.prototype._submit = function(){
+	this.options.onSubmit(this.el);
+};
+
+stepForm.prototype._validate = function(){
+	var input = $(this.quest[ this.current ]).find("input").val();
+	if(input === "") {
+		this._showError("EMPTYSTR");
+		return false;
+	}
+
+	return true;
+};
+
+stepForm.prototype._showError = function(err){
+	var message = "";
+	switch(err) {
+		case "EMPTYSTR" :
+			message = "Please fill the field before continuing";
+			break;
+	};
+	$(this.error).text(message);
+	$(this.error).addClass("show");
+};
+
+stepForm.prototype._clearError = function(){
+	$(this.error).removeClass("show");
+}
+
+stepForm.prototype._close = function(){
+	this.current = 0;
+	$(this.el).trigger("reset");
+	$(".form-container__inner").removeClass("hide");
+	$(".final-message").removeClass("show");
+	$(this.quest[0]).addClass("current").siblings().removeClass("current");
+	this.progress.css("width", "0");
+	this.currentNum.text("0" + (this.current + 1));
+	this.isFilled = false;
+	this.btnNext.removeClass("show");
+}
+
+window.stepForm = stepForm;
+
+function Form(){
+	var _this = this;
+
+	_this.initEvents = function(){
+		_this.trigger.on("click", function(){
+			var _ = $(this),
+				_data = _.data("modal");
+
+			_this.openModal(_data);
+		});
+
+		_this.burger.on("click", function(){
+			_this.closeModal();
+		});
+		_this.messageClose.on("click", function(){
+			_this.closeModal();
+		});
+		_this.modal.on("click", function(){
+			_this.closeModal();
+			_this.burger.trigger("click");
+		});
+		_this.modal.find(".modal-window_container").on("click", function(e){
+			e.stopPropagation();
+		});
+	};
+
+	_this.openModal = function(data) {
+		var modal = $("[data-modal-window='" + data + "']");
+
+		modal.addClass("open modal-animate");
+		_this.burger.addClass("modal open_burger");
+		setTimeout(function(){
+			modal.find("li.current input").trigger("focus")
+		}, 700);
+	};
+
+	_this.closeModal = function(){
+		_this.modal.removeClass("modal-animate");
+		_this.burger.removeClass("open_burger");
+		setTimeout(function(){
+			_this.modal.removeClass("open");
+			_this.burger.removeClass("modal");
+		}, 500);
+	}
+
+	_this.init = function(){
+		_this.trigger = $("[data-modal]");
+		_this.burger = $(".burger");
+		_this.modal = $(".modal-window");
+		_this.messageClose = $('.message-close');
+
+		_this.initEvents();
+	}
+}

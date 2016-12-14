@@ -48,7 +48,7 @@
                     <div class="text-container">
                       <div class="side-price">от €600 м<sup>2</sup></div>
                       <div class="side-text">
-                        <p>Плитка коллекции Roma выполнена в&nbsp;средиземноморском стиле и изготовлена из&nbsp;морозоустойчивого керамогранита с&nbsp;матовой поверхностью в терракотовых цветах (с переливами от серого до бежевого). </p><a class="btn" href="#"><span>Оставить заявку</span></a>
+                        <p>Плитка коллекции Roma выполнена в&nbsp;средиземноморском стиле и изготовлена из&nbsp;морозоустойчивого керамогранита с&nbsp;матовой поверхностью в терракотовых цветах (с переливами от серого до бежевого). </p><a class="btn" href="#" data-modal="request"><span>Оставить заявку</span></a>
                       </div>
                     </div>
                   </div>
@@ -123,6 +123,57 @@
             </div>
           </div>
         </section>
+        <div class="modal-window" data-modal-window="request">
+          <div class="modal-window_container">
+            <form class="form-container" id="formSteps">
+              <div class="form-container__inner">
+                <div class="form-head">Получить консультацию</div>
+                <ol class="form-area">
+                                    <li>
+                                      <div class="input">
+                                        <input id="q-1" name="q-1" type="text" placeholder="Ваше имя">
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="input">
+                                        <input id="q-2" name="q-2" type="text" placeholder="Ваше имя">
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="input">
+                                        <input id="q-2" name="q-2" type="text" placeholder="Ваше имя">
+                                      </div>
+                                    </li>
+                </ol>
+                <button class="submit" type="submit"></button>
+                <div class="controls">
+                  <button class="next"></button>
+                  <div class="progress"></div>
+                  <div class="pagin"><span class="pagin-current"></span><span class="separator">|</span><span class="pagin-total"></span></div>
+                  <div class="error-message"></div>
+                </div>
+              </div>
+              <div class="final-message">
+                <div class="message-inner">
+                  <div class="message-title">Thank you</div><span>Form successfully completed! In a short time we will contact you.</span>
+                  <div class="message-close">Close me</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <script type="text/javascript">
+          $(lazy($(".scroller")));
+          var modal = new Form();
+          modal.init();
+          var form = document.getElementById("formSteps");
+          new stepForm(form, {
+          	onSubmit: function(form) {
+          		$(".form-container__inner").addClass("hide");
+          		$(".final-message").addClass("show");
+          	}
+          })
+        </script>
       </div>
     </div>
     <!--END out-->
