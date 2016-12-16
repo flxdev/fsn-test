@@ -11,7 +11,10 @@ block content
 				-var content = "projects"
 				.content(class="content-"+content data-page=content)
 					include includes/_temp-projects-4
-			-var currentClass = "Проекты"
-		.burger
-			div
+			script(type="text/javascript").
+				$(lazy)
+				var slider = new GallerySlider($(".gallery-slider"));
+				slider.init()
+		-var currentClass = "Проекты"
+		include includes/_burger
 		include includes/_navigation-site

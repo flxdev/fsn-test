@@ -18,3 +18,10 @@ html
     .out
       block content
     //END out
+  - var colorOne = "#524e4b"
+  - var colorSecond = "#2a2a32"
+  include includes/_ajax-cover
+script(type="text/javascript").
+    var revealer = new Revealer($(".revealer"));
+      revealer.init();
+    var ajax = new AjaxLoading($(".ajax-trigger"));

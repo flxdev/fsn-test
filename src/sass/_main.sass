@@ -46,7 +46,7 @@ body
 		z-index: 1
 		transform: translateZ(0) translateX(0) rotateY(0deg)
 		transform-origin: 0% 50%
-		transition: transform 0.3s ease 0.7s
+		transition: transform 0.3s ease 0s
 	&.perspective-action
 		.perspective-container
 			transform: translateZ(-8.375rem) translateX(-1.75rem) rotateY(5deg);
@@ -69,7 +69,7 @@ body
 	z-index: 5
 	opacity: 0
 	visibility: hidden
-	transition: opacity 0.3s $cub 0.7s, visibility 0.3s $cub 0.7s
+	transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s
 	.overlay-circle
 		position: absolute
 		+rem(top, -1175px)
@@ -78,7 +78,7 @@ body
 		+rem(width, 2350px)
 		+rem(height, 2350px)
 		border-radius: 100%
-		transition: transform 0.3s ease 0.3s
+		transition: transform 0.5s ease 0s
 		transform: scale(0)
 	&.navigation-open
 		opacity: 1
@@ -88,7 +88,20 @@ body
 			transform: scale(1)
 		.navigation-container
 			opacity: 1
-			transition-delay: 0.7s
+			transition-delay: 0.2s
+		.navigation-middle
+			transform: translate(0,0)
+			transition-delay: 0.2s
+		.contacts-container
+			.contacts-column
+				&:first-child
+					opacity: 1
+					transform: translate(0,0)
+					transition-delay: 0.3s
+				&:last-child
+					opacity: 1
+					transform: translate(0,0)
+					transition-delay: 0.4s
 	.navigation-container
 		position: relative
 		float: right
@@ -96,9 +109,17 @@ body
 		height: 100vh
 		+rem(padding, 20px 160px 0 10px)
 		opacity: 0
-		transition: opacity 0.3s $cub 0s
+		transition: opacity 0.5s ease 0s
 		.navigation-topline
 			+clr
+	.navigation-middle
+		transform: translate(60px, -30px)
+		transition: transform 0.5s ease 0s
+	.contacts-container
+		.contacts-column
+			transform: translate(60px, -30px)
+			opacity: 0
+			transition: transform 0.5s ease 0s, opacity 0.5s ease 0s
 .social-container
 	float: left
 	.social-item
@@ -135,13 +156,14 @@ body
 				top: 50%
 				+rem(height, 4px)
 				background-color: $black
-				width: 0
 				right: 0
 				+rem(margin-top, -2px)
-				transition: width 0.3s $cub
+				transition: transform 0.3s ease
+				transform: scale(0, 0)
+				+rem(width, 118px)
 			&:hover, &.active
 				&::after
-					+rem(width, 118px)
+					transform: scale(1)
 			a
 				font-family: "Light"
 				+rem(font-size, 36px)
@@ -180,8 +202,42 @@ body
 	border-radius: 100%
 	z-index: 6
 	cursor: pointer
+	div
+		+rem(width, 28px)
+		+rem(height, 14px)
+		position: absolute
+		top: 50%
+		left: 50%
+		+rem(margin, -7px 0 0 -14px)
+		span
+			position: absolute
+			width: 100%
+			display: block
+			background-color: $black
+			height: 2px
+			left: 0
+			transform: rotate(0deg)
+			transition: transform 0.5s ease, left 0.5s ease, opacity 0.5s ease
+			&:nth-child(1)
+				top: 0
+			&:nth-child(2)
+				+rem(top, 6px)
+			&:nth-child(3)
+				+rem(top, 12px)
 	&.open_burger
 		background-color: $black
+		div
+			span
+				background-color: $white
+				&:nth-child(1)
+					+rem(top, 6px)
+					transform: rotate(-135deg)
+				&:nth-child(2)
+					+rem(left, -60px)
+					opacity: 0
+				&:nth-child(3)
+					+rem(top, 6px)		
+					transform: rotate(135deg)
 .logo 
 	+rem(width, 155px)
 	+rem(height, 22px)
@@ -217,18 +273,68 @@ body
 			+rem(margin, -3px 10px 0 0 )
 .share-container
 	position: absolute
-	+rem(bottom, 30px)
-	+rem(left, 30px)
-	+rem(width, 20px)
-	+rem(height, 19px)
+	+rem(bottom, 0px)
+	+rem(left, 0px)
+	+rem(width, 80px)
+	+rem(height, 80px)
 	z-index: 5
+	&:hover
+		.share-list
+			.share-list_item
+				transform: translate(0, 0)
 	.share-trigger
 		width: 100%
 		height: 100%
 		display: block
-		background-image: url(../img/icons/share.png)
-		background-size: cover
 		cursor: pointer
+		.share-trigger_icon
+			+rem(width, 22px)
+			+rem(height, 22px)
+			position: absolute
+			top: 50%
+			left: 50%
+			+rem(margin, -11px 0 0 -11px)
+			.icon
+				+rem(width, 22px)
+				+rem(height, 22px)
+				display: block
+				path
+					fill: $white
+	.share-list
+		position: absolute
+		+rem(bottom, 70px)
+		.share-list_item
+			+rem(width, 80px)
+			display: block
+			position: relative
+			+rem(height, 45px)
+			transform: translate(-100%, 0)
+			transition: transform 0.5s cubic-bezier(.68,-.55,.265,1.55)
+			&:nth-child(1)
+				transition-delay: 0.1s
+			&:nth-child(2)
+				transition-delay: 0.2s
+			&:nth-child(3)
+				transition-delay: 0.3s
+			&:nth-child(4)
+				transition-delay: 0.4s
+			&:nth-child(5)
+				transition-delay: 0.5s
+			&:nth-child(6)
+				transition-delay: 0.6s
+			.share-icon
+				+rem(width, 22px)
+				+rem(height, 22px)
+				position: absolute
+				top: 50%
+				left: 50%
+				+rem(margin, -11px 0 0 -11px)
+				.icon
+					+rem(width, 22px)
+					+rem(height, 22px)
+					display: block
+					path
+						fill: $white
 .developers
 	position: absolute
 	z-index: 5
@@ -1134,11 +1240,13 @@ body
 
 .brands-container
 	+rem(width, 400px)
-	height: 55vh
+	height: 100vh
 	position: absolute
 	+rem(bottom, 60px)
+	// +rem(top, 480)
 	overflow: hidden
 	margin-left: 6%
+	margin-top: 35%
 	&::after
 		content: ''
 		width: 100%
@@ -1163,14 +1271,12 @@ body
 		background: -webkit-linear-gradient(top,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* Chrome10-25,Safari5.1-6 */
 		background: linear-gradient(to bottom,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a32', endColorstr='#002a2a32',GradientType=0 ); /* IE6-9 */
-
-
 	.brand-scroll
 		overflow: auto
 		height: 100%
 		margin-right: -17px
 	.brands-list
-		+rem(padding, 65px 0)
+		+rem(padding, 480px 0 65px)
 		li
 			border-bottom: 1px solid rgba(255,255,255,.3)
 			+rem(padding, 12px 0)
@@ -1184,6 +1290,58 @@ body
 				cursor: pointer
 				&:hover
 					color: $white
+// .brands-container
+// 	+rem(width, 400px)
+// 	// height: 100vh
+// 	position: absolute
+// 	// +rem(bottom, 60px)
+// 	// +rem(top, 480)
+// 	// overflow: hidden
+// 	margin-left: 6%
+// 	// margin-top: 35%
+// 	&::after
+// 		content: ''
+// 		width: 100%
+// 		+rem(bottom, 0px)
+// 		left: 0
+// 		+rem(height, 60px)
+// 		position: absolute
+// 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+99,2a2a32+100,2a2a32+100,1e5799+100,1e5799+100,1e5799+100,2a2a32+100,2a2a32+100,2a2a32+101&0+0,1+70,1+70,1+70,1+100,1+100 */
+// 		background: -moz-linear-gradient(top,  rgba(42,42,50,0) 0%, rgba(42,42,50,1) 70%, rgba(42,42,50,1) 99%, rgba(42,42,50,1) 100%, rgba(42,42,50,1) 101%); /* FF3.6-15 */
+// 		background: -webkit-linear-gradient(top,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* Chrome10-25,Safari5.1-6 */
+// 		background: linear-gradient(to bottom,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a2a32', endColorstr='#2a2a32',GradientType=0 ); /* IE6-9 */
+// 	&::before
+// 		content: ''
+// 		width: 100%
+// 		+rem(top, 0px)
+// 		left: 0
+// 		+rem(height, 60px)
+// 		position: absolute
+// 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+100&1+0,0+100 */
+// 		background: -moz-linear-gradient(top,  rgba(42,42,50,1) 0%, rgba(42,42,50,0) 100%); /* FF3.6-15 */
+// 		background: -webkit-linear-gradient(top,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* Chrome10-25,Safari5.1-6 */
+// 		background: linear-gradient(to bottom,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a32', endColorstr='#002a2a32',GradientType=0 ); /* IE6-9 */
+// 	.brand-scroll
+// 		// overflow: auto
+// 		// height: 100%
+// 		margin-right: -17px
+// 	.brands-list
+// 		+rem(padding, 400px 0 65px)
+// 		li
+// 			border-bottom: 1px solid rgba(255,255,255,.3)
+// 			+rem(padding, 12px 0)
+// 			display: inline-block
+// 			width: 100%
+// 			span
+// 				font-family: "Light"
+// 				+rem(font-size, 28px)
+// 				color: $lgrey
+// 				transition: color 0.3s ease
+// 				cursor: pointer
+// 				&:hover
+// 					color: $white
 .brand-modal
 	position: absolute
 	top: 0
@@ -1878,3 +2036,55 @@ body
 	to 
 		transform: translateY(0)
 
+
+.revealer
+	position: absolute
+	z-index: 1000
+	top: 50%
+	left: 50%
+	pointer-events: none
+	width: 100vw
+	height: 100vh
+	.revealer__layer
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		will-change: transform
+	&.animation-layer-in
+		.revealer__layer
+			animation: anim-effect-one-in 1s cubic-bezier(0.7, 0, 0.3, 1) forwards
+			&:nth-child(2)
+				animation-name: anim-effect-two-in
+	&.animation-layer-out
+		.revealer__layer
+			animation: anim-effect-one-out 1s cubic-bezier(0.7, 0, 0.3, 1) forwards
+			&:nth-child(2)
+				animation-name: anim-effect-two-out
+@keyframes anim-effect-one-in 
+	0% 
+		transform: translate3d(0, 0, 0)
+	100% 
+		transform: translate3d(0, -100%, 0)
+	
+@keyframes anim-effect-two-in 
+	0%,
+	14.5% 
+		transform: translate3d(0, 0, 0)
+	100% 
+		transform: translate3d(0, -100%, 0)
+
+@keyframes anim-effect-one-out
+	0%,
+	14.5%
+		transform: translate3d(0, -100%, 0)
+		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+	100%
+		transform: translate3d(0, -200%, 0);
+@keyframes anim-effect-two-out
+	0%,
+		transform: translate3d(0, -100%, 0)
+		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+	100%
+		transform: translate3d(0, -200%, 0);

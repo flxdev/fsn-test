@@ -60,14 +60,4 @@
 		- var pagin = ["Шоурум","Акции","Новинки"]
 		each paginName, index in pagin
 			.pagination-item(data-index-pagin=index) #{paginName}
-	script(type="text/javascript").
-		var fSlider = document.querySelector(".full-slider");
-		fSlider = new FullSlider(fSlider, {
-			slide: ".slide",
-			slideInserted: ".slide-inserted",
-			paginBar: ".full-pagination",
-			colorContainer: ".color-container",
-			innerSlider: ".full-slider-inserted",
-			innerBullets: ".slider-inseted_bullet",
-			arrowNext: ".slider-inserted_nav"
-		});
+	

@@ -11,7 +11,10 @@ block content
 				-var content = "collection"
 				.content(class="content-"+content data-page=content)
 					include includes/_temp-collection-3
-			-var currentClass = "Коллекции"
-		.burger
-			div
+			script(type="text/javascript").
+				$(lazy)
+				var slider = new GallerySlider($(".gallery-slider"));
+				slider.init()
+		-var currentClass = "Коллекции"
+		include includes/_burger
 		include includes/_navigation-site

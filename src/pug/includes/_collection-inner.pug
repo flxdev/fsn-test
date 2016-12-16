@@ -30,5 +30,15 @@
 				.scroll-down
 					.mouse
 						.scroll-wheel
-			script(type="text/javascript").
-				$(lazy($(".scroller")))
+	script(type="text/javascript").
+		$(lazy($(".scroller")));
+		var modal = new Form();
+		modal.init();
+		var form = document.getElementById("formSteps");
+		new stepForm(form, {
+			onSubmit: function(form) {
+				$(".form-container__inner").addClass("hide");
+				$(".final-message").addClass("show");
+			}
+		})
+				

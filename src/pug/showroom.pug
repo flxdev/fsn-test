@@ -11,15 +11,15 @@ block content
 				-var content = "showroom"
 				.content(class="content-"+content data-page=content)
 					include includes/_showroom
-			-var currentClass = "Шоурум"
-		.burger
-			div
-		include includes/_navigation-site
+			include includes/_map-modal
+			script(type="text/javascript").
+				var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
+				var vModal = new ModalVideo($(".screen_frame"));
+				$(maps)
+				var map = new mapModal();
+				map.init();
 		include includes/_video-popup
-		include includes/_map-modal
-		script(type="text/javascript").
-			var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
-			var vModal = new ModalVideo($(".screen_frame"));
-			$(maps)
-			var map = new mapModal();
-			map.init();
+		-var currentClass = "Шоурум"
+		include includes/_burger
+		include includes/_navigation-site
+	

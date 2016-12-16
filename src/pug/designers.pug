@@ -11,10 +11,9 @@ block content
 				-var content = "designers"
 				.content(class="content-"+content data-page=content)
 					include includes/_designers
-			-var currentClass = "Дизайнерам"
-		.burger
-			div
+			include includes/_brand-modal
+			script(type="text/javascript").
+				var modal = new BrandModal($(".modal"));
+		-var currentClass = "Дизайнерам"
+		include includes/_burger
 		include includes/_navigation-site
-		include includes/_brand-modal
-		script(type="text/javascript").
-			var modal = new BrandModal($(".modal"));

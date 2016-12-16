@@ -15,7 +15,7 @@
 		.columns
 			.brands-container
 				.brand-scroll
-					ul.brands-list
+					ul.brands-list(data-speed="0")
 						mixin brand(name, index)
 							li
 								span(class="modal" data-brand-index = index) #{name}
@@ -33,3 +33,4 @@
 						+brand("Ariostea", 12)
 						+brand("Ceracasa", 13)
 						+brand("Fap Ceramiche", 14)
+	

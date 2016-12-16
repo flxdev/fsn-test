@@ -1,7 +1,7 @@
 nav.menu
 	mixin menuList(link, name)
 		li(class="menu-item" class={active: name === currentClass})
-			a(href=link) #{name}
+			a(class="ajax-trigger" href=link) #{name}
 	ul.menu-container
 		+menuList("/", "Главная")
 	ul.menu-container
