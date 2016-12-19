@@ -4,6 +4,7 @@ block title
 	title stocks
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,15 +12,14 @@ block content
 				-var content = "showroom"
 				.content(class="content-"+content data-page=content)
 					include includes/_showroom
-			include includes/_map-modal
-			script(type="text/javascript").
-				var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
-				var vModal = new ModalVideo($(".screen_frame"));
-				$(maps)
-				var map = new mapModal();
-				map.init();
+		include includes/_map-modal
 		include includes/_video-popup
-		-var currentClass = "Шоурум"
-		include includes/_burger
-		include includes/_navigation-site
+		script(type="text/javascript").
+			var verticalGallery = new VerticalGallery($(".js-gallery-slider"));
+			var vModal = new ModalVideo($(".screen_frame"));
+			$(maps)
+			var map = new mapModal();
+			map.init();
+	-var currentClass = "Шоурум"
+	include includes/_navigation-site
 	

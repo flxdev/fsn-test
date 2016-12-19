@@ -36,15 +36,29 @@ function burgerMenu(){
 	var _this = this;
 
 	_this.eventHandler = function(){
+
 		_this.trigger.addEventListener("click", _this.openMenu, false);
 		_this.menu.addEventListener("click",_this.closeMenu, false);
 
 		_this.menuChild.addEventListener("click", function(event){
 			event.stopPropagation();
-		})
+		});
 		_this.circle.addEventListener("click", function(event){
 			event.stopPropagation();
-		})
+		});
+
+		// Array.prototype.forEach.call(_this.linkItem, function(item, i) {
+		// 	item.addEventListener("click", function(event){
+		// 		var link = this.getAttribute("href");
+		// 		_this.closeMenu();
+		// 		setTimeout(function(){
+		// 			ajax.action(link)
+		// 			console.log(true)
+		// 		}, 1200);
+		// 		return false;
+		// 		event.preventDefault();
+		// 	});
+		// });
 	}
 
 	 _this.openMenu = function() {
@@ -68,8 +82,9 @@ function burgerMenu(){
 	 	_this.trigger = document.querySelector(".burger");
 		_this.perspective = document.querySelector(".perspective");
 		_this.menu = document.querySelector(".navigation-site");
-		_this.menuChild = document.querySelector(".navigation-container");
+		_this.menuChild = document.querySelector(".navigation_container");
 		_this.circle = document.querySelector(".overlay-circle");
+		_this.linkItem = document.querySelectorAll(".menu-item_link");
 		_this.eventHandler();
 
 	}
@@ -79,6 +94,7 @@ window.onload = function() {
 	b = new burgerMenu();
 	b.init();
 }
+
 
 function extend( a, b ) {
 	for( var key in b ) { 
@@ -789,7 +805,7 @@ BrandModal.prototype = {
 	init: function(){
 		this.modalContainer = $(".brand-modal");
 		this.brandContainer = $(".brand-modal_container");
-		this.burger = this.modalContainer.parent().find(".burger");
+		this.burger = this.modalContainer.parents(".out").find(".burger");
 
 		this.eventHandlers();
 	},
@@ -1069,7 +1085,6 @@ ModalVideo.prototype = {
 		this.iframeVideo.setAttribute("src", this.iframeVideoURL);
 
 		this.videoOBJ.push(this.iframeImg, this.iframeVideo);
-		console.log(this.videoOBJ)
 		return this.videoOBJ;
 	},
 	initVideo: function () {
@@ -1110,7 +1125,7 @@ ModalVideo.prototype = {
 			self.content.removeClass("open-modal");
 			self.burger.removeClass("modal");
 			self.videoOBJ = [];
-		}, this.opt.timeout);
+		}, this.opt.timeout*1.5);
 		setTimeout(function() {
 			self.modalWindow.removeClass("modal-video-open");
 			self.mainCover.removeClass("openModal");
@@ -1523,22 +1538,6 @@ function Form(){
 	}
 }
 
-
-function debounce(func, wait, immediate) {
-	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		var later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
-};
-
 function Revealer(el){
 	var _this = this;
 
@@ -1578,13 +1577,15 @@ function Revealer(el){
 	};
 }
 
+
+
 function AjaxLoading(el){
 	var _this = this;
 
 	_this.ajaxLink = el;
 	_this.burger = $(".burger");
 	_this.revealContainer = $(".revealer");
-	_this.appendMain = $(".perspective-container");
+	_this.appendMain = $(".perspective");
 
 	_this.params = {
 		animIn: "animation-layer-in",
@@ -1595,7 +1596,8 @@ function AjaxLoading(el){
 	_this.isAnimate = false;
 
 	_this.initEvents = function(){
-		_this.ajaxLink.on("click", function(e){
+
+		$(".ajax-trigger").off("click.trigger").on("click.trigger", function(e){
 
 			if(_this.isAnimate) {
 				return false;
@@ -1609,7 +1611,9 @@ function AjaxLoading(el){
 				b.closeMenu.apply(_this);
 				setTimeout(function(){
 					_this.action(link)
-				}, 500);
+				}, 800);
+			} else {
+				_this.action(link)
 			}
 
 			e.preventDefault();
@@ -1627,10 +1631,11 @@ function AjaxLoading(el){
 			},
 			success: function(content) {
 				_this.history(link);
-				var mainContent = $(content).find(".perspective-container");
+				var mainContent = $(content).find(".perspective");
 				setTimeout(function(){
 					_this.appendMain.html(mainContent).promise().done(function(){
-						_this.endAnimate();	
+						_this.endAnimate();
+						_this.initEvents();
 					});
 				},1000);
 			}
@@ -1652,6 +1657,89 @@ function AjaxLoading(el){
 			$(this).removeClass(_this.params.animOut);
 			_this.isAnimate = false;
 		})
+	};
+	_this.browserState = function(){
+		$(window).bind("popstate", function(e){
+			var pageState = location.pathname;
+
+			_this.action(pageState);
+		})
 	}
 	_this.initEvents();
+	_this.browserState();
+}
+
+function SerfProject(el){
+	this.el = el;
+
+	this.options = {
+		isAnimation: false
+	}
+
+	this.init();
+
+}
+SerfProject.prototype = {
+	init: function(){
+		this.NextProject = this.el.find("#next");
+		this.PrevProject = this.el.find("#prev");
+		this.colorContainer = $(".color-container");
+		this.animContainer = $(".out");
+		this.templateColums = $(".columns-template");
+		this.templateHead = $(".head-container");
+
+		this.initEvents();
+	},
+	initEvents: function(){
+		var self = this;
+		this.PrevProject.on("click", function(e){
+			self.clickHandler($(this));
+			e.preventDefault();
+		}),
+		this.NextProject.on("click", function(e){
+			self.clickHandler($(this));
+			e.preventDefault();
+		})
+	},
+	clickHandler: function(_this){
+		var link = _this.attr("href");
+
+		if(link == "#" || link == "") {
+			return false;
+		}
+		this.loadProject(link)
+
+		return false;
+	},
+	loadProject: function(link) {
+		var self = this;
+		$.ajax({
+			link: link,
+			dataType: "html",
+			async: true,
+			beforeSend: function(){
+				self.startAnimation();
+			},
+			success: function(project) {
+				var projectTemplate = $(project).find(".columns-template"),
+					projectHead = $(project).find(".head-container"),
+					projectColor = $(project).find(".color-container .color").css("background-color");
+
+				setTimeout(function(){
+					self.templateColums.html(projectTemplate);
+					self.templateHead.html(projectHead).promise().done(function(){
+						self.endAnimation(projectColor);
+						$(lazy($(".scroller")));
+					});
+				},1000);
+			}
+		});
+	},
+	startAnimation: function(){
+		this.animContainer.addClass("animation");
+	},
+	endAnimation: function(color){
+		this.animContainer.removeClass("animation");
+		this.colorContainer.find(".color").css("background-color", color);
+	}
 }

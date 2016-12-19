@@ -4,6 +4,7 @@ block title
 	title Collection inner
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,19 +12,17 @@ block content
 				-var content = "collection"
 				.content(class="content-"+content data-page=content)
 					include includes/_collection-inner
-			
-			include includes/_popup-request
-			script(type="text/javascript").
-				$(lazy($(".scroller")));
-				var modal = new Form();
-				modal.init();
-				var form = document.getElementById("formSteps");
-				new stepForm(form, {
-					onSubmit: function(form) {
-						$(".form-container__inner").addClass("hide");
-						$(".final-message").addClass("show");
-					}
-				})
-		-var currentClass = "Коллекции"
-		include includes/_burger
-		include includes/_navigation-site
+		include includes/_popup-request
+		script(type="text/javascript").
+			$(lazy($(".scroller")));
+			var modal = new Form();
+			modal.init();
+			var form = document.getElementById("formSteps");
+			new stepForm(form, {
+				onSubmit: function(form) {
+					$(".form-container__inner").addClass("hide");
+					$(".final-message").addClass("show");
+				}
+			})
+	-var currentClass = "Коллекции"
+	include includes/_navigation-site

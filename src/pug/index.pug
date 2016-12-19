@@ -4,6 +4,7 @@ block title
 	title index
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,17 +12,16 @@ block content
 				-var content = "mainpage"
 				.content(class="content-"+content data-page=content)
 					include includes/_mainslider
-			script(type="text/javascript").
-				var fSlider = document.querySelector(".full-slider");
-					fSlider = new FullSlider(fSlider, {
-						slide: ".slide",
-						slideInserted: ".slide-inserted",
-						paginBar: ".full-pagination",
-						colorContainer: ".color-container",
-						innerSlider: ".full-slider-inserted",
-						innerBullets: ".slider-inseted_bullet",
-						arrowNext: ".slider-inserted_nav"
-					});
-		-var currentClass = "Главная"
-		include includes/_burger
-		include includes/_navigation-site
+		script(type="text/javascript").
+			var fSlider = document.querySelector(".full-slider");
+				fSlider = new FullSlider(fSlider, {
+					slide: ".slide",
+					slideInserted: ".slide-inserted",
+					paginBar: ".full-pagination",
+					colorContainer: ".color-container",
+					innerSlider: ".full-slider-inserted",
+					innerBullets: ".slider-inseted_bullet",
+					arrowNext: ".slider-inserted_nav"
+				});
+	-var currentClass = "Главная"
+	include includes/_navigation-site

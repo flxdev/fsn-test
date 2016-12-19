@@ -4,6 +4,7 @@ block title
 	title index
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,10 +12,9 @@ block content
 				-var content = "collection"
 				.content(class="content-"+content data-page=content)
 					include includes/_temp-collection
-			script(type="text/javascript").
-				$(lazy)
-				var slider = new GallerySlider($(".gallery-slider"));
-				slider.init()
-		-var currentClass = "Коллекции"
-		include includes/_burger
-		include includes/_navigation-site
+		script(type="text/javascript").
+			$(lazy)
+			var slider = new GallerySlider($(".gallery-slider"));
+			slider.init()
+	-var currentClass = "Коллекции"
+	include includes/_navigation-site

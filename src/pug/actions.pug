@@ -4,6 +4,7 @@ block title
 	title stocks
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,10 +12,9 @@ block content
 				-var content = "stocks"
 				.content(class="content-"+content data-page=content)
 					include includes/_stocks
-			script(type="text/javascript").
-				$(lazy)
-				$(flipCard)
-				var flip = new FlipGallery($(".flip-gallery"))
-		-var currentClass = "Акции"
-		include includes/_burger
-		include includes/_navigation-site
+		script(type="text/javascript").
+			$(lazy)
+			$(flipCard)
+			var flip = new FlipGallery($(".flip-gallery"))
+	-var currentClass = "Акции"
+	include includes/_navigation-site

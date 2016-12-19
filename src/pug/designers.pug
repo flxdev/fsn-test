@@ -4,6 +4,7 @@ block title
 	title stocks
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,9 +12,18 @@ block content
 				-var content = "designers"
 				.content(class="content-"+content data-page=content)
 					include includes/_designers
-			include includes/_brand-modal
-			script(type="text/javascript").
-				var modal = new BrandModal($(".modal"));
-		-var currentClass = "Дизайнерам"
-		include includes/_burger
-		include includes/_navigation-site
+		include includes/_brand-modal
+		include includes/_popup-request
+		script(type="text/javascript").
+			var modal = new BrandModal($(".modal"));
+			var modal = new Form();
+			modal.init();
+			var form = document.getElementById("formSteps");
+			new stepForm(form, {
+				onSubmit: function(form) {
+					$(".form-container__inner").addClass("hide");
+					$(".final-message").addClass("show");
+				}
+			})
+	-var currentClass = "Дизайнерам"
+	include includes/_navigation-site

@@ -86,7 +86,7 @@ body
 		transition-delay: 0s
 		.overlay-circle
 			transform: scale(1)
-		.navigation-container
+		.navigation_container
 			opacity: 1
 			transition-delay: 0.2s
 		.navigation-middle
@@ -102,7 +102,7 @@ body
 					opacity: 1
 					transform: translate(0,0)
 					transition-delay: 0.4s
-	.navigation-container
+	.navigation_container
 		position: relative
 		float: right
 		+rem(width, 650px)
@@ -198,11 +198,11 @@ body
 	+rem(width, 53px)
 	+rem(height, 53px)
 	background-color: $white
-	transition: background-color 0.5s $cub
+	transition: background-color 0.3s ease-in-out 0.3s
 	border-radius: 100%
 	z-index: 6
 	cursor: pointer
-	div
+	.humburger
 		+rem(width, 28px)
 		+rem(height, 14px)
 		position: absolute
@@ -216,28 +216,61 @@ body
 			background-color: $black
 			height: 2px
 			left: 0
-			transform: rotate(0deg)
-			transition: transform 0.5s ease, left 0.5s ease, opacity 0.5s ease
+			transition: width 0.3s ease-in-out
 			&:nth-child(1)
 				top: 0
+				transition-delay: .5s
 			&:nth-child(2)
 				+rem(top, 6px)
+				transition-delay: .625s
 			&:nth-child(3)
 				+rem(top, 12px)
+				transition-delay: .75s
+	.cross
+		+rem(width, 28px)
+		+rem(height, 28px)
+		position: absolute
+		top: 50%
+		left: 50%
+		+rem(margin, -14px 0 0 -14px)
+		transform: rotate(45deg)
+		span
+			transition: width 0.3s ease-in-out, height 0.3s ease-in-out
+			&:nth-child(1)
+				height: 0%
+				width: 2px
+				position: absolute
+				top: 0
+				left: 48%
+				transition-delay: 0s
+				background-color: $white
+			&:nth-child(2)
+				width: 0%
+				height: 2px
+				position: absolute
+				top: 48%
+				left: 0
+				transition-delay: 0.25s
+				background-color: $white
 	&.open_burger
 		background-color: $black
-		div
+		.humburger
 			span
-				background-color: $white
+				width: 0
 				&:nth-child(1)
-					+rem(top, 6px)
-					transform: rotate(-135deg)
+					transition-delay: .0s
 				&:nth-child(2)
-					+rem(left, -60px)
-					opacity: 0
+					transition-delay: .125s
 				&:nth-child(3)
-					+rem(top, 6px)		
-					transform: rotate(135deg)
+					transition-delay: .25s
+		.cross
+			span
+				&:nth-child(1)
+					height: 100%
+					transition-delay: .625s
+				&:nth-child(2)
+					width: 100%
+					transition-delay: .375s
 .logo 
 	+rem(width, 155px)
 	+rem(height, 22px)
@@ -658,6 +691,12 @@ body
 	z-index: 2
 	width: 100%
 	height: 100%
+	.head-container
+		transition: opacity 0.3s ease, transform 0.5s ease
+	.text-container
+		transition: opacity 0.3s ease 0.125s, transform 0.5s ease 0.125s
+	.scroller
+		transition: opacity 0.3s ease, transform 0.5s ease
 	.color-container
 		position: absolute
 		z-index: 1
@@ -840,10 +879,15 @@ body
 			position: absolute
 			will-change: transform
 			&:hover
+				.featured-image
+					transform: scale(1.05)
 				.element-text
 					&::after
 						+rem(width, 108px)
 						+rem(right, 20px)
+			.featured-image
+				transform: scale(1)
+				transition: transform 0.5s ease
 			.element-text
 				position: absolute
 				z-index: 2
@@ -1240,13 +1284,14 @@ body
 
 .brands-container
 	+rem(width, 400px)
-	height: 100vh
+	// height: calc(100vh - 3.75rem)
+	+rem(top, 60px)
 	position: absolute
 	+rem(bottom, 60px)
 	// +rem(top, 480)
 	overflow: hidden
 	margin-left: 6%
-	margin-top: 35%
+	// margin-top: 35%
 	&::after
 		content: ''
 		width: 100%
@@ -1276,7 +1321,7 @@ body
 		height: 100%
 		margin-right: -17px
 	.brands-list
-		+rem(padding, 480px 0 65px)
+		+rem(padding, 350px 0 65px)
 		li
 			border-bottom: 1px solid rgba(255,255,255,.3)
 			+rem(padding, 12px 0)
@@ -2088,3 +2133,16 @@ body
 		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 	100%
 		transform: translate3d(0, -200%, 0);
+
+.out
+	&.animation
+		.gallery-container
+			.head-container
+				opacity: 0
+				transform: translate(-6em, 0)
+			.text-container
+				opacity: 0
+				transform: translate(-6rem, 0)
+			.scroller
+				opacity: 0
+				transform: translate(6rem, 0)

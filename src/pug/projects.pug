@@ -4,6 +4,7 @@ block title
 	title Projects
 
 block content
+	include includes/_burger
 	.perspective
 		.perspective-container
 			include includes/_headsite
@@ -11,10 +12,9 @@ block content
 				-var content = "projects"
 				.content(class="content-"+content data-page=content)
 					include includes/_temp-projects
-			script(type="text/javascript").
-				$(lazy)
-				var slider = new GallerySlider($(".gallery-slider"));
-				slider.init()
-		-var currentClass = "Проекты"
-		include includes/_burger
-		include includes/_navigation-site
+		script(type="text/javascript").
+			$(lazy)
+			var slider = new GallerySlider($(".gallery-slider"));
+			slider.init()
+	-var currentClass = "Проекты"
+	include includes/_navigation-site

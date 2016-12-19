@@ -7,16 +7,21 @@
     <meta content="IE=9" http-equiv="X-UA-Compatible">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" media="all" href="css/screen.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="js/app.js"></script>
   </head>
   <body>
     <!--BEGIN out-->
     <div class="out">
+      <div class="burger">
+        <div class="humburger"><span></span><span></span><span></span></div>
+        <div class="cross"><span></span><span></span></div>
+      </div>
       <div class="perspective">
         <div class="perspective-container">
-          <div class="head-site"><a class="logo" href="/"></a>
+          <div class="head-site"><a class="logo ajax-trigger" href="/"></a>
             <div class="lang-container"><a class="lang-item" href="#">eng</a><a class="lang-item" href="#">рус</a>
-            </div><a class="collections" href="#"><i></i>Коллекции</a>
+            </div><a class="collections ajax-trigger" href="collection.html"><i></i>Коллекции</a>
             <div class="share-container">
               <div class="share-trigger">
                 <div class="share-trigger_icon"><svg viewBox="0 0 49 48" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="m40.44922,31.24998c-2.40002,0 -4.5,1 -6,2.60004l-17.70001,-8.70002c0.10004,-0.40002 0.10004,-0.79999 0.10004,-1.19995c0,-0.40002 0,-0.80005 -0.10004,-1.20007l17.70001,-8.59998c1.5,1.59998 3.70001,2.59998 6.09998,2.59998c4.60004,0 8.30005,-3.69995 8.30005,-8.29994c0,-4.60003 -3.70001,-8.30005 -8.30005,-8.30005c-4.59998,0 -8.29999,3.70001 -8.29999,8.30005c0,0.39996 0,0.79993 0.10004,1.19995l-17.70001,8.59999c-1.5,-1.59998 -3.70001,-2.59998 -6.10004,-2.59998c-4.59997,0 -8.29999,3.70001 -8.29999,8.30005c0,4.59998 3.70001,8.29993 8.29999,8.29993c2.40002,0 4.5,-1 6,-2.59998l17.70001,8.70002c-0.09998,0.39996 -0.09998,0.79999 -0.09998,1.20001c0,4.59998 3.70001,8.29999 8.29999,8.29999c4.59998,0 8.29999,-3.70001 8.29999,-8.29999s-3.70001,-8.30005 -8.29999,-8.30005z"></path></svg></div>
@@ -141,62 +146,59 @@
               </div>
             </div>
           </section>
-          <script type="text/javascript">
-            $(lazy)
-            $(flipCard)
-            var flip = new FlipGallery($(".flip-gallery"))
-          </script>
         </div>
-        <div class="burger">
-          <div><span></span><span></span><span></span></div>
-        </div>
-        <section class="navigation-site">
-          <div class="overlay-circle"></div>
-          <div class="navigation-container">
-            <div class="navigation-topline">
-              <div class="social-container"><a class="social-item" href="#">facebook</a><a class="social-item" href="#">instagram</a><a class="social-item" href="#">linkedin</a>
-              </div>
-              <div class="lang-container"><a class="lang-item" href="#">eng</a><a class="lang-item" href="#">рус</a>
-              </div>
+        <script type="text/javascript">
+          $(lazy)
+          $(flipCard)
+          var flip = new FlipGallery($(".flip-gallery"))
+        </script>
+      </div>
+      <section class="navigation-site">
+        <div class="overlay-circle"></div>
+        <div class="navigation_container">
+          <div class="navigation-topline">
+            <div class="social-container"><a class="social-item" href="#">facebook</a><a class="social-item" href="#">instagram</a><a class="social-item" href="#">linkedin</a>
             </div>
-            <div class="navigation-middle">
-              <nav class="menu">
-                <ul class="menu-container">
-                                  <li class="menu-item"><a class="ajax-trigger" href="/">Главная</a></li>
-                </ul>
-                <ul class="menu-container">
-                                  <li class="menu-item"><a class="ajax-trigger" href="collection.html">Коллекции</a></li>
-                                  <li class="menu-item active"><a class="ajax-trigger" href="actions.html">Акции</a></li>
-                                  <li class="menu-item"><a class="ajax-trigger" href="projects.html">Проекты</a></li>
-                </ul>
-                <ul class="menu-container">
-                                  <li class="menu-item"><a class="ajax-trigger" href="showroom.html">Шоурум</a></li>
-                                  <li class="menu-item"><a class="ajax-trigger" href="designers.html">Дизайнерам</a></li>
-                </ul>
-              </nav>
+            <div class="lang-container"><a class="lang-item" href="#">eng</a><a class="lang-item" href="#">рус</a>
             </div>
-            <div class="navigation-bottomline">
-              <div class="contacts-container">
-                <div class="contacts-column">
-                  <div class="contacts-title">Адрес</div>
-                  <div class="contacts-text">
-                    <p>ул. Мележа 5, корп 2</p>
-                    <p>9:00–19:00 в будние дни <br/>10:00–17:00 в выходные</p>
-                    <p><a class="goto" href="#">Как проехать</a></p>
-                  </div>
+          </div>
+          <div class="navigation-middle">
+            <nav class="menu">
+              <ul class="menu-container">
+                              <li class="menu-item"><a class="menu-item_link ajax-trigger" href="/">Главная</a></li>
+              </ul>
+              <ul class="menu-container">
+                              <li class="menu-item"><a class="menu-item_link ajax-trigger" href="collection.html">Коллекции</a></li>
+                              <li class="menu-item active"><a class="menu-item_link ajax-trigger" href="actions.html">Акции</a></li>
+                              <li class="menu-item"><a class="menu-item_link ajax-trigger" href="projects.html">Проекты</a></li>
+              </ul>
+              <ul class="menu-container">
+                              <li class="menu-item"><a class="menu-item_link ajax-trigger" href="showroom.html">Шоурум</a></li>
+                              <li class="menu-item"><a class="menu-item_link ajax-trigger" href="designers.html">Дизайнерам</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="navigation-bottomline">
+            <div class="contacts-container">
+              <div class="contacts-column">
+                <div class="contacts-title">Адрес</div>
+                <div class="contacts-text">
+                  <p>ул. Мележа 5, корп 2</p>
+                  <p>9:00–19:00 в будние дни <br/>10:00–17:00 в выходные</p>
+                  <p><a class="goto" href="#">Как проехать</a></p>
                 </div>
-                <div class="contacts-column">
-                  <div class="contacts-title">Контакты</div>
-                  <div class="contacts-text">
-                    <p><span>+375 17 237 16 07</span><span>+375 17 237 16 08</span><span>+375 29 111 11 76</span></p>
-                    <p><a class="mailto" href="#">info@fsn.by</a></p>
-                  </div>
+              </div>
+              <div class="contacts-column">
+                <div class="contacts-title">Контакты</div>
+                <div class="contacts-text">
+                  <p><span>+375 17 237 16 07</span><span>+375 17 237 16 08</span><span>+375 29 111 11 76</span></p>
+                  <p><a class="mailto" href="#">info@fsn.by</a></p>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
     <!--END out-->
   </body>
