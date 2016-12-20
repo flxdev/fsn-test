@@ -1557,11 +1557,12 @@ function Form(){
 	var _this = this;
 
 	_this.initEvents = function(){
-		_this.trigger.on("click", function(){
+		_this.trigger.on("click", function(e){
 			var _ = $(this),
 				_data = _.data("modal");
 
 			_this.openModal(_data);
+			e.preventDefault();
 		});
 
 		_this.burger.on("click", function(){
@@ -1695,17 +1696,23 @@ function AjaxLoading(el){
 		$.ajax({
 			url: link,
 			dataType: "html",
-			async: true,
 			beforeSend: function(){
 				_this.initAnimate();
 			},
 			success: function(content) {
 				_this.history(link);
-				var mainContent = $(content).find(".perspective");
+				var mainContent = $(content).find(".perspective").html();
+				var navParentIndex = $(content).find(".menu .active").parent().index();
+				var navIndex = $(content).find(".menu .active").index();
+
+				$(".menu").find(".active").removeClass("active");
+
+				$(".menu").find(".menu-item").parent().eq(navParentIndex).find("li").eq(navIndex).addClass("active");
+
 				setTimeout(function(){
 					_this.appendMain.html(mainContent).promise().done(function(){
 						_this.endAnimate();
-						_this.initEvents();
+						_this.initEvents();;
 					});
 				},1000);
 			}
