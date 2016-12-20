@@ -1692,11 +1692,11 @@ SerfProject.prototype = {
 	},
 	initEvents: function(){
 		var self = this;
-		this.PrevProject.on("click", function(e){
+		$("body").off('click.ajaxPrev').on("click.ajaxPrev", "#prev", function(e){
 			self.clickHandler($(this));
 			e.preventDefault();
 		}),
-		this.NextProject.on("click", function(e){
+		$("body").off('click.ajaxNext').on("click.ajaxNext", "#next", function(e){
 			self.clickHandler($(this));
 			e.preventDefault();
 		})
@@ -1704,7 +1704,7 @@ SerfProject.prototype = {
 	clickHandler: function(_this){
 		var link = _this.attr("href");
 
-		if(link == "#" || link == "") {
+		if(link == "#" || link == "" || link == "/") {
 			return false;
 		}
 		this.loadProject(link)
@@ -1713,33 +1713,46 @@ SerfProject.prototype = {
 	},
 	loadProject: function(link) {
 		var self = this;
+		console.log(link)
 		$.ajax({
-			link: link,
+			url: link,
 			dataType: "html",
-			async: true,
 			beforeSend: function(){
 				self.startAnimation();
 			},
 			success: function(project) {
-				var projectTemplate = $(project).find(".columns-template"),
-					projectHead = $(project).find(".head-container"),
+				var projectTemplate = $(project).find(".columns-template").html(),
+					projectHead = $(project).find(".head-container").html(),
 					projectColor = $(project).find(".color-container .color").css("background-color");
+
+				console.log(project)
+
+				self.history(link);
 
 				setTimeout(function(){
 					self.templateColums.html(projectTemplate);
 					self.templateHead.html(projectHead).promise().done(function(){
 						self.endAnimation(projectColor);
 						$(lazy($(".scroller")));
+						// self.initEvents();
 					});
 				},1000);
 			}
 		});
 	},
+	history: function(url) {
+		window.history.pushState("page" + url, url, url);
+		window.history.replaceState("page" + url, url, url);
+	},
 	startAnimation: function(){
 		this.animContainer.addClass("animation");
 	},
 	endAnimation: function(color){
-		this.animContainer.removeClass("animation");
+		var self = this;
+		
+		setTimeout(function(){
+			self.animContainer.removeClass("animation");
+		},100)
 		this.colorContainer.find(".color").css("background-color", color);
 	}
 }

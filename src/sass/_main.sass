@@ -691,12 +691,6 @@ body
 	z-index: 2
 	width: 100%
 	height: 100%
-	.head-container
-		transition: opacity 0.3s ease, transform 0.5s ease
-	.text-container
-		transition: opacity 0.3s ease 0.125s, transform 0.5s ease 0.125s
-	.scroller
-		transition: opacity 0.3s ease, transform 0.5s ease
 	.color-container
 		position: absolute
 		z-index: 1
@@ -714,6 +708,12 @@ body
 	.filter
 		left: 18%
 	&.gallery-container_inner
+		.head-container
+			transition: opacity 0.3s ease, transform 0.5s ease
+		.text-container
+			transition: opacity 0.3s ease 0.125s, transform 0.5s ease 0.125s
+		.scroller
+			transition: opacity 0.3s ease, transform 0.5s ease
 		.columns-template
 			.columns
 				width: 50%
@@ -1570,6 +1570,7 @@ body
 			transition: background-color 0.5s ease
 			z-index: 2 
 			opacity: 1
+			transform: translateZ(0)
 	.screen_frame
 		position: relative
 		width: 100%
@@ -1596,7 +1597,8 @@ body
 					background-position: 50% 50%
 					background-size: 50px
 					transition: background-color 0.5s ease
-					z-index: 2
+					z-index: 5
+					transform: translateZ(0)
 				div
 					width: 100%
 					height: 100%
@@ -1671,6 +1673,8 @@ body
 			transition: transform 0.5s ease 0.5s
 			z-index: 3
 			will-change: transform
+			+r(1366)
+				+rem(width, 1024px)
 			&.animate
 				transform: translate(0,0)
 			iframe
@@ -2137,12 +2141,37 @@ body
 .out
 	&.animation
 		.gallery-container
-			.head-container
-				opacity: 0
-				transform: translate(-6em, 0)
-			.text-container
-				opacity: 0
-				transform: translate(-6rem, 0)
-			.scroller
-				opacity: 0
-				transform: translate(6rem, 0)
+			&.gallery-container_inner
+				.head-container
+					opacity: 0
+					transform: translate(-6em, 0)
+				.text-container
+					opacity: 0
+					transform: translate(-6rem, 0)
+				.scroller
+					opacity: 0
+					transform: translate(6rem, 0)
+.showroom-container
+	.text-container
+		left: 18%
+		top: 45%
+		+rem(max-width, 650px)
+		.list
+			font-size: 0
+			.list-item
+				display: inline-block
+				width: 33.33%
+				+rem(padding-right, 30px)
+				.numbers
+					font-family: "Light"
+					+rem(font-size, 48px)
+					letter-spacing: 0.2px
+					+rem(line-height, 36px)
+					+rem(margin-bottom, 20px)
+					sup
+						font-family: "Light"
+						+rem(font-size, 28px)
+						+rem(top, -14px)
+				p
+					+rem(font-size, 18px)
+					letter-spacing: 0.2px
