@@ -25,7 +25,6 @@ body
 	overflow: hidden
 	+rem(font-size, 18px)
 	color: $white
-	background-color: $bodyColor
 	-webkit-font-smoothing: antialiased
 .out
 	position: relative
@@ -440,12 +439,26 @@ body
 			&.current
 				z-index: 2
 				.slide-text
-					opacity: 1
-					transform: none
-				.active
-					.slide-text
+					p, .slide-link
 						opacity: 1
 						transform: none
+				.active
+					.slide-text
+						p, .slide-link
+							opacity: 1
+							transform: none
+			&.slideOut
+				.slide-text
+					p
+						transition-delay: 0s 
+					.slide-link
+						transition-delay: 0.125s
+				.active
+					.slide-text
+						p
+							transition-delay: 0s 
+						.slide-link
+							transition-delay: 0.125s
 			img
 				width: 100%
 				height: 100%
@@ -453,7 +466,7 @@ body
 			&.slideOut
 				z-index: 2
 			&.slideIn
-				animation: slideIn 0.5s ease both
+				animation: slideIn 0.8s ease both
 				z-index: 3
 			
 		.slide-text
@@ -461,14 +474,14 @@ body
 			left: 45%
 			top: 50%
 			max-width: 350px
-			transform: translate(4rem, -4rem)
-			opacity: 0
-			transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s
 			p 
 				font-family: "Light"
 				+rem(font-size, 28px)
 				+rem(margin-bottom, 30px)
 				color: $colorText
+				transform: translate(0, 2rem)
+				opacity: 0
+				transition: transform 0.8s ease-in-out 0.5s, opacity 0.8s ease-in-out 0.5s
 				span
 					font-family: "Light"
 					font-size: 10px
@@ -476,6 +489,11 @@ body
 					text-transform: uppercase
 					letter-spacing: 3px
 					line-height: 28px
+			.slide-link
+				display: inline-block
+				transform: translate(0, 2rem)
+				opacity: 0
+				transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
 	.full-pagination
 		position: absolute
 		z-index: 7
@@ -525,8 +543,15 @@ body
 				perspective: 1000px
 				transition: transform 0.5s ease
 				.slide-text
-					transform: translate(4rem, -4rem)
-					opacity: 0
+					p
+						transform: translate(0, 2rem)
+						opacity: 0
+						transition: transform 0.8s ease-in-out 0.5s, opacity 0.8s ease-in-out 0.5s 
+					.slide-link
+						display: inline-block
+						transform: translate(0, 2rem)
+						opacity: 0
+						transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
 				img
 					width: 100%
 					height: 100%
@@ -541,11 +566,11 @@ body
 					z-index: 2
 					img
 						transition: none
-						animation: transformOut 0.5s ease both
+						animation: transformOut 0.8s ease both
 				&.transform-in
 					z-index: 4
 					transition: none
-					animation: transformIn 0.5s ease both
+					animation: transformIn 0.8s ease both
 					img
 				&.slideNext
 					// transform: translate(100%, 0)
@@ -2175,3 +2200,98 @@ body
 				p
 					+rem(font-size, 18px)
 					letter-spacing: 0.2px
+
+.screen-load
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	z-index: 1100
+	background-color: #2a2a32
+	// display: none
+	.load-container
+		position: absolute
+		top: 50%
+		left: 50%
+		+rem(width, 600px)
+		+rem(height, 85px)
+		transform: translate(-50%,-50%)
+		.load-cover
+			width: 100%
+			height: 100%
+			background-image: url(../img/preload-cover.png)
+			background-size: cover
+			opacity: 0.1
+		.load-active
+			position: absolute
+			top: 0
+			left: 0
+			+rem(width, 0)
+			+rem(height, 85px)
+			overflow: hidden
+			.load-active_cover
+				+rem(width, 600px)
+				+rem(height, 85px)
+				background-image: url(../img/preload-cover.png)
+				background-size: cover
+$time: 0.8s
+.out
+	&.unload
+		opacity: 1
+		.head-container
+			span
+				transition: transform $time ease-in-out, opacity $time ease-in-out
+				transform: translate(0, 2.5rem)
+				opacity: 0
+				&:first-child
+					transition-delay: 0s
+				&:last-child
+					transition-delay: 0.125s
+		.full-slider-container
+			.slide
+				img
+					transform: translate(20%, 0)
+					opacity: 0
+					transition: transform $time ease-in-out, opacity $time ease-in-out
+		.full-slider-container 
+			.slide
+				opacity: 0
+			.slide.current
+				background-color: transparent!important
+				opacity: 1
+				.slide-text 
+					p
+						transition: transform $time ease-in-out, opacity $time ease-in-out
+						opacity: 0
+						transform: translate(0, 2.5rem)
+		.full-pagination
+			transition: transform $time ease-in-out $time, opacity $time ease-in-out $time
+			opacity: 0
+			transform: translate(0, 2.5rem)
+			.current
+				&::after
+					transform: scale(0)
+					transition: transform $time ease-in-out $time*2
+	&.load
+		.head-container
+			span
+				transform: none
+				opacity: 1
+		.full-slider-container
+			.slide
+				img
+					transform: none
+					opacity: 1
+		.full-slider-container 
+			.slide.current
+				.slide-text 
+					p
+						transform: none
+						opacity: 1
+		.full-pagination
+			transform: none
+			opacity: 1
+			.current
+				&::after
+					transform: scale(1)

@@ -1,4 +1,57 @@
 'use strict'
+
+function preload(){
+	var siteLoader = $(".screen-load"),
+		activeLoad = siteLoader.find(".load-active"),
+		activeContainer = siteLoader.find(".load-container"),
+		timeLine = new TimelineLite();
+
+	timeLine
+		.set(activeLoad, {
+			width: 0
+		})
+		.to(activeLoad, 1.2, {
+			width: "10%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 0.5, {
+			width: "25%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1.5, {
+			width: "33.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1.5, {
+			width: "60.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 0.7, {
+			width: "80.5%",
+			ease: Power2.easeOut
+		})
+		.to(activeLoad, 1, {
+			width: "100%",
+			ease: Power2.easeOut
+		})
+		.to(siteLoader, 0.3, {
+			autoAlpha: "0",
+			delay: 0.7,
+			display: 'none',
+			ease: Power2.easeOut,
+			onComplete: function(){
+				$(".out").addClass("load");
+				setTimeout(function(){
+					$(".out").removeClass("unload load");
+				},1600)
+			}
+		})
+}
+
+$(document).ready(function(){
+	preload();
+})
+
 function burgerMenu(){
 	var _this = this;
 

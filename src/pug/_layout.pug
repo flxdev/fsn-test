@@ -15,8 +15,9 @@ html
     script(src="https://www.youtube.com/iframe_api")
     script(src="js/app.js")
   body
+    include includes/_preload
     //BEGIN out
-    .out
+    .out.unload
       block content
     //END out
   - var colorOne = "#524e4b"
