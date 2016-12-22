@@ -1,0 +1,25 @@
+.modal-window(data-modal-window="mail")
+	.modal-window_container
+		form.form-container#formSteps
+			.form-container__inner
+				.form-head Подписаться
+				ol.form-area
+					mixin f-li(id, name)
+						li
+							.input
+								input(id=id name=id type="text" placeholder=name)
+					+f-li("q-1", "Ваш e-mail")
+				button.submit(type="submit")
+				.controls
+					button.next
+					.progress
+					.pagin
+						span.pagin-current
+						span.separator |
+						span.pagin-total
+					.error-message
+			.final-message
+				.message-inner
+					.message-title Thank you
+					span Form successfully completed! In a short time we will contact you.
+					.message-close Close me

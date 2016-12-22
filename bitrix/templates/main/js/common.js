@@ -66,19 +66,6 @@ function burgerMenu(){
 		_this.circle.addEventListener("click", function(event){
 			event.stopPropagation();
 		});
-
-		// Array.prototype.forEach.call(_this.linkItem, function(item, i) {
-		// 	item.addEventListener("click", function(event){
-		// 		var link = this.getAttribute("href");
-		// 		_this.closeMenu();
-		// 		setTimeout(function(){
-		// 			ajax.action(link)
-		// 			console.log(true)
-		// 		}, 1200);
-		// 		return false;
-		// 		event.preventDefault();
-		// 	});
-		// });
 	}
 
 	 _this.openMenu = function() {
@@ -86,7 +73,8 @@ function burgerMenu(){
 	 	if(!_this.trigger.classList.contains("open")) {
 	 		_this.perspective.classList.add("perspective-action");
 			_this.menu.classList.add("navigation-open");
-			_this.trigger.classList.add("open", "open_burger");
+			_this.trigger.classList.add("open");
+			_this.trigger.classList.add("open_burger");
 	 	} else {
 	 		_this.closeMenu();
 		}
@@ -253,6 +241,9 @@ FullSlider.prototype.handlerEvents = function(){
 	});
 
 	this.arrowBtn.on("click", function(){
+		if(self.action) {
+			return false;
+		}
 		$(this).parents(self.options.innerSlider).addClass("animation");
 
 		self.triggerNext($(this).parents(self.options.innerSlider).find(".slide-inserted"))
@@ -330,6 +321,7 @@ FullSlider.prototype.triggerNavBullets = function(index){
 
 FullSlider.prototype.show = function(curr, next, slides) {
 
+
 	this.action = true;
 
 	this.curr_slide = slides[curr];
@@ -386,7 +378,6 @@ FullSlider.prototype.animationEnd = function(elem){
 		} else {
 			$(elem).removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass).siblings().removeClass(self.conf.classes.prevClass + " " + self.conf.classes.nextClass);
 		}
-
 	});
 };
 
@@ -598,7 +589,7 @@ function flipCard() {
 		openClass = "flip-card_flipped";
 	element.each(function(){
 		var _ = $(this),
-			triggerOpen = _.find(".slide-link"),
+			triggerOpen = _.find(".flip-card_front"),
 			triggerClose = _.find(".slide-link_close");
 
 		triggerOpen.on("click", function(){
@@ -902,12 +893,31 @@ VerticalGallery.prototype = {
 		}
 	
 		this.slideItem = this.el.find(".slider-item");
+		this.initVideo();
+	},
+	initVideo: function(){
+		var vi = document.createElement("video");
+		var use = vi.canPlayType('video/webm; codecs="vp8, vorbis"');
 
+		this.video.each(function(){
+			var source = document.createElement("source"),
+				src = $(this).data("src");
+			$(this).append(source);
+			src = src.split(".");
+
+			if(use == "probably") {
+				source.src = src[0] + ".webm",
+				source.type = "video/webm"
+			} else {
+				source.src = src[0] + ".mp4",
+				source.type = "video/mp4",
+				source.setAttribute("codecs", "avc1.4D401E, mp4a.40.2")
+			}
+		})
 
 		this.eventHandlers();
 		this.resizeVideo();
 		this.resizeEvent();
-
 	},
 	eventHandlers: function(){
 		var self = this;
@@ -1006,7 +1016,7 @@ function bindScrollEvents() {
 	this.config = {
 		curCount: 0,
 		lastTime: 0,
-		minCount: 8,
+		minCount: 5,
 		minTime: 500,
 		lasDir: false
 	}
@@ -1507,12 +1517,13 @@ function Form(){
 	var _this = this;
 
 	_this.initEvents = function(){
-		_this.trigger.on("click", function(e){
+		$("body").on("click","[data-modal]", function(e){
 			var _ = $(this),
 				_data = _.data("modal");
 
 			_this.openModal(_data);
 			e.preventDefault();
+			return false;
 		});
 
 		_this.burger.on("click", function(){

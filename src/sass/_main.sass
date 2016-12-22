@@ -41,12 +41,12 @@ body
 		overflow: hidden
 		width: 100%
 		height: 100%
-		backface-visibility: hidden
 		min-height: 100%
 		z-index: 1
 		transform: translateZ(0) translateX(0) rotateY(0deg)
 		transform-origin: 0% 50%
-		transition: transform 0.3s ease 0s
+		transition: transform 0.5s ease 0s
+		will-change: transform
 	&.perspective-action
 		.perspective-container
 			transform: translateZ(-8.375rem) translateX(-1.75rem) rotateY(5deg);
@@ -221,10 +221,10 @@ body
 				top: 0
 				transition-delay: .5s
 			&:nth-child(2)
-				+rem(top, 6px)
+				top: 6px
 				transition-delay: .625s
 			&:nth-child(3)
-				+rem(top, 12px)
+				top: 12px
 				transition-delay: .75s
 	.cross
 		+rem(width, 28px)
@@ -436,7 +436,6 @@ body
 			width: 100%
 			height: 100%
 			z-index: 1
-			will-change: transform
 			&.current
 				z-index: 2
 				.slide-text
@@ -460,14 +459,17 @@ body
 							transition-delay: 0s 
 						.slide-link
 							transition-delay: 0.125s
-			img
+			.slide-image_container
 				width: 100%
-				height: 100%
-				object-fit: cover
+				height: 100%							
+				img
+					width: 100%
+					height: 100%
+					object-fit: cover
 			&.slideOut
 				z-index: 2
 			&.slideIn
-				animation: slideIn 0.8s ease both
+				animation: slideIn 0.5s ease both
 				z-index: 3
 			
 		.slide-text
@@ -495,6 +497,10 @@ body
 				transform: translate(0, 2rem)
 				opacity: 0
 				transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
+			&:hover
+				.slide-link
+					&::after
+						transform: rotate(360deg)
 	.full-pagination
 		position: absolute
 		z-index: 7
@@ -527,13 +533,14 @@ body
 				&::after
 					transform: scaleX(1)
 	.full-slider-inserted
-		position: relative
+		position: absolute
 		width: 100%
 		height: 100%
 		.slider-inserted_container
-			position: relative
+			position: absolute
 			width: 100%
 			height: 100%
+			transform: translateZ(0)
 			.slide-inserted 
 				position: absolute
 				top: 0
@@ -541,7 +548,6 @@ body
 				width: 100%
 				height: 100%
 				z-index: 1
-				perspective: 1000px
 				transition: transform 0.5s ease
 				.slide-text
 					p
@@ -553,25 +559,27 @@ body
 						transform: translate(0, 2rem)
 						opacity: 0
 						transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
-				img
-					width: 100%
-					height: 100%
-					object-fit: cover
-					backface-visibility: hidden
-					transform-origin: 0 50%
-					will-change: transform					
-					transition: transform 0.5s ease
+				.slide-image_container
+					perspective: 1000px
+					img
+						width: 100%
+						height: 100%
+						object-fit: cover
+						// backface-visibility: hidden
+						transform-origin: 0 50%
+						transition: transform 0.5s ease
+						will-change: transform
 				&.active
 					z-index: 2
 				&.transform-out
 					z-index: 2
 					img
 						transition: none
-						animation: transformOut 0.8s ease both
+						animation: transformOut 0.5s ease both
 				&.transform-in
 					z-index: 4
 					transition: none
-					animation: transformIn 0.8s ease both
+					animation: transformIn 0.5s ease both
 					img
 				&.slideNext
 					// transform: translate(100%, 0)
@@ -626,7 +634,7 @@ body
 			position: absolute
 			top: 0
 			right: 0
-			+rem(width, 80px)
+			+rem(width, 160px)
 			bottom: 0
 			cursor: url(../img/icons/arrowright.png), auto
 			z-index: 5
@@ -658,7 +666,7 @@ body
 		z-index: 3
 @keyframes  transformInOut
 	0%
-		transform: translate(90%, 0)
+		transform: translate(100%, 0)
 	100%
 		transform: translate(0%, 0)
 .slide-link
@@ -676,7 +684,7 @@ body
 		content: ''
 		+rem(width, 28px)
 		+rem(height, 28px)
-		background-image: url(../img/icons/icon-1.png)
+		background-image: url(../img/svg/plus.svg)
 		background-size: cover
 		background-repeat: no-repeat
 		position: absolute
@@ -1173,6 +1181,7 @@ body
 					transform: perspective(1000px) rotateY(0deg)
 					transition: transform 0.6s ease
 					will-change: transform
+					cursor: pointer
 					.image-container
 						&::after
 							display: none
@@ -1185,10 +1194,13 @@ body
 							left: 50%
 							transform: translate(-50%,-50%) scale(10)
 					.slide-link
-						position: absolute
-						+rem(bottom, 40px)
+						+rem(bottom, 60px)
 						+rem(left, 40px)
 						z-index: 5
+				&:hover
+					.slide-link
+						&::after
+							transform: rotate(360deg)
 				.flip-card_back
 					position: absolute
 					width: 100%
@@ -1547,14 +1559,18 @@ body
 				img
 					display: block
 			&:hover
-				.screen_frame
-					opacity: 0
+				.cover_video-wrapp
+					opacity: 1
 	.cover_video-wrapp
 		position: absolute
 		top: 0
 		left: 0
 		width: 100%
 		height: 100%
+		z-index: 9
+		opacity: 0
+		transition: opacity 0.5s ease
+		cursor: pointer
 		.cover_video
 			position: absolute
 			top: 0
@@ -1602,14 +1618,12 @@ body
 		width: 100%
 		height: 100%
 		display: table
-		transition: opacity 0.5s ease
 		.screen_frame-content
 			display: table-cell
 			.screen_frame-image
 				position: relative
 				width: 100%
 				height: 100%
-				cursor: pointer
 				&::after
 					content: ''
 					position: absolute

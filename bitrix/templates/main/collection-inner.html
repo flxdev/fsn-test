@@ -79,6 +79,25 @@
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
+                        <div class="gallery-pagination"><a class="gallery-pagination_item" href="/" id="prev">
+                            <div class="image-container">
+                              <div class="color-box" style="background-color: #524339"></div><img class="lazy" data-src="img/gallery/g-inner-1.jpg">
+                            </div>
+                            <div class="pagination-text">
+                              <div class="text-position">
+                                <div class="nav-text">предыдущий проект</div>
+                                <div class="nav-name">GOLD & SILVER, Roma</div>
+                              </div>
+                            </div></a><a class="gallery-pagination_item" href="collection-inner-2.html" id="next">
+                            <div class="image-container">
+                              <div class="color-box" style="background-color: #2a2a32"></div><img class="lazy" data-src="img/gallery/g-inner-1.jpg">
+                            </div>
+                            <div class="pagination-text">
+                              <div class="text-position">
+                                <div class="nav-text">следующий проект</div>
+                                <div class="nav-name">MARBLE ARCH</div>
+                              </div>
+                            </div></a></div>
                       </div>
                       <div class="scroll-down">
                         <div class="mouse">
@@ -155,6 +174,7 @@
           		$(".final-message").addClass("show");
           	}
           });
+          var serfProject = new SerfProject($(".gallery-pagination"));
         </script>
       </div>
       <section class="navigation-site">

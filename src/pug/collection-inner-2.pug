@@ -1,7 +1,7 @@
 extends _layout
 
 block title
-	title stocks
+	title Collection inner
 
 block content
 	include includes/_burger
@@ -9,13 +9,12 @@ block content
 		.perspective-container
 			include includes/_headsite
 			section.wrapper
-				-var content = "designers"
+				-var content = "collection"
 				.content(class="content-"+content data-page=content)
-					include includes/_designers
-		include includes/_brand-modal
-		include includes/_mail
+					include includes/_collection-inner-2
+		include includes/_popup-request
 		script(type="text/javascript").
-			var modal = new BrandModal($(".modal"));
+			$(lazy($(".scroller")));
 			var modal = new Form();
 			modal.init();
 			var form = document.getElementById("formSteps");
@@ -24,6 +23,7 @@ block content
 					$(".form-container__inner").addClass("hide");
 					$(".final-message").addClass("show");
 				}
-			})
-	-var currentClass = "Дизайнерам"
+			});
+			var serfProject = new SerfProject($(".gallery-pagination"));
+	-var currentClass = "Коллекции"
 	include includes/_navigation-site
