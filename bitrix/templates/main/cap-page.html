@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Collection inner</title>
+    <meta name="viewport" content="width=980">
+    <meta content="IE=9" http-equiv="X-UA-Compatible">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" media="all" href="css/screen.css">
+    <script src="js/app.js">   </script>
+  </head>
+  <body>
+    <div class="screen-load">
+      <div class="load-container">
+        <div class="load-cover"></div>
+        <div class="load-active">
+          <div class="load-active_cover"></div>
+        </div>
+      </div>
+    </div>
+    <!--BEGIN out-->
+    <div class="out unload">
+      <div class="redirect-wrapper">
+        <div class="redirect-container">
+          <div class="img"></div>
+          <div class="text-container">
+            <p>Вы используете устаревшую версию браузера. Пожалуйста, обновите свой браузер:</p><a class="btn" href="http://outdatedbrowser.com/ru" rel="nofollow"><span>обновить</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END out-->
+  </body>
+  <div class="revealer">
+    <div class="revealer__layer" style="background-color:#524e4b"></div>
+    <div class="revealer__layer" style="background-color:#2a2a32"></div>
+  </div>
+  <div class="cap">
+    <div class="cap-inner">
+      <div class="image"></div>
+      <p>Пожалуйста откройте мобильную версию.</p><a class="btn" href=""> <span>Перейти</span></a>
+    </div>
+  </div>
+</html>
+<script type="text/javascript">
+  var revealer = new Revealer($(".revealer"));
+    revealer.init();
+  var ajax = new AjaxLoading($(".ajax-trigger"));
+</script>
