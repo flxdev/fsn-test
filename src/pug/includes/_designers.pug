@@ -9,28 +9,63 @@
 			.text-container
 				.side-text
 					.title Условия сотрудничества с&nbsp;профессионалами
-					p Мы сотрудничаем со многими известными итальянскими и испанскими производите&shy;лями плитки и являемся их официальными дистрибьюторами на территории Респуб&shy;лики Беларусь.  
-					a.btn(href="#" class="email"  data-modal="mail")
-						span e-mail рассылка
+					p Мы сотрудничаем со многими известными итальянскими и испанскими производите&shy;лями плитки и являемся их официальными дистрибьюторами на территории Респуб&shy;лики Беларусь.
+					.form-container
+						.form-front
+							input(type="text" class="input-form" placeholder="E-mail рассылка")
+							button(type="submit" class="submit")
+						.form-back
+							.form-success
+								p Вы подпсались на e-mail рассылку
+								.return
 		.columns
-			.brands-container
-				.brand-scroll
-					ul.brands-list(data-speed="0")
-						mixin brand(name, index)
-							li
-								span(class="modal" data-brand-index = index) #{name}
-						+brand("Anjasora", 1)
-						+brand("Ariostea", 2)
-						+brand("Ceracasa", 3)
-						+brand("Fap Ceramiche", 4)
-						+brand("FMG", 5)
-						+brand("Florim Ceramiche", 6)
-						+brand("Grespania", 7)
-						+brand("Gres de Aragon", 8)
-						+brand("Gres de Aragon", 9)
-						+brand("Gres de Aragon", 10)
-						+brand("Gres de Aragon", 11)
-						+brand("Ariostea", 12)
-						+brand("Ceracasa", 13)
-						+brand("Fap Ceramiche", 14)
+			.brands-wrapper
+				.brands-container.vs-scroll
+					.brand-scroll(data-speed="0").vs-transform
+						ul.brands-list
+							mixin brand(name, index)
+								li
+									span(class="modal" data-brand-index = index) #{name}
+							+brand("Anjasora", 1)
+							+brand("Ariostea", 2)
+							+brand("Ceracasa", 3)
+							+brand("Fap Ceramiche", 4)
+							+brand("FMG", 5)
+							+brand("Florim Ceramiche", 6)
+							+brand("Grespania", 7)
+							+brand("Gres de Aragon", 8)
+							+brand("Gres de Aragon", 9)
+							+brand("Gres de Aragon", 10)
+							+brand("Gres de Aragon", 11)
+							+brand("Ariostea", 12)
+							+brand("Ceracasa", 13)
+							+brand("Fap Ceramiche", 14)
+							+brand("Anjasora", 1)
+							+brand("Ariostea", 2)
+							+brand("Ceracasa", 3)
+							+brand("Fap Ceramiche", 4)
+							+brand("FMG", 5)
+							+brand("Florim Ceramiche", 6)
+							+brand("Grespania", 7)
+							+brand("Gres de Aragon", 8)
+							+brand("Gres de Aragon", 9)
+							+brand("Gres de Aragon", 10)
+							+brand("Gres de Aragon", 11)
+							+brand("Ariostea", 12)
+							+brand("Ceracasa", 13)
+							+brand("Fap Ceramiche", 14)
+							+brand("Anjasora", 1)
+							+brand("Ariostea", 2)
+							+brand("Ceracasa", 3)
+							+brand("Fap Ceramiche", 4)
+							+brand("FMG", 5)
+							+brand("Florim Ceramiche", 6)
+							+brand("Grespania", 7)
+							+brand("Gres de Aragon", 8)
+							+brand("Gres de Aragon", 9)
+							+brand("Gres de Aragon", 10)
+							+brand("Gres de Aragon", 11)
+							+brand("Ariostea", 12)
+							+brand("Ceracasa", 13)
+							+brand("Fap Ceramiche", 14)
 	

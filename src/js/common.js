@@ -391,13 +391,28 @@ function lazy(parameter){
 	var modifyParams = {
 		effect: 'fadeIn',
 		effectTime: "150",
-		appendScroll: $(parameter)
+		appendScroll: null,
+		chainable: false,
+		afterLoad: function(element){
+			var section = document.querySelector('.vs-section');
+			var divs = document.querySelectorAll('.vs-transform');
+			smooth = new Smooth({
+				direction: 'vertical',
+				section: section,
+				ease: 0.1,
+				els: divs
+			});
+			smooth.init();
+		}
 	};
 
 	if(parameter == undefined || typeof parameter == "function") {
 		$(".lazy").Lazy(defaultParams)
 	} else {
-		$(".lazy").Lazy(modifyParams)
+		var instance = $('.lazy').Lazy(modifyParams);
+		setTimeout(function(){
+			instance.loadAll();
+		},300)
 	};
 }
 
@@ -1322,7 +1337,7 @@ function extend( a, b ) {
 function stepForm(el, options) {
 	this.el = el
 	this.options = extend( {}, this.options );
-  	extend( this.options, options );
+	extend( this.options, options );
 	this._init();
 };
 
@@ -1751,7 +1766,6 @@ SerfProject.prototype = {
 	},
 	loadProject: function(link) {
 		var self = this;
-		console.log(link)
 		$.ajax({
 			url: link,
 			dataType: "html",
@@ -1761,18 +1775,15 @@ SerfProject.prototype = {
 			success: function(project) {
 				var projectTemplate = $(project).find(".columns-template").html(),
 					projectHead = $(project).find(".head-container").html(),
-					projectColor = $(project).find(".color-container .color").css("background-color");
-
-				console.log(project)
-
+					projectColor = $(project).find(".color-container .color").css("background-color"),
+					script = $(project).find("script").html();
 				self.history(link);
-
 				setTimeout(function(){
 					self.templateColums.html(projectTemplate);
+					self.animContainer.find("script").html(script);
 					self.templateHead.html(projectHead).promise().done(function(){
 						self.endAnimation(projectColor);
 						$(lazy($(".scroller")));
-						// self.initEvents();
 					});
 				},1000);
 			}
@@ -1793,4 +1804,43 @@ SerfProject.prototype = {
 		},100)
 		this.colorContainer.find(".color").css("background-color", color);
 	}
+}
+
+function SimpleValidForm(el, options){
+	this.el = el
+	this.options = extend( {}, this.options );
+	extend( this.options, options );
+	this.init();
+}
+SimpleValidForm.prototype.options = {
+	onSubmit: function(){
+		return false;
+	}
+}
+SimpleValidForm.prototype = {
+	init: function(){
+		this.input = [].slice.call($(this.el).find(".input-form"));
+		this.submit = $(this.el).find(".submit");
+
+		this.initEvents();
+	},
+	initEvents: function(){
+		var self = this;
+		this.submit.on("click", function(){
+			self.input.forEach(function(item){
+				self.validate(item);
+			});
+		});
+	},
+	validate: function(input){
+		if(input.value === "") {
+			this.errorEvent(input)
+		} else {
+			input.classList.remove("error");
+			this.options.onSubmit(this.el);
+		}
+	},
+	errorEvent: function(inputItem){
+		inputItem.classList.add("error");
+	}	
 }

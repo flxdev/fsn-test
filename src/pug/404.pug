@@ -1,0 +1,18 @@
+extends _layout
+
+block title
+	title Collection inner
+
+block content
+	include includes/_burger
+	.perspective
+		.perspective-container
+			include includes/_headsite
+			section.wrapper
+				-var content = "404"
+				.content(class="content-"+content data-page=content)
+					include includes/_404
+		include includes/_popup-request
+		script(type="text/javascript").
+			$(lazy($(".gallery-preview_scroll")));
+	include includes/_navigation-site

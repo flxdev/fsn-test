@@ -70,8 +70,6 @@ var vs = (function(document) {
 		event.deltaY = e.wheelDeltaY || e.deltaY * -1;
 
 		event.deltaY = event.deltaY/2;
-		// ajouts
-		relancer();
 
 		// for our purpose deltamode = 1 means user is on a wheel mouse, not touch pad 
 		// real meaning: https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent#Delta_modes
@@ -92,9 +90,6 @@ var vs = (function(document) {
 		event.deltaY = (e.wheelDeltaY) ? e.wheelDeltaY : e.wheelDelta;
 
 		event.deltaY = event.deltaY/10;
-
-		// ajouts
-		relancer();
 
 		notify(e);	
 	}

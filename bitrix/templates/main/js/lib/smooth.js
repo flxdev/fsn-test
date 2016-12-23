@@ -13,7 +13,7 @@ var Smooth = function(opt) {
 	
 	this.direction = opt.direction || 'vertical';
 	
-	this.section = opt.section || document.querySelector('.vs-section');
+	this.section = opt.section || document.querySelector('.vs-scroll');
 	
 	this.ease = opt.ease || 0.1;
 	

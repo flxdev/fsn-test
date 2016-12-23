@@ -72,8 +72,8 @@
                     </div>
                   </div>
                   <div class="columns">
-                    <div class="scroll-container">
-                      <div class="scroller">
+                    <div class="scroll-container vs-scroll">
+                      <div class="scroller vs-transform" data-speed="0">
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
                         <div class="image-container"><img class="lazy" data-src="img/gallery/g-inner-1.jpg"></div>
@@ -107,19 +107,6 @@
                     </div>
                   </div>
                 </div>
-                <script type="text/javascript">
-                  $(lazy($(".scroller")));
-                  var modal = new Form();
-                  modal.init();
-                  var form = document.getElementById("formSteps");
-                  new stepForm(form, {
-                  	onSubmit: function(form) {
-                  		$(".form-container__inner").addClass("hide");
-                  		$(".final-message").addClass("show");
-                  	}
-                  })
-                  		
-                </script>
               </div>
             </div>
           </section>
@@ -175,6 +162,7 @@
           	}
           });
           var serfProject = new SerfProject($(".gallery-pagination"));
+          
         </script>
       </div>
       <section class="navigation-site">

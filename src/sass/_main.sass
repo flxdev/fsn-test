@@ -746,7 +746,7 @@ body
 			transition: opacity 0.3s ease, transform 0.5s ease
 		.text-container
 			transition: opacity 0.3s ease 0.125s, transform 0.5s ease 0.125s
-		.scroller
+		.scroll-container
 			transition: opacity 0.3s ease, transform 0.5s ease
 		.columns-template
 			.columns
@@ -779,6 +779,7 @@ body
 			height: 100%
 			top: 0
 			z-index: 5
+			transform: translateZ(0)
 			.text-position
 				position: absolute
 				top: 50%
@@ -1053,6 +1054,8 @@ body
 			color: $colorText
 		.btn
 			+rem(margin-top, 35px)
+		.form-container
+			+rem(margin-top, 35px)
 .content-designers
 	.text-container
 		top: 45%
@@ -1084,14 +1087,14 @@ body
 			+rem(margin-top, -6px)
 			transform: rotate(45deg)
 .scroll-container
-	height: 100%
-	overflow: hidden;
-	margin-right: -20px
+	height: auto
+	overflow: hidden
+	// margin-right: -20px
 	.scroller
-		width: 100%
-		height: 100%
-		overflow: auto
-		margin-right: 20px
+		// width: 100%
+		// height: 100%
+		// overflow: auto
+		// margin-right: 20px
 		&:hover
 			& + .scroll-down
 				opacity: 1
@@ -1319,17 +1322,11 @@ body
 				+rem(line-height, 32px)
 		&.active
 			opacity: 1
-
-.brands-container
+.brands-wrapper
 	+rem(width, 400px)
-	// height: calc(100vh - 3.75rem)
-	+rem(top, 60px)
-	position: absolute
-	+rem(bottom, 60px)
-	// +rem(top, 480)
-	overflow: hidden
-	margin-left: 6%
-	// margin-top: 35%
+	position: absolute	
+	margin-left: 10%
+	height: 100%
 	&::after
 		content: ''
 		width: 100%
@@ -1337,11 +1334,10 @@ body
 		left: 0
 		+rem(height, 60px)
 		position: absolute
-		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+99,2a2a32+100,2a2a32+100,1e5799+100,1e5799+100,1e5799+100,2a2a32+100,2a2a32+100,2a2a32+101&0+0,1+70,1+70,1+70,1+100,1+100 */
-		background: -moz-linear-gradient(top,  rgba(42,42,50,0) 0%, rgba(42,42,50,1) 70%, rgba(42,42,50,1) 99%, rgba(42,42,50,1) 100%, rgba(42,42,50,1) 101%); /* FF3.6-15 */
-		background: -webkit-linear-gradient(top,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* Chrome10-25,Safari5.1-6 */
-		background: linear-gradient(to bottom,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a2a32', endColorstr='#2a2a32',GradientType=0 ); /* IE6-9 */
+		background: -moz-linear-gradient(top,  rgba(42,42,50,0) 0%, rgba(42,42,50,1) 70%, rgba(42,42,50,1) 99%, rgba(42,42,50,1) 100%, rgba(42,42,50,1) 101%)
+		background: -webkit-linear-gradient(top,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%)
+		background: linear-gradient(to bottom,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%)
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a2a32', endColorstr='#2a2a32',GradientType=0 )
 	&::before
 		content: ''
 		width: 100%
@@ -1349,82 +1345,34 @@ body
 		left: 0
 		+rem(height, 60px)
 		position: absolute
-		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+100&1+0,0+100 */
-		background: -moz-linear-gradient(top,  rgba(42,42,50,1) 0%, rgba(42,42,50,0) 100%); /* FF3.6-15 */
-		background: -webkit-linear-gradient(top,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* Chrome10-25,Safari5.1-6 */
-		background: linear-gradient(to bottom,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a32', endColorstr='#002a2a32',GradientType=0 ); /* IE6-9 */
-	.brand-scroll
-		overflow: auto
-		height: 100%
-		margin-right: -17px
-	.brands-list
-		+rem(padding, 350px 0 65px)
-		li
-			border-bottom: 1px solid rgba(255,255,255,.3)
-			+rem(padding, 12px 0)
-			display: inline-block
-			width: 100%
-			span
-				font-family: "Light"
-				+rem(font-size, 28px)
-				color: $lgrey
-				transition: color 0.3s ease
-				cursor: pointer
-				&:hover
-					color: $white
-// .brands-container
-// 	+rem(width, 400px)
-// 	// height: 100vh
-// 	position: absolute
-// 	// +rem(bottom, 60px)
-// 	// +rem(top, 480)
-// 	// overflow: hidden
-// 	margin-left: 6%
-// 	// margin-top: 35%
-// 	&::after
-// 		content: ''
-// 		width: 100%
-// 		+rem(bottom, 0px)
-// 		left: 0
-// 		+rem(height, 60px)
-// 		position: absolute
-// 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+99,2a2a32+100,2a2a32+100,1e5799+100,1e5799+100,1e5799+100,2a2a32+100,2a2a32+100,2a2a32+101&0+0,1+70,1+70,1+70,1+100,1+100 */
-// 		background: -moz-linear-gradient(top,  rgba(42,42,50,0) 0%, rgba(42,42,50,1) 70%, rgba(42,42,50,1) 99%, rgba(42,42,50,1) 100%, rgba(42,42,50,1) 101%); /* FF3.6-15 */
-// 		background: -webkit-linear-gradient(top,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* Chrome10-25,Safari5.1-6 */
-// 		background: linear-gradient(to bottom,  rgba(42,42,50,0) 0%,rgba(42,42,50,1) 70%,rgba(42,42,50,1) 99%,rgba(42,42,50,1) 100%,rgba(42,42,50,1) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-// 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a2a32', endColorstr='#2a2a32',GradientType=0 ); /* IE6-9 */
-// 	&::before
-// 		content: ''
-// 		width: 100%
-// 		+rem(top, 0px)
-// 		left: 0
-// 		+rem(height, 60px)
-// 		position: absolute
-// 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a2a32+0,2a2a32+100&1+0,0+100 */
-// 		background: -moz-linear-gradient(top,  rgba(42,42,50,1) 0%, rgba(42,42,50,0) 100%); /* FF3.6-15 */
-// 		background: -webkit-linear-gradient(top,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* Chrome10-25,Safari5.1-6 */
-// 		background: linear-gradient(to bottom,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-// 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a32', endColorstr='#002a2a32',GradientType=0 ); /* IE6-9 */
-// 	.brand-scroll
-// 		// overflow: auto
-// 		// height: 100%
-// 		margin-right: -17px
-// 	.brands-list
-// 		+rem(padding, 400px 0 65px)
-// 		li
-// 			border-bottom: 1px solid rgba(255,255,255,.3)
-// 			+rem(padding, 12px 0)
-// 			display: inline-block
-// 			width: 100%
-// 			span
-// 				font-family: "Light"
-// 				+rem(font-size, 28px)
-// 				color: $lgrey
-// 				transition: color 0.3s ease
-// 				cursor: pointer
-// 				&:hover
-// 					color: $white
+		z-index: 7
+		background: -moz-linear-gradient(top,  rgba(42,42,50,1) 0%, rgba(42,42,50,0) 100%)
+		background: -webkit-linear-gradient(top,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%)
+		background: linear-gradient(to bottom,  rgba(42,42,50,1) 0%,rgba(42,42,50,0) 100%)
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a32', endColorstr='#002a2a32',GradientType=0 )
+	.brands-container
+		width: 100%
+		position: absolute
+		overflow: hidden
+		height: auto
+		top: 0
+		.brands-list
+			+rem(padding, 410px 0 0)
+			li
+				border-bottom: 1px solid rgba(255,255,255,.3)
+				+rem(padding, 12px 0)
+				display: inline-block
+				width: 100%
+				&:last-child
+					margin-bottom: 150px
+				span
+					font-family: "Light"
+					+rem(font-size, 28px)
+					color: $lgrey
+					transition: color 0.3s ease
+					cursor: pointer
+					&:hover
+						color: $white
 .brand-modal
 	position: absolute
 	top: 0
@@ -2188,7 +2136,7 @@ body
 				.text-container
 					opacity: 0
 					transform: translate(-6rem, 0)
-				.scroller
+				.scroll-container
 					opacity: 0
 					transform: translate(6rem, 0)
 .showroom-container
@@ -2282,6 +2230,133 @@ body
 		.btn
 			span
 				+rem(font-size, 12px)
+.form-container
+	display: inline-block
+	+rem(max-width, 270px)
+	width: 100%
+	position: relative
+	.form-front
+		position: relative
+		transition: opacity 0.3s ease, visibility 0.3s ease
+		&.hide
+			opacity: 0
+			visibility: hidden
+		.input-form
+			width: 100%
+			+rem(height, 50px)
+			background-color: transparent
+			border: 0.125rem solid $white
+			border-width: 2px
+			font-family: "Light"
+			font-size: 10px
+			color: $white
+			text-transform: uppercase
+			letter-spacing: 3px
+			+rem(padding, 0 27px)
+			&::placeholder
+				color: $white
+		.submit
+			position: absolute
+			top: 0
+			right: 0
+			+rem(width, 50px)
+			+rem(height, 50px)
+			background-color: transparent
+			&::after
+				content: '';
+				+rem(width, 11px)
+				+rem(height, 11px)
+				position: absolute;
+				border-top: 1px solid #fff;
+				border-right: 1px solid #fff;
+				right: 19px;
+				right: 1.1875rem;
+				top: 50%;
+				margin-top: -6px;
+				margin-top: -.375rem;
+				-webkit-transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				transform: rotate(45deg);
+	.form-back
+		position: absolute
+		opacity: 0
+		visibility: hidden
+		top: 0
+		transform: translate(-2rem, 0)
+		transition: opacity 0.3s ease 0.3s, visibility 0.3s ease 0.3s, transform 0.3s ease 0.3s
+		&.show
+			transform: translate(0,0)
+			opacity: 1
+			visibility: visible
+		.form-success
+			p
+				font-family: "Light"
+				opacity: 0.5
+				+rem(padding-left, 45px)
+			.return
+				+rem(width, 27px)
+				+rem(height, 20px)
+				background-image: url(../img/svg/check.svg)
+				background-size: cover
+				position: absolute
+				+rem(top, 7px)
+				opacity: 0.5
+.error-container
+	width: 100%
+	height: 100%
+	.head-container
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%)
+		will-change: transform
+		pointer-events: none
+		span
+			+rem(margin-top, -15px)
+			white-space: nowrap
+		.description
+			text-align: right
+.gallery-preview
+	+rem(max-width, 1170px)
+	width: 100%
+	margin: auto
+	height: 100%
+	position: relative
+	z-index: 2
+	+r(1280)
+		+rem(max-width, 1024px)
+	.gallery-preview_container
+		font-size: 0
+		.gallery-preview_column
+			width: 50%
+			display: inline-block
+			vertical-align: top
+			&:last-child
+				text-align: right
+				.preview-item
+					&:first-child
+						+rem(margin-top, 210px)
+						&:last-child
+							+rem(margin-bottom, 150px)
+			.preview-item
+				display: inline-block
+				+rem(width, 543px)
+				+rem(height, 305px)
+				+r(1280)
+					+rem(width, 450px)
+					+rem(height, 260px)
+				opacity: 0.16
+				+rem(margin-bottom, 92px)
+				transition: opacity 0.3s ease
+				&:hover
+					opacity: 0.5
+				.image-container
+					&::after
+						display: none
+				&:first-child
+					+rem(margin-top, 150px)
+					&:last-child
+						+rem(margin-bottom, 150px)
+
 $time: 0.8s
 .out
 	&.unload

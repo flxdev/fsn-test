@@ -24,6 +24,21 @@ block content
 					$(".form-container__inner").addClass("hide");
 					$(".final-message").addClass("show");
 				}
-			})
+			});
+			var simpleForm = new SimpleValidForm($(".form-container"),{
+				onSubmit: function(form) {
+					$(form).find(".form-front").addClass("hide");
+					$(form).find(".form-back").addClass("show");
+				}
+			});
+			var section = document.querySelector('.vs-section');
+			var divs = document.querySelectorAll('.vs-transform');
+			smooth = new Smooth({
+				direction: 'vertical',
+				section: section,
+				ease: 0.1,
+				els: divs
+			});
+			smooth.init();
 	-var currentClass = "Дизайнерам"
 	include includes/_navigation-site
