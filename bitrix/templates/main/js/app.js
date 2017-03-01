@@ -842,9 +842,10 @@ function GallerySlider(el) {
 	_this.f.initColor = function(){
 		_this.slideRight = _this.el.find("#current-page .slideRight").data("color");
 		_this.slideLeft = _this.el.find("#current-page .slideLeft").data("color");
-
-		_this.c.topColor.css("background-color", _this.slideRight);
-		_this.c.bottomColor.css("background-color", _this.slideLeft);
+		_this.slideRightCover = el.find("#current-page .slideRight .image-container_cover");
+		_this.slideLeftCover = el.find("#current-page .slideLeft .image-container_cover");
+		_this.c.topColor.add(_this.slideRightCover).css("background-color", _this.slideRight);
+		_this.c.bottomColor.add(_this.slideLeftCover).css("background-color", _this.slideLeft);
 	};
 
 	_this.f.initPagination = function(){
@@ -860,7 +861,10 @@ function GallerySlider(el) {
 		if(!_this.c.nextPageContainer.children().first().length) return false;
 
 		_this.page = _this.c.nextPageContainer.children().first().detach();
-		_this.c.currentPageContainer.append(_this.page);
+		// setTimeout(function(){
+			_this.c.currentPageContainer.append(_this.page);
+		// },10)
+		
 
 		var link_value = $('#next-link').attr("href");
 
@@ -936,9 +940,10 @@ function GallerySlider(el) {
 	_this.f.setColor = function (nextContainer) {
 		color_top = nextContainer.find(".slideLeft").data("color");
 		color_bottom = nextContainer.find(".slideRight").data("color");
-
-		_this.c.topColor.css("background-color", color_bottom);
-		_this.c.bottomColor.css("background-color", color_top);
+		slideLeftCover = nextContainer.find(".slideLeft .image-container_cover");
+		slideRightCover = nextContainer.find(".slideRight .image-container_cover");
+		_this.c.topColor.add(slideRightCover).css("background-color", color_bottom);
+		_this.c.bottomColor.add(slideLeftCover).css("background-color", color_top);
 	}
 
 	_this.f.animationEnd = function(elem, direction, curr_el) {
@@ -1603,9 +1608,12 @@ function initialize() {
 	var mapOptions = {
 		zoom: 16,
 		disableDefaultUI: true,
-		scrollwheel: false,
-		panControl: false,
-		zoomControl: false,
+		streetViewControl: true,
+		scrollwheel: true,
+		panControl: true,
+		mapTypeControl: true,
+		scaleControl: true,
+		zoomControl: true,
 		zoomControlOptions: {
 			style: google.maps.ZoomControlStyle.SMALL,
 			position: google.maps.ControlPosition.RIGHT_CENTER
@@ -1633,11 +1641,12 @@ function initialize() {
 		map.setCenter(center); 
 	});
 
-	// var zoomControlDiv = document.createElement('div');
- //  	var zoomControl = new ZoomControl(zoomControlDiv, map);
+	var zoomControlDiv = document.createElement('div');
+		zoomControlDiv.classList.add('zoom-container');
+  	var zoomControl = new ZoomControl(zoomControlDiv, map);
 
- //  	zoomControlDiv.index = 1;
-	// map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
+  	zoomControlDiv.index = 1;
+	map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
 };
 function ZoomControl(controlDiv, map) {
 	controlDiv.style.padding = "30px";

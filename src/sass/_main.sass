@@ -15,6 +15,9 @@ sup
 html
 	font-size: 16px
 	height: 100%
+	overflow: hidden
+	+r(1650)
+		font-size: 14px
 	+r(1400)
 		font-size: 13px
 	+r(1280)
@@ -25,7 +28,6 @@ body
 	overflow: hidden
 	+rem(font-size, 18px)
 	color: $white
-	-webkit-font-smoothing: antialiased
 .out
 	position: relative
 	width: 100%
@@ -140,16 +142,21 @@ body
 		text-transform: uppercase
 		color: $black
 		+rem(letter-spacing, 1.9px)
-		&:not(:last-of-type)
-			+rem(margin-right, 25px)
+		+rem(margin-left, 25px)
+		&.active
+			font-family: $DemiBold
 .menu
 	margin-top: 40%
+	+r(1400)
+		margin-top: 30%
 	.menu-container
 		margin-bottom: 7%
 		.menu-item
 			display: block
 			width: 100%
 			position: relative
+			&.menu-item_link-padding
+				margin-bottom: 7%
 			&::after
 				content: ""
 				position: absolute
@@ -175,6 +182,8 @@ body
 	width: 100%
 	margin-top: 30%
 	+clr
+	+r(1400)
+		margin-top: 20%
 	.contacts-column
 		width: 50%
 		float: left
@@ -195,20 +204,26 @@ body
 	position: absolute
 	+rem(top, 18px)
 	+rem(right, 18px)
-	+rem(width, 53px)
-	+rem(height, 53px)
+	// +rem(width, 53px)
+	// +rem(height, 53px)
+	width: 53px
+	height: 53px
 	background-color: $white
 	transition: background-color 0.3s ease-in-out 0.3s
 	border-radius: 100%
 	z-index: 6
 	cursor: pointer
 	.humburger
-		+rem(width, 28px)
-		+rem(height, 14px)
+		// +rem(width, 28px)
+		// +rem(height, 14px)
+		width: 28px
+		height: 14px
 		position: absolute
 		top: 50%
 		left: 50%
-		+rem(margin, -7px 0 0 -14px)
+		// +rem(margin, -7px 0 0 -14px)
+		// margin: -7px 0 0 -14px
+		transform: translate(-50%, -50%)
 		span
 			position: absolute
 			width: 100%
@@ -227,13 +242,17 @@ body
 				top: 12px
 				transition-delay: .75s
 	.cross
-		+rem(width, 28px)
-		+rem(height, 28px)
+		// +rem(width, 28px)
+		// +rem(height, 28px)
+		width: 28px
+		height: 28px
 		position: absolute
 		top: 50%
 		left: 50%
-		+rem(margin, -14px 0 0 -14px)
-		transform: rotate(45deg)
+		// +rem(margin, -14px 0 0 -14px)
+		// margin: -14px 0 0 -14px
+		transform: rotate(45deg) translate(-50%, -50%)
+		transform-origin: 0px 0px
 		span
 			transition: width 0.3s ease-in-out, height 0.3s ease-in-out
 			&:nth-child(1)
@@ -271,10 +290,20 @@ body
 				&:nth-child(2)
 					width: 100%
 					transition-delay: .375s
+.pixel
+	.burger
+		.humburger
+			height: 15px
+			span
+				&:nth-child(2)
+					top: 7px
+				&:nth-child(3)
+					top: 13px
 .logo 
-	+rem(width, 155px)
+	+rem(width, 156px)
 	+rem(height, 22px)
 	background-image: url(../img/icons/logo.png)
+	background-repeat: no-repeat
 	display: block
 	position: absolute
 	z-index: 5
@@ -388,6 +417,12 @@ body
 				text-transform: uppercase
 				color: $white
 				letter-spacing: 3px
+.navigation_container
+	.developers 
+		.developers-transform 
+			.developers-text 
+				a
+					color: $black
 .copyright
 	position: absolute
 	z-index: 5
@@ -461,7 +496,16 @@ body
 							transition-delay: 0.125s
 			.slide-image_container
 				width: 100%
-				height: 100%							
+				height: 100%
+				position: relative	
+				.slide-image_cover
+					position: absolute
+					left: 0	
+					top: 0	
+					width: 100%	
+					height: 100%
+					z-index: 2
+					opacity: 0.2
 				img
 					width: 100%
 					height: 100%
@@ -477,6 +521,7 @@ body
 			left: 45%
 			top: 50%
 			max-width: 350px
+			z-index: 3
 			p 
 				font-family: "Light"
 				+rem(font-size, 28px)
@@ -519,11 +564,11 @@ body
 				content: ""
 				+rem(width, 118px)
 				background-color: $white
-				+rem(height, 2px)
+				height: 2px
 				position: absolute
 				right: 0
 				top: 50%
-				+rem(margin, -1px 0 0 0)
+				margin: -1px 0 0 0
 				transform: scaleX(0)
 				transition: all 0.5s ease
 			&:hover 
@@ -561,7 +606,7 @@ body
 						transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
 				.slide-image_container
 					perspective: 1000px
-					img
+					img,.slide-image_cover
 						width: 100%
 						height: 100%
 						object-fit: cover
@@ -569,11 +614,13 @@ body
 						transform-origin: 0 50%
 						transition: transform 0.5s ease
 						will-change: transform
+						transform-style: preserve-3d
+						outline: 1px solid transparent
 				&.active
 					z-index: 2
 				&.transform-out
 					z-index: 2
-					img
+					img,.slide-image_cover
 						transition: none
 						animation: transformOut 0.5s ease both
 				&.transform-in
@@ -587,7 +634,7 @@ body
 		&.hovered
 			.slide-inserted
 				&.active
-					img
+					img,.slide-image_cover
 						transform: rotateY(5deg)
 				&.slideNext
 					// transform: translate(90%, 0)
@@ -595,10 +642,10 @@ body
 			&.animation
 				.slide-inserted
 					&.active
-						img
+						img,.slide-image_cover
 							transform: none
 					&.transform-out
-						img
+						img,.slide-image_cover
 							animation: none
 							transform: rotateY(5deg)
 					&.transform-in
@@ -607,8 +654,7 @@ body
 		.slider-inseted_bullet
 			position: absolute
 			+rem(bottom, 27px)
-			left: 50%
-			transform: translate(-50%, 0)
+			left: 44.5%
 			z-index: 5
 			.bullet
 				width: 25px
@@ -709,6 +755,7 @@ body
 		text-transform: uppercase
 		display: block
 		+rem(line-height, 150px)
+		-webkit-text-stroke: 1px;
 		+r(1280)
 			+rem(font-size, 120px)
 			+rem(line-height, 120px)
@@ -814,17 +861,20 @@ body
 	z-index: 5
 	top: 55%
 	+rem(left, 284px)
+	+r(1400)
+		top: 60%
 	.filter-item
 		+rem(padding-left, 33px)
 		position: relative
 		a
-			color: $lgrey
+			color: #bebcbc
 			transition: color 0.3s ease
 			+rem(padding, 7px 0)
 			display: inline-block
 			&:hover
 				color: $white
 		&.active
+			pointer-events: none
 			a
 				color: $white
 			&::after
@@ -837,15 +887,33 @@ body
 				+rem(margin-top, -2px)
 				left: 0
 				border-radius: 100%
+
+@keyframes fading
+	0%
+		opacity: 1
+	50%
+		opacity: .3
+	100%
+		opacity: 1
 .gallery-slider
 	position: relative
 	width: 100%
 	height: 100%
+	.gallery-slider_scrolldown
+		display: inline-block
+		position: absolute
+		left: 45%
+		+rem(bottom,15px)
+		animation: fading 2.5s linear infinite
+		svg
+			display: inline-block
+			+rem(width,30px)
 	.gallery-slider_content
 		position: absolute
 		width: 100%
 		height: 100%
 		+rem(padding, 80px 118px 39px 0)
+		backface-visibility: hidden
 		&.prev
 			top: -100%
 		&.next
@@ -886,6 +954,7 @@ body
 									animation: 1.2s slideRightUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 						&.slideOut
 							.slider-element
+								z-index: 5
 								&_left
 									animation: 1.2s slideLeftUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
@@ -904,6 +973,7 @@ body
 									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
 						&.slideOut
 							.slider-element
+								z-index: 5
 								&_left
 									animation: 1.2s slideRightDown both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
@@ -913,34 +983,37 @@ body
 			height: 71.6%
 			position: absolute
 			will-change: transform
+			.container
+				width: 100%
+				height: 100%
+				overflow: hidden
 			&:hover
-				.featured-image
+				.image-container_cover
+					opacity: 0
+				.image-container
 					transform: scale(1.05)
-				.element-text
-					&::after
-						+rem(width, 108px)
-						+rem(right, 20px)
-			.featured-image
+			.image-container
 				transform: scale(1)
-				transition: transform 0.5s ease
+				transition: transform 0.3s ease
 			.element-text
 				position: absolute
 				z-index: 2
 				width: 100%
-				&::after
-					content: ""
-					+rem(width, 128px)
-					height: 2px
-					background-color: $white
-					position: absolute
-					+rem(top, 18px)
-					transition: all 0.3s ease
-					right: 0
 				.element-name
 					font-family: "Light"
 					+rem(font-size, 28px)
 					+rem(margin-bottom, 5px)
-					color: $white
+					color: $colorText
+					transform: translateZ(0)
+					&::after
+						content: ""
+						+rem(width, 128px)
+						height: 2px
+						background-color: $white
+						position: absolute
+						+rem(top, 18px)
+						transition: all 0.3s ease
+						right: 0
 				.element-price
 					font-family: "Light"
 					font-size: 10px
@@ -948,21 +1021,45 @@ body
 					letter-spacing: 3px
 					color: $white
 			&_left
-				float: left
+				// float: left
 				left: 0
-				+rem(bottom, 39px)
+				+rem(bottom, 40px)
 				will-change: transform
 				.element-text
 					+rem(bottom, 40px)
 					+rem(left, 40px)
+				&:hover
+					.element-text
+						.element-name
+							&::after
+								+rem(width, 108px)
+								+rem(right, 20px)
 			&_right
-				float: right
+				// float: right
 				+rem(right, 118px)
 				+rem(top, 80px)
 				will-change: transform
 				.element-text
+					.element-name
+						&::after
+							+rem(right, -80px)
+				.element-text
 					+rem(top, 40px)
 					+rem(right, 40px)
+				&:hover
+					.element-text
+						.element-name
+							&::after
+								+rem(width, 108px)
+								+rem(right, -60px)
+.safari
+	.gallery-slider .gallery-slider_content
+		&.animatePrev
+			& > div
+				&:last-of-type:not(:first-of-type)
+					.slider-element
+						&_left
+							top: -84%
 .image-container
 	width: 100%
 	height: 100%
@@ -976,9 +1073,19 @@ body
 		width: 100%
 		height: 100%
 		background-color: rgba(84, 82, 81, .5)
+		// +tr(background-color .3s)
 		// background-color: $overlay
 		// opacity: 0.5
 		// will-change: opacity
+	.image-container_cover
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		z-index: 2
+		opacity: .4
+		+tr(opacity .3s)
 	img
 		width: 100%
 		max-width: 100%
@@ -1028,6 +1135,10 @@ body
 	+rem(left, 160px)
 	+rem(max-width, 525px)
 	width: 100%
+	+r(1400)
+		top: 60%
+	+r(1280)
+		top: 50%
 	.side-price
 		+r(1280)
 			float: none
@@ -1041,6 +1152,7 @@ body
 	.side-text
 		+r(1280)
 			float: none
+			max-width: 100%
 		float: right
 		+rem(padding-right, 15px)
 		+rem(max-width, 365px)
@@ -1101,6 +1213,9 @@ body
 		.image-container
 			// overflow: auto
 			height: auto
+			&:after
+				display: none
+						
 			img
 				height: auto
 				display: block
@@ -1493,6 +1608,8 @@ body
 		top: 50%
 		transform: translate(0,-50%)
 		height: auto
+		position: relative
+		
 		.slider-item
 			width: 100%
 			+rem(height, 560px)
@@ -1509,6 +1626,7 @@ body
 			&:hover
 				.cover_video-wrapp
 					opacity: 1
+
 	.cover_video-wrapp
 		position: absolute
 		top: 0
@@ -1549,6 +1667,7 @@ body
 						transform: translate(-50%, 0)
 						opacity: 0
 	.image-container
+		transform: translateZ(0)
 		&::after
 			content: ''
 			position: absolute
@@ -1560,7 +1679,9 @@ body
 			transition: background-color 0.5s ease
 			z-index: 2 
 			opacity: 1
-			transform: translateZ(0)
+			will-change: background-color
+		img
+			transform: none
 	.screen_frame
 		position: relative
 		width: 100%
@@ -1572,6 +1693,7 @@ body
 				position: relative
 				width: 100%
 				height: 100%
+				transform: translateZ(0)
 				&::after
 					content: ''
 					position: absolute
@@ -1586,7 +1708,7 @@ body
 					background-size: 50px
 					transition: background-color 0.5s ease
 					z-index: 5
-					transform: translateZ(0)
+					will-change: background-color
 				div
 					width: 100%
 					height: 100%
@@ -1755,6 +1877,11 @@ body
 	.zoomIn, .zoomOut
 		background-color: $white
 		position: relative
+	.zoom-container
+		top: 45%
+		bottom: 0	
+		display: inline-block
+		// transform: translateY(-50%)
 	.zoomIn
 		&::after
 			content: '+'
@@ -2177,8 +2304,8 @@ body
 		position: absolute
 		top: 50%
 		left: 50%
-		+rem(width, 600px)
-		+rem(height, 85px)
+		+rem(width, 300px)
+		+rem(height, 42.5px)
 		transform: translate(-50%,-50%)
 		.load-cover
 			width: 100%
@@ -2191,11 +2318,11 @@ body
 			top: 0
 			left: 0
 			+rem(width, 0)
-			+rem(height, 85px)
+			+rem(height, 42.5px)
 			overflow: hidden
 			.load-active_cover
-				+rem(width, 600px)
-				+rem(height, 85px)
+				+rem(width, 300px)
+				+rem(height, 42.5px)
 				background-image: url(../img/preload-cover.png)
 				background-size: cover
 .cap
@@ -2205,7 +2332,7 @@ body
 	width: 100%
 	height: 100%
 	background-color: $bodyColor
-	z-index: 1001
+	z-index: 1101
 	display: none
 	+r(980)
 		display: block
@@ -2253,8 +2380,11 @@ body
 			text-transform: uppercase
 			letter-spacing: 3px
 			+rem(padding, 0 27px)
+			transition: border-color 0.3s ease
 			&::placeholder
 				color: $white
+			&.error
+				border-color: #bc8888
 		.submit
 			position: absolute
 			top: 0

@@ -12,6 +12,7 @@
 				mixin filter(name, link)
 					li(class="filter-item" class={active: name === current})
 						a(class="filter-link" href=link) #{name}
+				+filter("Все коллецкии", "#")
 				+filter("Кантри", "#")
 				+filter("Современная", "#")
 				+filter("Клинкерная", "#")
@@ -23,31 +24,43 @@
 				.gallery-slider_content.current-page#current-page
 					div
 						a.slider-element.slider-element_left.slideLeft.ajax-trigger(data-color="#2a2a32" href="collection-inner.html")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-1.jpg")
-							.element-text
-								.element-name FAP, Roma1
-								.element-price от €60 м2
+							.container
+								.image-container
+									.lazy.featured-image(data-src="img/gallery/item-1.jpg")
+								.element-text
+									.element-name FAP, Roma1
+									.element-price от €60 м2
 						a.slider-element.slider-element_right.slideRight.ajax-trigger(data-color="#524339" href="collection-inner.html")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-2.jpg")
-							.element-text
-								.element-name Iris, Bellagio2
-								.element-price от €60 м2
+							.container
+								.image-container
+									.lazy.featured-image(data-src="img/gallery/item-2.jpg")
+								.element-text
+									.element-name Iris, Bellagio2
+									.element-price от €60 м2
 				.gallery-slider_content.next#next-page
 					div
 						a.slider-element.slider-element_left.slideLeft.ajax-trigger(data-color="#3f3b35" href="collection-inner.html")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-3.jpg")
-							.element-text
-								.element-name FAP, Roma3
-								.element-price от €60 м2
+							.container
+								.image-container
+									.lazy.featured-image(data-src="img/gallery/item-3.jpg")
+								.element-text
+									.element-name FAP, Roma3
+									.element-price от €60 м2
 						a.slider-element.slider-element_right.slideRight.ajax-trigger(data-color="#e6daca" href="collection-inner.html")
-							.image-container
-								.lazy.featured-image(data-src="img/gallery/item-4.jpg")
-							.element-text
-								.element-name Iris, Bellagio4
-								.element-price от €60 м2
+							.container
+								.image-container
+									.lazy.featured-image(data-src="img/gallery/item-4.jpg")
+								.element-text
+									.element-name Iris, Bellagio4
+									.element-price от €60 м2
+				.gallery-slider_scrolldown
+					svg(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewbox='0 0 20 31', enable-background='new 0 0 20 31', xml:space='preserve')
+						g#_x31_
+							path(fill-rule='evenodd', clip-rule='evenodd', fill='none', stroke='#ffffff', stroke-miterlimit='10', d='M10,0.5\
+							c5.2,0,9.5,4.3,9.5,9.5v11c0,5.2-4.3,9.5-9.5,9.5S0.5,26.2,0.5,21V10C0.5,4.8,4.8,0.5,10,0.5z')
+						g#_x32_
+							path(fill-rule='evenodd', fill='#ffffff', clip-rule='evenodd', d='M10,7.6c0.3,0,0.5,0.2,0.5,0.5v3.5c0,0.3-0.2,0.5-0.5,0.5s-0.5-0.2-0.5-0.5V8.1\
+							C9.5,7.8,9.7,7.6,10,7.6z')
 			.pagination-container
 				.pagination-current
 					span.current 01
