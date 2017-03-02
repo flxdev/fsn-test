@@ -366,6 +366,11 @@ Smooth.prototype.run = function(){
 
 };
 
+Smooth.prototype.update = function(){
+	vs.on(this.calc);
+	this.rAF = requestAnimationFrame(this.run.bind(this));
+};
+
 Smooth.prototype.getTo = function(self, el){
 
 	if(this.direction == 'vertical') this.pos.targetY = -el.target.targetPos;
@@ -457,7 +462,7 @@ function preload(){
 $(document).ready(function(){
 	preload();
 })
-
+var smooth;
 function burgerMenu(){
 	var _this = this;
 
@@ -481,6 +486,7 @@ function burgerMenu(){
 			_this.menu.classList.add("navigation-open");
 			_this.trigger.classList.add("open");
 			_this.trigger.classList.add("open_burger");
+			if(smooth) smooth.destroy();
 	 	} else {
 	 		_this.closeMenu();
 		}
@@ -490,6 +496,7 @@ function burgerMenu(){
 		_this.menu.classList.remove("navigation-open");
 		_this.perspective.classList.remove("perspective-action");
 		_this.trigger.classList.remove("open", "open_burger");
+		if(smooth) smooth.init();
 	 }
 
 	 _this.init = function(){
@@ -857,6 +864,8 @@ function GallerySlider(el) {
 			return false;
 		}
 
+		if(link_value === "#" || link_value === "undefined") return false;
+
 		if(!_this.c.nextPageContainer.children().first().length) return false;
 
 		_this.page = _this.c.nextPageContainer.children().first().detach();
@@ -864,7 +873,6 @@ function GallerySlider(el) {
 
 		var link_value = $('#next-link').attr("href");
 
-		if(link_value === "#" || link_value === "undefined") return false;
 
 		_this.f.ajaxPage(link_value);
 		_this.f.animation(_this.options.animNext);
@@ -876,6 +884,8 @@ function GallerySlider(el) {
 			return false;
 		}
 
+		if(link_value === "#" || link_value === "undefined") return false;
+
 		if(!_this.c.prevPageContainer.children().first().length) return false;
 
 		_this.page = _this.c.prevPageContainer.children().first().detach();
@@ -883,7 +893,6 @@ function GallerySlider(el) {
 
 		var link_value = $('#prev-link').attr("href");
 
-		if(link_value === "#" || link_value === "undefined") return false;
 
 		_this.f.ajaxPage(link_value);
 		_this.f.animation(_this.options.animPrev);
@@ -901,6 +910,9 @@ function GallerySlider(el) {
 				var nextContent = $(content).find("#next-page").html();
 				var naviContent = $(content).find(".navigation-container").html();
 				var currentPage = $(content).find(".pagination-container .current").text();
+
+				window.history.pushState("page" + link, link, link);
+				window.history.replaceState("page" + link, link, link);
 
 				_this.c.prevPageContainer
 					.empty()
@@ -1015,10 +1027,12 @@ function flipCard() {
 
 		triggerOpen.on("click", function(){
 			_.addClass(openClass);
+			return false;
 		});
 
 		triggerClose.on("click", function(){
 			_.removeClass(openClass);
+			return false;
 		});
 	});
 }
@@ -1263,16 +1277,20 @@ BrandModal.prototype = {
 		this.modalContainer.addClass("mobal-open modal-animate");
 		this.modal.addClass("open");
 		this.burger.addClass("modal open_burger");
+		if(smooth) smooth.destroy();
 	},
 	closeWindow: function(){
 		var self = this;
+		if(!this.burger.hasClass("modal")) return;
 		this.brandContainer.removeClass("open");
 		this.modalContainer.removeClass("modal-animate");
 		this.burger.removeClass("open_burger");
 		setTimeout(function(){
 			self.modalContainer.removeClass("mobal-open");
 			self.burger.removeClass("modal");
+			if(smooth) smooth.init();
 		}, 500);
+		
 	}
 }
 
@@ -1321,20 +1339,20 @@ VerticalGallery.prototype = {
 		var use = vi.canPlayType('video/webm; codecs="vp8, vorbis"');
 
 		this.video.each(function(){
-			var source = document.createElement("source"),
-				src = $(this).data("src");
+			var source = document.createElement("source");
 			$(this).append(source);
-			src = src.split(".");
 
 			if(use == "probably") {
-				source.src = src[0] + ".webm",
+				var src = $(this).data("webm");
+				source.src = src,
 				source.type = "video/webm"
 			} else {
-				source.src = src[0] + ".mp4",
+				var src = $(this).data("mp4");
+				source.src = src,
 				source.type = "video/mp4",
 				source.setAttribute("codecs", "avc1.4D401E, mp4a.40.2")
 			}
-		})
+		});
 
 		this.eventHandlers();
 		this.resizeVideo();
@@ -1362,6 +1380,7 @@ VerticalGallery.prototype = {
 		});
 
 		$(window).on("DOMMouseScroll mousewheel", function(e){
+			if($(".map-overlay").length) return false;
 			
 			this.direction = bScroll.scrollEvents(e, self.action);
 
@@ -1603,7 +1622,7 @@ function initialize() {
 	var mapOptions = {
 		zoom: 16,
 		disableDefaultUI: true,
-		scrollwheel: false,
+		scrollwheel: true,
 		panControl: false,
 		zoomControl: false,
 		zoomControlOptions: {
@@ -1731,17 +1750,11 @@ var transitionsEvents = {
 transitionsEvent = transitionsEvents[Modernizr.prefixed("transition")],
 support = { transitions : Modernizr.csstransitons };
 
-function extend( a, b ) {
-	for( var key in b ) { 
-		if( b.hasOwnProperty( key ) ) {
-			a[key] = b[key];
-		}
-	}
-	return a;
-}
-
 function stepForm(el, options) {
-	this.el = el
+	this.el = el;
+	this.options = {
+		errorMsg: "Please fill the field before continuing"
+	};
 	this.options = extend( {}, this.options );
 	extend( this.options, options );
 	this._init();
@@ -1909,7 +1922,7 @@ stepForm.prototype._showError = function(err){
 	var message = "";
 	switch(err) {
 		case "EMPTYSTR" :
-			message = "Please fill the field before continuing";
+			message = this.options.errorMsg;
 			break;
 	};
 	$(this.error).text(message);
@@ -2052,6 +2065,8 @@ function AjaxLoading(el){
 
 		$(".ajax-trigger").off("click.trigger").on("click.trigger", function(e){
 
+			console.log("trigger")
+
 			if(_this.isAnimate) {
 				return false;
 			}
@@ -2084,12 +2099,9 @@ function AjaxLoading(el){
 			success: function(content) {
 				_this.history(link);
 				var mainContent = $(content).find(".perspective").html();
-				var navParentIndex = $(content).find(".menu .active").parent().index();
 				var navIndex = $(content).find(".menu .active").index();
 
-				$(".menu").find(".active").removeClass("active");
-
-				$(".menu").find(".menu-item").parent().eq(navParentIndex).find("li").eq(navIndex).addClass("active");
+				$(".menu").find(".menu-item").eq(navIndex).addClass("active").siblings().removeClass("active");
 
 				setTimeout(function(){
 					_this.appendMain.html(mainContent).promise().done(function(){
@@ -2236,10 +2248,14 @@ SimpleValidForm.prototype = {
 			self.input.forEach(function(item){
 				self.validate(item);
 			});
+			return false;
 		});
 	},
 	validate: function(input){
-		if(input.value === "") {
+		this.val = input.value;
+		this.pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
+
+		if(this.val === "" || this.val.search(this.pattern) == -1) {
 			this.errorEvent(input)
 		} else {
 			input.classList.remove("error");

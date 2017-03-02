@@ -109,6 +109,11 @@ Smooth.prototype.run = function(){
 
 };
 
+Smooth.prototype.update = function(){
+	vs.on(this.calc);
+	this.rAF = requestAnimationFrame(this.run.bind(this));
+};
+
 Smooth.prototype.getTo = function(self, el){
 
 	if(this.direction == 'vertical') this.pos.targetY = -el.target.targetPos;
