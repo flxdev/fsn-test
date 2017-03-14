@@ -849,9 +849,10 @@ function GallerySlider(el) {
 	_this.f.initColor = function(){
 		_this.slideRight = _this.el.find("#current-page .slideRight").data("color");
 		_this.slideLeft = _this.el.find("#current-page .slideLeft").data("color");
-
-		_this.c.topColor.css("background-color", _this.slideRight);
-		_this.c.bottomColor.css("background-color", _this.slideLeft);
+		_this.slideRightCover = el.find("#current-page .slideRight .image-container_cover");
+		_this.slideLeftCover = el.find("#current-page .slideLeft .image-container_cover");
+		_this.c.topColor.add(_this.slideRightCover).css("background-color", _this.slideRight);
+		_this.c.bottomColor.add(_this.slideLeftCover).css("background-color", _this.slideLeft);
 	};
 
 	_this.f.initPagination = function(){
@@ -869,7 +870,10 @@ function GallerySlider(el) {
 		if(!_this.c.nextPageContainer.children().first().length) return false;
 
 		_this.page = _this.c.nextPageContainer.children().first().detach();
-		_this.c.currentPageContainer.append(_this.page);
+		// setTimeout(function(){
+			_this.c.currentPageContainer.append(_this.page);
+		// },10)
+		
 
 		var link_value = $('#next-link').attr("href");
 
@@ -948,9 +952,10 @@ function GallerySlider(el) {
 	_this.f.setColor = function (nextContainer) {
 		color_top = nextContainer.find(".slideLeft").data("color");
 		color_bottom = nextContainer.find(".slideRight").data("color");
-
-		_this.c.topColor.css("background-color", color_bottom);
-		_this.c.bottomColor.css("background-color", color_top);
+		slideLeftCover = nextContainer.find(".slideLeft .image-container_cover");
+		slideRightCover = nextContainer.find(".slideRight .image-container_cover");
+		_this.c.topColor.add(slideRightCover).css("background-color", color_bottom);
+		_this.c.bottomColor.add(slideLeftCover).css("background-color", color_top);
 	}
 
 	_this.f.animationEnd = function(elem, direction, curr_el) {
@@ -1618,19 +1623,33 @@ function initMap(){
 	$(window).bind(initialize());
 }
 function initialize() {
-	var stylez = [{"featureType":"all","elementType":"geometry","stylers":[{"color":"#262c33"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"gamma":0.01},{"lightness":20},{"color":"#949aa6"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":-31},{"lightness":-33},{"weight":2},{"gamma":"0.00"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":30},{"saturation":30},{"color":"#353c44"},{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":"0"},{"lightness":"0"},{"gamma":"0.30"},{"weight":"0.01"},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"lightness":"100"},{"saturation":-20},{"visibility":"simplified"},{"color":"#31383f"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":10},{"saturation":-30},{"color":"#2a3037"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"saturation":"-100"},{"lightness":"-100"},{"gamma":"0.00"},{"color":"#2a3037"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"visibility":"on"},{"color":"#575e6b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#4c5561"},{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"lightness":-20},{"color":"#2a3037"}]}];
+	// var stylez = [{"featureType":"all","elementType":"geometry","stylers":[{"color":"#262c33"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"gamma":0.01},{"lightness":20},{"color":"#949aa6"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":-31},{"lightness":-33},{"weight":2},{"gamma":"0.00"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":30},{"saturation":30},{"color":"#353c44"},{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":"0"},{"lightness":"0"},{"gamma":"0.30"},{"weight":"0.01"},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"lightness":"100"},{"saturation":-20},{"visibility":"simplified"},{"color":"#31383f"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":10},{"saturation":-30},{"color":"#2a3037"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"saturation":"-100"},{"lightness":"-100"},{"gamma":"0.00"},{"color":"#2a3037"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"visibility":"on"},{"color":"#575e6b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#4c5561"},{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"lightness":-20},{"color":"#2a3037"}]}];
+	var stylez = [{
+			"featureType": "all",
+			"elementType": "geometry.fill",
+			"stylers": [{"visibility": "on"},{"color": "#343a3e"}]},{
+			"featureType": "all",
+			"elementType": "labels.text.fill",
+			"stylers": [{"visibility": "on"},{"color": "#c1c7cd"},{"weight": "1.00"}]},{
+			"featureType": "all",
+			"elementType": "labels.text.stroke",
+			"stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "all","elementType": "labels.icon","stylers": [{"color": "#ff0000"},{"visibility": "off"}]},{"featureType": "administrative","elementType": "geometry.stroke","stylers": [{"saturation": "-100"},{"visibility": "simplified"}]},{"featureType": "administrative.province","elementType": "geometry.stroke","stylers": [{"saturation": "-59"}]},{"featureType": "administrative.land_parcel","elementType": "labels.text.stroke","stylers": [{"color": "#ff0000"}]},{"featureType": "landscape.man_made","elementType": "geometry.stroke","stylers": [{"saturation": "-70"}]},{"featureType": "poi","elementType": "all","stylers": [{"visibility": "off"},{"lightness": "-47"}]},{"featureType": "road","elementType": "geometry.fill","stylers": [{"visibility": "on"},{"color": "#424a52"},{"lightness": "0"},{"gamma": "1.00"},{"saturation": "-26"}]},{"featureType": "road.highway","elementType": "geometry.stroke","stylers": [ {"saturation": "-100"}]},{"featureType": "water","elementType": "all","stylers": [{"visibility": "on"},{"color": "#303e4e"}]}];
 	var mapOptions = {
-		zoom: 16,
+		zoom: 19,
 		disableDefaultUI: true,
 		scrollwheel: true,
-		panControl: false,
-		zoomControl: false,
+		streetViewControl: true,
+		scrollwheel: true,
+		panControl: true,
+		mapTypeControl: true,
+		scaleControl: true,
+		zoomControl: true,
 		zoomControlOptions: {
 			style: google.maps.ZoomControlStyle.SMALL,
 			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		scaleControl: true,
-		center: new google.maps.LatLng(53.940313, 27.596937),
+		center: new google.maps.LatLng(53.939746, 27.597992),
 	};
 
 	map = new google.maps.Map(document.getElementById('map'),mapOptions);
@@ -1638,12 +1657,13 @@ function initialize() {
 	map.mapTypes.set('tehgrayz', mapType);
 	map.setMapTypeId('tehgrayz');
 	var image = 'img/icons/baloon.png';
-	var myLatLng = new google.maps.LatLng(53.940313, 27.596937);
+	var myLatLng = new google.maps.LatLng(53.939746, 27.597992);
 	var beachMarker = new google.maps.Marker({
 		position: myLatLng,
 		map: map,
 		icon: image,
-		title:""
+		title:"",
+		zIndex: 9999999999999999
 	});
 
 	google.maps.event.addDomListener(window, "resize", function() {
@@ -1652,11 +1672,12 @@ function initialize() {
 		map.setCenter(center); 
 	});
 
-	// var zoomControlDiv = document.createElement('div');
- //  	var zoomControl = new ZoomControl(zoomControlDiv, map);
+	var zoomControlDiv = document.createElement('div');
+		zoomControlDiv.classList.add('zoom-container');
+  	var zoomControl = new ZoomControl(zoomControlDiv, map);
 
- //  	zoomControlDiv.index = 1;
-	// map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
+  	zoomControlDiv.index = 1;
+	map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
 };
 function ZoomControl(controlDiv, map) {
 	controlDiv.style.padding = "30px";

@@ -149,6 +149,10 @@ body
 	margin-top: 40%
 	+r(1400)
 		margin-top: 30%
+	+rh(782)
+		margin-top: 20%
+	+rh(665)
+		margin-top: 12%
 	.menu-container
 		margin-bottom: 7%
 		.menu-item
@@ -200,6 +204,20 @@ body
 				+rem(margin-bottom, 10px)
 			span
 				display: block
+.navigation_container
+	.contacts-container
+		display: inline-block
+		width: 100%
+		+clr
+		position: absolute
+		+rem(left,8px)
+		bottom: 12%
+		+rem(width,450px)
+		margin-top: 0
+		+rh(720)
+			bottom: 10%
+		+rh(665)
+			bottom: 5%
 .burger
 	position: absolute
 	+rem(top, 18px)
@@ -423,7 +441,6 @@ body
 			.developers-text 
 				a
 					color: $black
-
 .copyright
 	position: absolute
 	z-index: 5
@@ -497,7 +514,16 @@ body
 							transition-delay: 0.125s
 			.slide-image_container
 				width: 100%
-				height: 100%							
+				height: 100%
+				position: relative	
+				.slide-image_cover
+					position: absolute
+					left: 0	
+					top: 0	
+					width: 100%	
+					height: 100%
+					z-index: 2
+					opacity: 0.4
 				img
 					width: 100%
 					height: 100%
@@ -513,6 +539,7 @@ body
 			left: 45%
 			top: 50%
 			max-width: 350px
+			z-index: 3
 			p 
 				font-family: "Light"
 				+rem(font-size, 28px)
@@ -597,7 +624,7 @@ body
 						transition: transform 0.8s ease-in-out 0.625s, opacity 0.8s ease-in-out 0.625s
 				.slide-image_container
 					perspective: 1000px
-					img
+					img,.slide-image_cover
 						width: 100%
 						height: 100%
 						object-fit: cover
@@ -611,7 +638,7 @@ body
 					z-index: 2
 				&.transform-out
 					z-index: 2
-					img
+					img,.slide-image_cover
 						transition: none
 						animation: transformOut 0.5s ease both
 				&.transform-in
@@ -625,7 +652,7 @@ body
 		&.hovered
 			.slide-inserted
 				&.active
-					img
+					img,.slide-image_cover
 						transform: rotateY(5deg)
 				&.slideNext
 					// transform: translate(90%, 0)
@@ -633,10 +660,10 @@ body
 			&.animation
 				.slide-inserted
 					&.active
-						img
+						img,.slide-image_cover
 							transform: none
 					&.transform-out
-						img
+						img,.slide-image_cover
 							animation: none
 							transform: rotateY(5deg)
 					&.transform-in
@@ -645,8 +672,7 @@ body
 		.slider-inseted_bullet
 			position: absolute
 			+rem(bottom, 27px)
-			left: 50%
-			transform: translate(-50%, 0)
+			left: 44.5%
 			z-index: 5
 			.bullet
 				width: 25px
@@ -859,13 +885,14 @@ body
 		+rem(padding-left, 33px)
 		position: relative
 		a
-			color: $lgrey
+			color: #bebcbc
 			transition: color 0.3s ease
 			+rem(padding, 7px 0)
 			display: inline-block
 			&:hover
 				color: $white
 		&.active
+			pointer-events: none
 			a
 				color: $white
 			&::after
@@ -878,15 +905,33 @@ body
 				+rem(margin-top, -2px)
 				left: 0
 				border-radius: 100%
+
+@keyframes fading
+	0%
+		opacity: 1
+	50%
+		opacity: .3
+	100%
+		opacity: 1
 .gallery-slider
 	position: relative
 	width: 100%
 	height: 100%
+	.gallery-slider_scrolldown
+		display: inline-block
+		position: absolute
+		left: 50.2%
+		+rem(bottom,40px)
+		animation: fading 2.5s linear infinite
+		font-family: Light;
+		font-size: 13px;
+		z-index: 0
 	.gallery-slider_content
 		position: absolute
 		width: 100%
 		height: 100%
 		+rem(padding, 80px 118px 39px 0)
+		backface-visibility: hidden
 		&.prev
 			top: -100%
 		&.next
@@ -909,9 +954,11 @@ body
 				& > div
 					&:last-of-type:not(:first-of-type)
 						.slider-element
+
 							&_left
 								top: -83%
 							&_right
+								z-index: 5
 								bottom: -80%
 								top: auto
 			&.animate
@@ -919,6 +966,7 @@ body
 					& > div
 						&.slideIn
 							.slider-element
+
 								&_left
 									+rem(bottom, 40px)
 									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
@@ -927,6 +975,7 @@ body
 									animation: 1.2s slideRightUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 						&.slideOut
 							.slider-element
+								z-index: 5
 								&_left
 									animation: 1.2s slideLeftUp both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
@@ -945,6 +994,7 @@ body
 									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
 						&.slideOut
 							.slider-element
+								z-index: 5
 								&_left
 									animation: 1.2s slideRightDown both cubic-bezier(0.25, 0.1, 0.25, 1)
 								&_right
@@ -959,6 +1009,8 @@ body
 				height: 100%
 				overflow: hidden
 			&:hover
+				.image-container_cover
+					opacity: 0
 				.image-container
 					transform: scale(1.05)
 			.image-container
@@ -990,9 +1042,9 @@ body
 					letter-spacing: 3px
 					color: $white
 			&_left
-				float: left
+				// float: left
 				left: 0
-				+rem(bottom, 39px)
+				+rem(bottom, 40px)
 				will-change: transform
 				.element-text
 					+rem(bottom, 40px)
@@ -1004,7 +1056,7 @@ body
 								+rem(width, 108px)
 								+rem(right, 20px)
 			&_right
-				float: right
+				// float: right
 				+rem(right, 118px)
 				+rem(top, 80px)
 				will-change: transform
@@ -1021,6 +1073,14 @@ body
 							&::after
 								+rem(width, 108px)
 								+rem(right, -60px)
+.safari
+	.gallery-slider .gallery-slider_content
+		&.animatePrev
+			& > div
+				&:last-of-type:not(:first-of-type)
+					.slider-element
+						&_left
+							top: -84%
 .image-container
 	width: 100%
 	height: 100%
@@ -1033,9 +1093,19 @@ body
 		width: 100%
 		height: 100%
 		background-color: rgba(84, 82, 81, .5)
+		// +tr(background-color .3s)
 		// background-color: $overlay
 		// opacity: 0.5
 		// will-change: opacity
+	.image-container_cover
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		z-index: 2
+		opacity: .4
+		+tr(opacity .3s)
 	img
 		width: 100%
 		max-width: 100%
@@ -1121,6 +1191,9 @@ body
 .content-designers
 	.text-container
 		top: 45%
+.content-collection
+	.head-container
+		z-index: 8
 .btn
 	display: inline-block
 	border-style: solid
@@ -1163,6 +1236,9 @@ body
 		.image-container
 			// overflow: auto
 			height: auto
+			&:after
+				display: none
+						
 			img
 				height: auto
 				display: block
@@ -1555,6 +1631,8 @@ body
 		top: 50%
 		transform: translate(0,-50%)
 		height: auto
+		position: relative
+		
 		.slider-item
 			width: 100%
 			+rem(height, 560px)
@@ -1571,6 +1649,7 @@ body
 			&:hover
 				.cover_video-wrapp
 					opacity: 1
+
 	.cover_video-wrapp
 		position: absolute
 		top: 0
@@ -1816,11 +1895,23 @@ body
 			.map
 				width: 100%
 				height: 100%
+				position: relative
+				// &:after
+				// 	+coverdiv
+				// 	content: ''
+				// 	position: absolute
+				// 	background-color: rgba(23, 34, 45, 0.44)
+					
 				.gmnoprint, .gm-style-cc, a
 					display: none!important
 	.zoomIn, .zoomOut
 		background-color: $white
 		position: relative
+	.zoom-container
+		top: 45%
+		bottom: 0	
+		display: inline-block
+		// transform: translateY(-50%)
 	.zoomIn
 		&::after
 			content: '+'
@@ -1843,6 +1934,7 @@ body
 		right: 0
 		+r(1150)
 			width: 70%
+
 		.contacts-column
 			font-family: "Regular"
 			color: $white
@@ -2243,8 +2335,8 @@ body
 		position: absolute
 		top: 50%
 		left: 50%
-		+rem(width, 600px)
-		+rem(height, 85px)
+		+rem(width, 300px)
+		+rem(height, 42.5px)
 		transform: translate(-50%,-50%)
 		.load-cover
 			width: 100%
@@ -2257,11 +2349,11 @@ body
 			top: 0
 			left: 0
 			+rem(width, 0)
-			+rem(height, 85px)
+			+rem(height, 42.5px)
 			overflow: hidden
 			.load-active_cover
-				+rem(width, 600px)
-				+rem(height, 85px)
+				+rem(width, 300px)
+				+rem(height, 42.5px)
 				background-image: url(../img/preload-cover.png)
 				background-size: cover
 .cap
