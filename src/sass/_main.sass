@@ -149,6 +149,10 @@ body
 	margin-top: 40%
 	+r(1400)
 		margin-top: 30%
+	+rh(782)
+		margin-top: 20%
+	+rh(665)
+		margin-top: 12%
 	.menu-container
 		margin-bottom: 7%
 		.menu-item
@@ -200,6 +204,20 @@ body
 				+rem(margin-bottom, 10px)
 			span
 				display: block
+.navigation_container
+	.contacts-container
+		display: inline-block
+		width: 100%
+		+clr
+		position: absolute
+		+rem(left,8px)
+		bottom: 12%
+		+rem(width,450px)
+		margin-top: 0
+		+rh(720)
+			bottom: 10%
+		+rh(665)
+			bottom: 5%
 .burger
 	position: absolute
 	+rem(top, 18px)
@@ -505,7 +523,7 @@ body
 					width: 100%	
 					height: 100%
 					z-index: 2
-					opacity: 0.2
+					opacity: 0.4
 				img
 					width: 100%
 					height: 100%
@@ -902,12 +920,12 @@ body
 	.gallery-slider_scrolldown
 		display: inline-block
 		position: absolute
-		left: 45%
-		+rem(bottom,15px)
+		left: 50.2%
+		+rem(bottom,40px)
 		animation: fading 2.5s linear infinite
-		svg
-			display: inline-block
-			+rem(width,30px)
+		font-family: Light;
+		font-size: 13px;
+		z-index: 0
 	.gallery-slider_content
 		position: absolute
 		width: 100%
@@ -936,9 +954,11 @@ body
 				& > div
 					&:last-of-type:not(:first-of-type)
 						.slider-element
+
 							&_left
 								top: -83%
 							&_right
+								z-index: 5
 								bottom: -80%
 								top: auto
 			&.animate
@@ -946,6 +966,7 @@ body
 					& > div
 						&.slideIn
 							.slider-element
+
 								&_left
 									+rem(bottom, 40px)
 									animation: 1.2s slideLeftDown both cubic-bezier(0.25, 0.1, 0.25, 1)
@@ -1171,6 +1192,9 @@ body
 .content-designers
 	.text-container
 		top: 45%
+.content-collection
+	.head-container
+		z-index: 8
 .btn
 	display: inline-block
 	border-style: solid
@@ -1872,6 +1896,13 @@ body
 			.map
 				width: 100%
 				height: 100%
+				position: relative
+				// &:after
+				// 	+coverdiv
+				// 	content: ''
+				// 	position: absolute
+				// 	background-color: rgba(23, 34, 45, 0.44)
+					
 				.gmnoprint, .gm-style-cc, a
 					display: none!important
 	.zoomIn, .zoomOut
@@ -1904,6 +1935,7 @@ body
 		right: 0
 		+r(1150)
 			width: 70%
+
 		.contacts-column
 			font-family: "Regular"
 			color: $white
