@@ -537,7 +537,7 @@ body
 		.slide-text
 			position: absolute
 			left: 45%
-			top: 50%
+			top: 55%
 			max-width: 350px
 			z-index: 3
 			p 
@@ -802,10 +802,11 @@ body
 	.columns
 		&:first-child
 			width: 32.375%
+			position: relative
 		&:last-child
 			width: 67.625%
 	.filter
-		left: 18%
+		left: 56%
 	&.gallery-container_inner
 		.head-container
 			transition: opacity 0.3s ease, transform 0.5s ease
@@ -1016,6 +1017,8 @@ body
 			.image-container
 				transform: scale(1)
 				transition: transform 0.3s ease
+				&::after
+					content: none
 			.element-text
 				position: absolute
 				z-index: 2
@@ -1191,7 +1194,7 @@ body
 .content-designers
 	.text-container
 		top: 45%
-.content-collection
+.content-collection, .content-projects
 	.head-container
 		z-index: 8
 .btn
@@ -1942,6 +1945,10 @@ body
 			text-transform: none
 			&:last-child
 				+rem(padding-left, 50px)
+			&.contacts-column_fullwidth
+				width: 100%
+				padding-right: 10%
+				+rem(margin-bottom, 10px)
 			.contacts-title
 				text-transform: uppercase
 			a 
@@ -2608,3 +2615,12 @@ $time: 0.8s
 			.current
 				&::after
 					transform: scale(1)
+.content-mainpage
+	.head-container
+		span
+			+r(1366)
+				+rem(font-size, 120px)
+				+rem(line-height, 120px)
+			+rh(800)
+				+rem(font-size, 120px)
+				+rem(line-height, 120px)
