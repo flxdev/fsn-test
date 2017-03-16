@@ -1,6 +1,5 @@
-// Normally mainpage styles
 *
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 a 
 	text-decoration: none
 	outline: none
@@ -51,7 +50,7 @@ body
 		will-change: transform
 	&.perspective-action
 		.perspective-container
-			transform: translateZ(-8.375rem) translateX(-1.75rem) rotateY(5deg);
+			transform: translateZ(-8.375rem) translateX(-1.75rem) rotateY(5deg)
 			transition-delay: 0s
 .wrapper 
 	position: relative
@@ -423,8 +422,8 @@ body
 	+rem(width, 5px)
 	+rem(height, 5px)
 	.developers-transform
-		transform: rotate(90deg);
-		transform-origin: right bottom;
+		transform: rotate(90deg)
+		transform-origin: right bottom
 		float: right
 		.developers-text
 			a
@@ -492,12 +491,12 @@ body
 			&.current
 				z-index: 2
 				.slide-text
-					p, .slide-link
+					p, .slide-link, &.percent:after
 						opacity: 1
 						transform: none
 				.active
 					.slide-text
-						p, .slide-link
+						p, .slide-link, &.percent:after
 							opacity: 1
 							transform: none
 			&.slideOut
@@ -506,12 +505,17 @@ body
 						transition-delay: 0s 
 					.slide-link
 						transition-delay: 0.125s
+					&.percent:after
+						transition-delay: 0s
 				.active
 					.slide-text
+
 						p
 							transition-delay: 0s 
 						.slide-link
 							transition-delay: 0.125s
+						&.percent:after
+							transition-delay: 0s
 			.slide-image_container
 				width: 100%
 				height: 100%
@@ -540,6 +544,20 @@ body
 			top: 55%
 			max-width: 350px
 			z-index: 3
+			&.percent
+				&::after
+					content: ""
+					background-image: url("../img/svg/sale.svg")
+					background-repeat: no-repear
+					background-size: cover
+					position: absolute
+					+rem(width, 35px)
+					+rem(height, 35px)
+					top: 0
+					+rem(left, -50px)
+					transform: translate(0, 2rem)
+					opacity: 0
+					transition: transform 0.8s ease-in-out 0.5s, opacity 0.8s ease-in-out 0.5s
 			p 
 				font-family: "Light"
 				+rem(font-size, 28px)
@@ -773,7 +791,7 @@ body
 		text-transform: uppercase
 		display: block
 		+rem(line-height, 150px)
-		-webkit-text-stroke: 1px;
+		-webkit-text-stroke: 1px
 		+r(1280)
 			+rem(font-size, 120px)
 			+rem(line-height, 120px)
@@ -924,8 +942,8 @@ body
 		left: 50.2%
 		+rem(bottom,40px)
 		animation: fading 2.5s linear infinite
-		font-family: Light;
-		font-size: 13px;
+		font-family: Light
+		font-size: 13px
 		z-index: 0
 	.gallery-slider_content
 		position: absolute
@@ -1194,6 +1212,12 @@ body
 .content-designers
 	.text-container
 		top: 45%
+	.download-container
+		+rem(margin-top, 20px)
+		.download-item 
+			.name 
+				span
+					color: $white
 .content-collection, .content-projects
 	.head-container
 		z-index: 8
@@ -1281,7 +1305,7 @@ body
 		transform: translateY(0)
 	100%
 		opacity: 0
-		transform: translateY(15px);
+		transform: translateY(15px)
 .card-container
 	width: 100%
 	height: 100vh
@@ -1426,10 +1450,10 @@ body
 		width: 100%
 		+rem(height, 110px)
 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#414040+0,414040+21,414040+100&0+0,1+100 */
-		background: -moz-linear-gradient(top,  rgba(65,64,64,0) 0%, rgba(65,64,64,0.21) 21%, rgba(65,64,64,1) 100%); /* FF3.6-15 */
-		background: -webkit-linear-gradient(top,  rgba(65,64,64,0) 0%,rgba(65,64,64,0.21) 21%,rgba(65,64,64,1) 100%); /* Chrome10-25,Safari5.1-6 */
-		background: linear-gradient(to bottom,  rgba(65,64,64,0) 0%,rgba(65,64,64,0.21) 21%,rgba(65,64,64,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00414040', endColorstr='#414040',GradientType=0 ); /* IE6-9 */
+		background: -moz-linear-gradient(top,  rgba(65,64,64,0) 0%, rgba(65,64,64,0.21) 21%, rgba(65,64,64,1) 100%) /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  rgba(65,64,64,0) 0%,rgba(65,64,64,0.21) 21%,rgba(65,64,64,1) 100%) /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  rgba(65,64,64,0) 0%,rgba(65,64,64,0.21) 21%,rgba(65,64,64,1) 100%) /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00414040', endColorstr='#414040',GradientType=0 ) /* IE6-9 */
 	.thumbnails-scroller
 		// transition: 1.5s ease transform
 		position: absolute
@@ -1588,7 +1612,7 @@ body
 		.icon
 			+rem(width, 30px)
 			+rem(height, 27px)
-			background-image: url(../img/icons/download.jpg)
+			background-image: url(../img/icons/download-white.png)
 			background-size: cover
 			+rem(margin-right, 20px)
 		.name
@@ -2281,15 +2305,15 @@ body
 	0%,
 	14.5%
 		transform: translate3d(0, -100%, 0)
-		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1)
 	100%
-		transform: translate3d(0, -200%, 0);
+		transform: translate3d(0, -200%, 0)
 @keyframes anim-effect-two-out
 	0%,
 		transform: translate3d(0, -100%, 0)
-		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+		animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1)
 	100%
-		transform: translate3d(0, -200%, 0);
+		transform: translate3d(0, -200%, 0)
 
 .out
 	&.animation
@@ -2431,20 +2455,18 @@ body
 			+rem(height, 50px)
 			background-color: transparent
 			&::after
-				content: '';
+				content: ''
 				+rem(width, 11px)
 				+rem(height, 11px)
-				position: absolute;
-				border-top: 1px solid #fff;
-				border-right: 1px solid #fff;
-				right: 19px;
-				right: 1.1875rem;
-				top: 50%;
-				margin-top: -6px;
-				margin-top: -.375rem;
-				-webkit-transform: rotate(45deg);
-				-ms-transform: rotate(45deg);
-				transform: rotate(45deg);
+				position: absolute
+				border-top: 1px solid #fff
+				border-right: 1px solid #fff
+				right: 19px
+				right: 1.1875rem
+				top: 50%
+				margin-top: -6px
+				margin-top: -.375rem
+				transform: rotate(45deg)
 	.form-back
 		position: absolute
 		opacity: 0
