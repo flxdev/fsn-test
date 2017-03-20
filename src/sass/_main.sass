@@ -765,7 +765,7 @@ body
 		line-height: 28px
 	&::after
 		content: ''
-		+rem(width, 28px)
+		+rem(width, 29px)
 		+rem(height, 28px)
 		background-image: url(../img/svg/plus.svg)
 		background-size: cover
@@ -1187,6 +1187,8 @@ body
 		top: 60%
 	+r(1280)
 		top: 50%
+	.head-container
+		position: static
 	.side-price
 		+r(1280)
 			float: none
@@ -1221,13 +1223,32 @@ body
 			+rem(margin-top, 35px)
 		.form-container
 			+rem(margin-top, 35px)
-		.btn-back
-			display: block
-			color: #f6f2f2
-			+tr(color .3s)
-			+rem(margin-top,25px)
-			&:hover
-				color: #fff
+.btn-back
+	display: block
+	color: #f6f2f2
+	+tr(color .3s)
+	position: absolute
+	+rem(bottom,40px)
+	+rem(left,318px)
+	+r(1280)
+		+rem(left,158px)	
+	&:hover
+		color: #fff
+.project
+	.text-container
+		top: 50%
+		transform: translateY(-50%)
+		.head-container
+			width: 300%
+			+rem(margin-bottom,50px)
+			+r(1650)
+				+rem(margin-bottom,51px)
+			+r(1280)
+				+rem(margin-bottom,41px)
+
+			+r(1100)
+				width: 200%
+
 .content-designers
 	.text-container
 		top: 45%
