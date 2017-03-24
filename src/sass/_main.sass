@@ -1237,7 +1237,7 @@ body
 .project
 	.text-container
 		top: 50%
-		transform: translateY(-50%)
+		transform: translate(0,-50%)
 		.head-container
 			width: 300%
 			+rem(margin-bottom,50px)
@@ -2393,6 +2393,13 @@ body
 				.scroll-container
 					opacity: 0
 					transform: translate(6rem, 0)
+		.project
+			.head-container
+				opacity: 0
+				transform: translate(0, 0) !important
+			.text-container
+				opacity: 0
+				transform: translate(-6rem, -50%) !important
 .showroom-container
 	.text-container
 		left: 18%
