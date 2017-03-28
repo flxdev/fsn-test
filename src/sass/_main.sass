@@ -1069,6 +1069,17 @@ body
 					text-transform: uppercase
 					letter-spacing: 3px
 					color: $white
+				&.percent
+					&::after
+						content: ""
+						background-image: url(../img/svg/sale.svg)
+						background-repeat: no-repeat
+						background-size: cover
+						position: absolute
+						+rem(width, 30px)
+						+rem(height, 30px)
+						+rem(top, 4px)
+						+rem(left, -40px)
 			&_left
 				// float: left
 				left: 0
@@ -2723,3 +2734,19 @@ $time: 0.8s
 			+rh(800)
 				+rem(font-size, 120px)
 				+rem(line-height, 120px)
+.content-show_room
+	.contacts-container
+		width: 66.66%
+		+rem(margin-top, 35px)
+		.contacts-column_fullwidth
+			width: 100%
+			+rem(margin-bottom, 25px)
+		.contacts-column
+			color: $white
+		.contacts-text
+			a
+				color: $white
+.gallery-vertical .cover_video-wrapp.empty_video 
+	cursor: default
+.empty_video + .screen_frame .screen_frame-content .screen_frame-image:after
+	display: none
