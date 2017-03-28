@@ -1716,6 +1716,11 @@ body
 						left: 50%
 						transform: translate(-50%, 0)
 						opacity: 0
+		&.empty_video
+			cursor: default
+			& + .screen_frame
+				.screen_frame-content .screen_frame-image:after
+					display: none
 	.image-container
 		transform: translateZ(0)
 		&::after
