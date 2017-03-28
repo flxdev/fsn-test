@@ -112,6 +112,7 @@ body
 		opacity: 0
 		transition: opacity 0.5s ease 0s
 		.navigation-topline
+			transform: translateY(.8125rem);
 			+clr
 	.navigation-middle
 		transform: translate(60px, -30px)
@@ -548,7 +549,7 @@ body
 				&::after
 					content: ""
 					background-image: url("../img/svg/sale.svg")
-					background-repeat: no-repear
+					background-repeat: no-repeat
 					background-size: cover
 					position: absolute
 					+rem(width, 35px)
@@ -764,7 +765,7 @@ body
 		line-height: 28px
 	&::after
 		content: ''
-		+rem(width, 28px)
+		+rem(width, 29px)
 		+rem(height, 28px)
 		background-image: url(../img/svg/plus.svg)
 		background-size: cover
@@ -785,6 +786,7 @@ body
 	// +rem(top, 185px)
 	top: 19%
 	+rem(left, 160px)
+	pointer-events: none
 	span
 		font-family: "DemiBold"
 		+rem(font-size, 150px)
@@ -808,6 +810,8 @@ body
 	z-index: 2
 	width: 100%
 	height: 100%
+	.head-container
+		pointer-events: none
 	.color-container
 		position: absolute
 		z-index: 1
@@ -893,6 +897,8 @@ body
 		width: 50%
 		height: 100%
 		float: left
+		position: relative
+		
 .filter
 	position: absolute
 	z-index: 5
@@ -932,19 +938,20 @@ body
 		opacity: .3
 	100%
 		opacity: 1
+.gallery-slider_scrolldown
+	display: inline-block
+	position: absolute
+	left: 50.2%
+	+rem(bottom,40px)
+	animation: fading 2.5s linear infinite
+	font-family: Light
+	font-size: 13px
+	z-index: 0
 .gallery-slider
 	position: relative
 	width: 100%
 	height: 100%
-	.gallery-slider_scrolldown
-		display: inline-block
-		position: absolute
-		left: 50.2%
-		+rem(bottom,40px)
-		animation: fading 2.5s linear infinite
-		font-family: Light
-		font-size: 13px
-		z-index: 0
+
 	.gallery-slider_content
 		position: absolute
 		width: 100%
@@ -1180,6 +1187,8 @@ body
 		top: 60%
 	+r(1280)
 		top: 50%
+	.head-container
+		position: static
 	.side-price
 		+r(1280)
 			float: none
@@ -1205,10 +1214,41 @@ body
 			+rem(line-height, 28px)
 			+rem(letter-spacing, 0.2px)
 			color: $colorText
+			a 
+				color: $colorText
+				+tr(color .3s)
+				&:hover
+					color: #fff
 		.btn
 			+rem(margin-top, 35px)
 		.form-container
 			+rem(margin-top, 35px)
+.btn-back
+	display: block
+	color: #f6f2f2
+	+tr(color .3s)
+	position: absolute
+	+rem(bottom,40px)
+	+rem(left,318px)
+	+r(1280)
+		+rem(left,158px)	
+	&:hover
+		color: #fff
+.project
+	.text-container
+		top: 50%
+		transform: translate(0,-50%)
+		.head-container
+			width: 300%
+			+rem(margin-bottom,50px)
+			+r(1650)
+				+rem(margin-bottom,51px)
+			+r(1280)
+				+rem(margin-bottom,41px)
+
+			+r(1100)
+				width: 200%
+
 .content-designers
 	.text-container
 		top: 45%
@@ -1226,6 +1266,12 @@ body
 	border-style: solid
 	border-color: $white
 	+rem(border-width, 2px)
+	overflow: hidden
+	&:hover
+		span
+			color: #000
+			&:before
+				transform: translateX(0)
 	span
 		font-family: "Light"
 		font-size: 10px
@@ -1234,20 +1280,20 @@ body
 		+rem(padding, 17px 27px)
 		display: block
 		color: $white
-	&.email
-		+rem(min-width, 270px)
 		position: relative
-		&::after
+		+tr(color .3s ease)
+		&:before
 			content: ''
-			+rem(width, 11px)
-			+rem(height, 11px)
+			display: block
 			position: absolute
-			border-top: 1px solid $white
-			border-right: 1px solid $white
-			+rem(right, 19px)
-			top: 50%
-			+rem(margin-top, -6px)
-			transform: rotate(45deg)
+			top: 0
+			bottom: 0
+			right: 0
+			left: 0
+			background-color: #fff
+			z-index: -1
+			transform: translateX(-100%)
+			+tr(transform .3s ease)
 .scroll-container
 	height: auto
 	overflow: hidden
@@ -1310,6 +1356,13 @@ body
 	width: 100%
 	height: 100vh
 	// transition: 1.5s ease transform
+	&+.gallery-slider_scrolldown
+		left: 50%
+		transform: translateX( -17.6rem)
+		+rem(width,560px)
+		+r(1150)
+			transform: translateX(-14.875rem)
+			+rem(width,390px)
 	.card-item
 		display: flex
 		flex-wrap: nowrap
@@ -1335,12 +1388,11 @@ body
 				transform: translate(-40px, -50%) scale(10.72, 1)
 				transform-origin: 0 50%
 				will-change: transform
-				+r(1150)
-					+rem(width, 95px)
 			.flip-card_container
 				width: 100%
 				height: 100%
 				position: relative
+				
 				.flip-card_front
 					position: absolute
 					width: 100%
@@ -1351,6 +1403,9 @@ body
 					will-change: transform
 					cursor: pointer
 					.image-container
+						overflow: hidden
+						.featured-image
+							transition: transform .3s ease
 						&::after
 							display: none
 						.overlay
@@ -1361,6 +1416,7 @@ body
 							top: 50%
 							left: 50%
 							transform: translate(-50%,-50%) scale(10)
+							+tr(opacity .3s)
 					.slide-link
 						+rem(bottom, 60px)
 						+rem(left, 40px)
@@ -1369,6 +1425,10 @@ body
 					.slide-link
 						&::after
 							transform: rotate(360deg)
+					.overlay
+						opacity: 0
+					.featured-image
+						transform: scale(1.05);
 				.flip-card_back
 					position: absolute
 					width: 100%
@@ -1603,6 +1663,10 @@ body
 			p
 				color: $black
 				+rem(line-height, 28px)
+		.download-container
+			.download-item
+				.icon
+					background-image: url(../img/icons/download.jpg)
 .download-container
 	.download-item
 		display: flex
@@ -1963,7 +2027,7 @@ body
 		+rem(bottom, 50px)
 		text-align: left
 		width: 50%
-		right: 0
+		right: 0		
 		+r(1150)
 			width: 70%
 
@@ -1977,7 +2041,7 @@ body
 			&.contacts-column_fullwidth
 				width: 100%
 				padding-right: 10%
-				+rem(margin-bottom, 10px)
+				+rem(margin-bottom, 20px)
 			.contacts-title
 				text-transform: uppercase
 			a 
@@ -2276,6 +2340,7 @@ body
 	pointer-events: none
 	width: 100vw
 	height: 100vh
+
 	.revealer__layer
 		position: absolute
 		top: 0
@@ -2333,6 +2398,13 @@ body
 				.scroll-container
 					opacity: 0
 					transform: translate(6rem, 0)
+		.project
+			.head-container
+				opacity: 0
+				transform: translate(0, 0) !important
+			.text-container
+				opacity: 0
+				transform: translate(-6rem, -50%) !important
 .showroom-container
 	.text-container
 		left: 18%
