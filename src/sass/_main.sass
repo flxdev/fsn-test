@@ -81,6 +81,9 @@ body
 		border-radius: 100%
 		transition: transform 0.5s ease 0s
 		transform: scale(0)
+		+rhm(975)
+			+rem(height, 2500px)
+			+rem(width, 2500px)
 	&.navigation-open
 		opacity: 1
 		visibility: visible
@@ -1243,14 +1246,22 @@ body
 	position: absolute
 	+rem(bottom,40px)
 	+rem(left,318px)
+	+rem(font-size, 14px)
 	+r(1280)
 		+rem(left,158px)	
 	&:hover
 		color: #fff
 .project
+	+vertical
+	text-align: left
 	.text-container
-		top: 50%
-		transform: translate(0,-50%)
+		position: relative
+		display: inline-block
+		vertical-align: middle
+		top: auto
+		transform: none
+		p
+			+rem(font-size, 18px)
 		.head-container
 			width: 300%
 			+rem(margin-bottom,50px)
@@ -1309,7 +1320,16 @@ body
 			+tr(transform .3s ease)
 .scroll-container
 	height: auto
-	overflow: hidden
+	overflow: auto
+	height: 100%
+	+scrollbar
+		width: 4px
+		background: transparent
+	+scrollbar-track
+		width: 5px
+		background-color: transparent
+	+scrollbar-thumb
+		background-color: #eee
 	// margin-right: -20px
 	.scroller
 		// width: 100%

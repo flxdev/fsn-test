@@ -807,15 +807,15 @@ function lazy(parameter){
 		appendScroll: null,
 		chainable: false,
 		afterLoad: function(element){
-			var section = document.querySelector('.vs-section');
-			var divs = document.querySelectorAll('.vs-transform');
-			smooth = new Smooth({
-				direction: 'vertical',
-				section: section,
-				ease: 0.1,
-				els: divs
-			});
-			smooth.init();
+			// var section = document.querySelector('.vs-section');
+			// var divs = document.querySelectorAll('.vs-transform');
+			// smooth = new Smooth({
+			// 	direction: 'vertical',
+			// 	section: section,
+			// 	ease: 0.1,
+			// 	els: divs
+			// });
+			// smooth.init();
 		}
 	};
 

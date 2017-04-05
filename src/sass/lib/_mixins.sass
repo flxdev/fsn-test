@@ -15,6 +15,9 @@
 	@media only screen and (max-height: $height + "px")
 		@content
 
+=rhm($height)
+	@media only screen and (min-height: $height + "px")
+		@content
 =clr
 	&:after
 		content: " "
