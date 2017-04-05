@@ -10,33 +10,33 @@ function preload(){
 		.set(activeLoad, {
 			width: 0
 		})
-		.to(activeLoad, 1.2, {
+		.to(activeLoad, 0.3, {
 			width: "10%",
 			ease: Power2.easeOut
 		})
-		.to(activeLoad, 0.5, {
+		.to(activeLoad, 0.3, {
 			width: "25%",
 			ease: Power2.easeOut
 		})
-		.to(activeLoad, 1.5, {
+		.to(activeLoad, 0.5, {
 			width: "33.5%",
 			ease: Power2.easeOut
 		})
-		.to(activeLoad, 1.5, {
+		.to(activeLoad, 0.3, {
 			width: "60.5%",
 			ease: Power2.easeOut
 		})
-		.to(activeLoad, 0.7, {
+		.to(activeLoad, 0.2, {
 			width: "80.5%",
 			ease: Power2.easeOut
 		})
-		.to(activeLoad, 1, {
+		.to(activeLoad, 0.4, {
 			width: "100%",
 			ease: Power2.easeOut
 		})
 		.to(siteLoader, 0.3, {
 			autoAlpha: "0",
-			delay: 0.7,
+			delay: 0.2,
 			display: 'none',
 			ease: Power2.easeOut,
 			onComplete: function(){
