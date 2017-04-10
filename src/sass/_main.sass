@@ -773,7 +773,7 @@ body
 		+rem(width, 29px)
 		+rem(height, 28px)
 		background-image: url(../img/svg/plus.svg)
-		background-size: cover
+		background-size: contain
 		background-repeat: no-repeat
 		position: absolute
 		left: 0
@@ -1154,7 +1154,7 @@ body
 		width: 100%
 		max-width: 100%
 		height: 100%
-		object-fit: cover
+		// object-fit: cover
 	.featured-image
 		width: 100%
 		height: 100%
@@ -1390,12 +1390,14 @@ body
 	height: 100vh
 	// transition: 1.5s ease transform
 	&+.gallery-slider_scrolldown
-		left: 50%
-		transform: translateX( -17.6rem)
-		+rem(width,560px)
+		// left: 50%
+		// transform: translateX( -17.6rem)
+		// +rem(width,560px)
+		left: calc(50% - 17.6rem)
 		+r(1150)
-			transform: translateX(-14.875rem)
-			+rem(width,390px)
+			// transform: translateX(-14.875rem)
+			// +rem(width,390px)
+			left: calc(50% - 14.875rem)
 	.card-item
 		display: flex
 		flex-wrap: nowrap
@@ -1425,15 +1427,15 @@ body
 				width: 100%
 				height: 100%
 				position: relative
-				
+				perspective: 1000px
 				.flip-card_front
 					position: absolute
 					width: 100%
 					height: 100%
 					backface-visibility: hidden
-					transform: perspective(1000px) rotateY(0deg)
+					transform: rotateY(0deg)
 					transition: transform 0.6s ease
-					will-change: transform
+					// will-change: transform
 					cursor: pointer
 					.image-container
 						overflow: hidden
@@ -1469,9 +1471,9 @@ body
 					backface-visibility: hidden
 					display: block
 					background-color: $backFace
-					transform: perspective(1000px) rotateY(-179.9deg)
+					transform: rotateY(-179.9deg)
 					transition: transform 0.6s ease
-					will-change: transform
+					// will-change: transform
 					text-align: center
 					.stock-more
 						+rem(padding, 40px 80px 0 115px)
@@ -1522,9 +1524,9 @@ body
 			&_flipped
 				.flip-card_container
 					.flip-card_front
-						transform: perspective(1000px) rotateY(179.9deg)
+						transform: rotateY(179.9deg)
 					.flip-card_back
-						transform: perspective(1000px) rotateY(0deg)
+						transform: rotateY(0deg)
 .thumbnails-container
 	position: absolute
 	left: 18%
@@ -2296,7 +2298,7 @@ body
 			position: absolute
 			right: 0
 			overflow: hidden
-			+rem(width, 54px)
+			width: 54px
 			text-align: right
 			+rem(margin-top, 10px)
 			span 
