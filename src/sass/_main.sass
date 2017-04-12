@@ -792,6 +792,7 @@ body
 	top: 19%
 	+rem(left, 160px)
 	pointer-events: none
+	margin-left: -5px
 	span
 		font-family: "DemiBold"
 		+rem(font-size, 150px)
@@ -1529,7 +1530,7 @@ body
 						transform: rotateY(0deg)
 .thumbnails-container
 	position: absolute
-	left: 18%
+	+rem(left, 160px)
 	height: 54.5vh
 	bottom: 0
 	width: 100%
@@ -1712,7 +1713,8 @@ body
 			+rem(width, 30px)
 			+rem(height, 27px)
 			background-image: url(../img/icons/download-white.png)
-			background-size: cover
+			background-size: contain
+			background-repeat: no-repeat
 			+rem(margin-right, 20px)
 		.name
 			span
@@ -2442,9 +2444,11 @@ body
 				transform: translate(-6rem, -50%) !important
 .showroom-container
 	.text-container
-		left: 18%
+		+rem(left, 160px)
 		top: 45%
 		+rem(max-width, 650px)
+		+r(1150)
+			+rem(max-width, 550px)
 		.list
 			font-size: 0
 			.list-item
