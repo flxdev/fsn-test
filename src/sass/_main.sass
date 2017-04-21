@@ -882,6 +882,8 @@ body
 			transition: opacity 0.3s ease, transform 0.5s ease
 		.text-container
 			transition: opacity 0.3s ease 0.125s, transform 0.5s ease 0.125s
+			.side-text
+				+rem(max-width, 365px)
 		.scroll-container
 			transition: opacity 0.3s ease, transform 0.5s ease
 		.columns-template
@@ -1113,10 +1115,28 @@ body
 						right: 0
 				.element-price
 					font-family: "Light"
-					font-size: 10px
+					font-size: 20px
 					text-transform: uppercase
 					letter-spacing: 3px
 					color: $white
+					span
+						position: relative
+						&::before
+							content: attr(data-currency)
+							position: absolute
+							top: 0
+							left: 0
+							+rem(font-size, 10px)
+							color: $colorText
+							+rem(padding-left, 5px)
+						&::after
+							content: attr(data-value)
+							position: absolute
+							bottom: 0
+							left: 0
+							+rem(font-size, 10px)
+							color: $colorText
+							+rem(padding-left, 5px)
 				&.percent
 					&::after
 						content: ""
@@ -1258,6 +1278,24 @@ body
 		+rem(max-width, 160px)
 		width: 100%
 		color: $colorText
+		span
+			position: relative
+			&::before
+				content: attr(data-currency)
+				position: absolute
+				top: 3px
+				left: 0
+				+rem(font-size, 12px)
+				color: $colorText
+				+rem(padding-left, 5px)
+			&::after
+				content: attr(data-value)
+				position: absolute
+				bottom: 3px
+				left: 0
+				+rem(font-size, 12px)
+				color: $colorText
+				+rem(padding-left, 5px)
 	.side-text
 		+r(1280)
 			float: none
