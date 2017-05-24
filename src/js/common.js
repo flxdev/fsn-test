@@ -1363,7 +1363,8 @@ support = { transitions : Modernizr.csstransitons };
 function stepForm(el, options) {
 	this.el = el;
 	this.options = {
-		errorMsg: "Please fill the field before continuing"
+		errorMsg: "Please fill the field before continuing",
+		errorMsgPhone: "Please enter valid number"
 	};
 	this.options = extend( {}, this.options );
 	extend( this.options, options );
@@ -1519,11 +1520,29 @@ stepForm.prototype._submit = function(){
 };
 
 stepForm.prototype._validate = function(){
-	var input = $(this.quest[ this.current ]).find("input").val();
-	if(input === "") {
-		this._showError("EMPTYSTR");
-		return false;
-	}
+	var self = this;
+	if($(this.quest[ this.current ]).find("input").is('[data-validation]')) {
+		var nameAttr = $(this.quest[ this.current ]).find("input").data("validation");
+		if(nameAttr === "phone") {
+			var val = $(self.quest[ this.current ]).find("input").val();
+			if(val === "") {
+				self._showError("EMPTYSTR");
+				return false;
+			} else {
+				if(new RegExp("^[-0-9()+ ]+$").test(val) && val.length > 5 ) {
+				} else {
+					self._showError("PHONE");
+					return false;
+				}
+			}
+		}
+	} else {
+		var input = $(this.quest[ this.current ]).find("input").val();
+		if(input === "") {
+			this._showError("EMPTYSTR");
+			return false;
+		}
+	}	
 
 	return true;
 };
@@ -1533,6 +1552,9 @@ stepForm.prototype._showError = function(err){
 	switch(err) {
 		case "EMPTYSTR" :
 			message = this.options.errorMsg;
+			break;
+		case "PHONE" :
+			message = this.options.errorMsgPhone;
 			break;
 	};
 	$(this.error).text(message);

@@ -4,13 +4,18 @@
 			.form-container__inner
 				.form-head Получить консультацию
 				ol.form-area
-					mixin f-li(id, name)
-						li
-							.input
-								input(id=id name=id type="text" placeholder=name)
-					+f-li("q-1", "Ваше имя")
-					+f-li("q-2", "Ваше имя")
-					+f-li("q-2", "Ваше имя")
+					mixin f-li(id, name, validation)
+						if (validation !== "")
+							li
+								.input
+									input(id=id name=id type="text" data-validation=validation placeholder=name)
+						else
+							li
+								.input
+									input(id=id name=id type="text" placeholder=name)
+					+f-li("q-1", "Ваше имя", "")
+					+f-li("q-2", "Телефон", "phone")
+					+f-li("q-2", "Сообщение", "")
 				button.submit(type="submit")
 				.controls
 					button.next

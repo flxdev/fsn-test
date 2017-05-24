@@ -64,7 +64,7 @@
                   <div class="columns project">
                     <div class="text-container">
                       <div class="head-container"><span>Superna</span><span>tural</span></div>
-                      <div class="side-price">от €600<span data-currency="BYN" data-value="м²"></span></div>
+                      <div class="side-price">от 600<span data-currency="BYN" data-value="м²"></span></div>
                       <div class="side-text">
                         <p>Плитка коллекции Roma выполнена в&nbsp;средиземноморском стиле и изготовлена из&nbsp;морозоустойчивого керамогранита с&nbsp;матовой поверхностью в терракотовых цветах (с переливами от серого до бежевого). </p><a class="btn" href="#" data-modal="request"><span>Оставить заявку</span></a>
                       </div>
@@ -123,12 +123,12 @@
                                     </li>
                                     <li>
                                       <div class="input">
-                                        <input id="q-2" name="q-2" type="text" placeholder="Ваше имя">
+                                        <input id="q-2" name="q-2" type="text" data-validation="phone" placeholder="Телефон">
                                       </div>
                                     </li>
                                     <li>
                                       <div class="input">
-                                        <input id="q-2" name="q-2" type="text" placeholder="Ваше имя">
+                                        <input id="q-2" name="q-2" type="text" placeholder="Сообщение">
                                       </div>
                                     </li>
                 </ol>
@@ -159,7 +159,8 @@
           		$(".form-container__inner").addClass("hide");
           		$(".final-message").addClass("show");
           	},
-          	errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить"
+          	errorMsg: "Пожалуйста, заполните поля, прежде чем продолжить",
+          	errorMsgPhone: "Пожалуйста, введите правильно номер"
           });
           var serfProject = new SerfProject($(".gallery-pagination"));
           
